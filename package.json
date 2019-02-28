@@ -1,0 +1,37 @@
+{
+  "name": "nest-telegram",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "repository": "git@github.com:igorkamyshev/nest-telegram.git",
+  "author": "Igor Kamyshev <igor@kamyshev.me>",
+  "license": "MIT",
+  "devDependencies": {
+    "@solid-soda/scripts": "^1.2.4",
+    "@team-griffin/install-self-peers": "^1.1.1",
+    "@types/lodash": "^4.14.121"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn soda lint-staged",
+      "commit-msg": "yarn soda commitlint"
+    }
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "rimraf dist && tsc",
+    "prepare": "install-self-peers -- --ignore-scripts && yarn build",
+    "ci": "yarn soda lint",
+    "s": "yarn soda"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^5.7.3",
+    "@nestjs/core": "^5.7.3",
+    "reflect-metadata": "^0.1.13"
+  },
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "telegraf": "^3.27.1"
+  }
+}
