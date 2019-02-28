@@ -10,7 +10,7 @@ import { Handler } from './Handler'
 import { Bot } from './Bot'
 import { TelegramActionHandler } from './decorators/TelegramActionHandler'
 import { TokenInjectionToken } from './TokenInjectionToken'
-import { TelegramModuleOptionsFactory } from 'TelegramModuleOptionsFactory'
+import { TelegramModuleOptionsFactory } from './TelegramModuleOptionsFactory'
 
 @Injectable()
 export class TelegramBot {
