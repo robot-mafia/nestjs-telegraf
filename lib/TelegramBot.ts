@@ -15,30 +15,26 @@ import { InvalidConfigurationException } from './InvalidConfigurationException'
 
 @Injectable()
 export class TelegramBot {
-  private readonly token: string
   private readonly sitePublicUrl?: string
-  private bot: Bot
+  private readonly bot: Bot
   private ref: ModuleRef
 
   public constructor(
     @Inject(TokenInjectionToken) factory: TelegramModuleOptionsFactory,
   ) {
     const { token, sitePublicUrl } = factory.createOptions()
-    this.token = token
+
     this.sitePublicUrl = sitePublicUrl
+    this.bot = new Telegraf(token)
   }
 
   public init(ref: ModuleRef) {
     this.ref = ref
 
-    const bot = new Telegraf(this.token)
-
     const handlers = this.createHandlers()
 
-    this.setupOnStart(bot, handlers)
-    this.setupOnCommand(bot, handlers)
-
-    this.bot = bot
+    this.setupOnStart(handlers)
+    this.setupOnCommand(handlers)
   }
 
   public getMiddleware(path: string) {
@@ -77,21 +73,21 @@ export class TelegramBot {
     )
   }
 
-  private setupOnStart(bot: Bot, handlers: Handler[]): void {
+  private setupOnStart(handlers: Handler[]): void {
     const onStart = handlers.filter(({ config }) => config.onStart)
 
     if (onStart.length !== 1) {
       throw new Error()
     }
 
-    bot.start(this.adoptHandle(head(onStart)))
+    this.bot.start(this.adoptHandle(head(onStart)))
   }
 
-  private setupOnCommand(bot: Bot, handlers: Handler[]): void {
+  private setupOnCommand(handlers: Handler[]): void {
     const commandHandlers = handlers.filter(({ config }) => config.command)
 
     commandHandlers.forEach(handler => {
-      bot.command(handler.config.command, this.adoptHandle(handler))
+      this.bot.command(handler.config.command, this.adoptHandle(handler))
     })
   }
 
