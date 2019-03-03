@@ -11,17 +11,21 @@ import { Bot } from './Bot'
 import { TelegramActionHandler } from './decorators/TelegramActionHandler'
 import { TokenInjectionToken } from './TokenInjectionToken'
 import { TelegramModuleOptionsFactory } from './TelegramModuleOptionsFactory'
+import { InvalidConfigurationException } from 'InvalidConfigurationException'
 
 @Injectable()
 export class TelegramBot {
   private readonly token: string
+  private readonly sitePublicUrl?: string
   private bot: Bot
   private ref: ModuleRef
 
   public constructor(
     @Inject(TokenInjectionToken) factory: TelegramModuleOptionsFactory,
   ) {
-    this.token = factory.createOptions().token
+    const { token, sitePublicUrl } = factory.createOptions()
+    this.token = token
+    this.sitePublicUrl = sitePublicUrl
   }
 
   public init(ref: ModuleRef) {
@@ -37,7 +41,22 @@ export class TelegramBot {
     this.bot = bot
   }
 
-  public start() {
+  public getMiddleware(path: string) {
+    if (!this.sitePublicUrl) {
+      throw new InvalidConfigurationException(
+        'sitePublicUrl',
+        'does not exist, but webook used',
+      )
+    }
+
+    this.bot.telegram
+      .setWebhook(`${this.sitePublicUrl}/${path}`)
+      .then(() => console.log('Webhook set success'))
+
+    return this.bot.webhookCallback(path)
+  }
+
+  public startPolling() {
     this.bot.startPolling()
   }
 
