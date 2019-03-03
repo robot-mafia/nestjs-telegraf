@@ -49,7 +49,7 @@ export class TelegramBot {
       .setWebhook(`${this.sitePublicUrl}/${path}`)
       .then(() => console.log('Webhook set success'))
 
-    return this.bot.webhookCallback(path)
+    return this.bot.webhookCallback(`/${path}`)
   }
 
   public startPolling() {
