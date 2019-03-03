@@ -11,7 +11,7 @@ import { Bot } from './Bot'
 import { TelegramActionHandler } from './decorators/TelegramActionHandler'
 import { TokenInjectionToken } from './TokenInjectionToken'
 import { TelegramModuleOptionsFactory } from './TelegramModuleOptionsFactory'
-import { InvalidConfigurationException } from 'InvalidConfigurationException'
+import { InvalidConfigurationException } from './InvalidConfigurationException'
 
 @Injectable()
 export class TelegramBot {
