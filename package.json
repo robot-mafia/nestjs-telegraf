@@ -1,6 +1,6 @@
 {
   "name": "nest-telegram",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "main": "dist/index.js",
   "repository": "git@github.com:igorkamyshev/nest-telegram.git",
   "author": "Igor Kamyshev <igor@kamyshev.me>",
