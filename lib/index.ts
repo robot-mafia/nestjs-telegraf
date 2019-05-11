@@ -1,5 +1,6 @@
 export { TelegramModule } from './telegram.module'
 export { TelegramBot } from './TelegramBot'
+export { TelegramClient } from './TelegramClient'
 
 export { TelegramModuleOptionsFactory } from './TelegramModuleOptionsFactory'
 export { TelegramModuleOptions } from './TelegramModuleOptions'
