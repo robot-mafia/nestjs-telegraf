@@ -33,7 +33,7 @@ export class TelegramModule implements NestModule {
           useClass: factory.useClass,
         },
       ],
-      exports: [TelegramBot],
+      exports: [TelegramBot, TelegramClient],
     }
   }
 }

@@ -1,5 +1,5 @@
 import { Injectable, Inject } from '@nestjs/common'
-import Telegram from 'telegraf/telegram'
+const Telegram = require('telegraf/telegram')
 
 import { TokenInjectionToken } from './TokenInjectionToken'
 import { TelegramModuleOptionsFactory } from './TelegramModuleOptionsFactory'
