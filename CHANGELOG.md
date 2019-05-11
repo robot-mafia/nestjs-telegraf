@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.3.0](https://github.com/igorkamyshev/nest-telegram/compare/v0.2.3...v0.3.0) (2019-05-11)
+
+
+### Features
+
+* **client:** add simple telegram client ([d2aa6eb](https://github.com/igorkamyshev/nest-telegram/commit/d2aa6eb))
+
+
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
 ## [0.2.3](https://github.com/igorkamyshev/nest-telegram/compare/v0.2.2...v0.2.3) (2019-03-03)
 
 
