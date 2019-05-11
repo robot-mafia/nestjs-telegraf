@@ -5,9 +5,11 @@ import {
   DynamicModule,
 } from '@nestjs/common'
 import { ModuleMetadata, Type } from '@nestjs/common/interfaces'
+
 import { TelegramBot } from './TelegramBot'
 import { TelegramModuleOptionsFactory } from './TelegramModuleOptionsFactory'
 import { TokenInjectionToken } from './TokenInjectionToken'
+import { TelegramClient } from './TelegramClient'
 
 interface TelegramFactory extends Pick<ModuleMetadata, 'imports'> {
   useClass?: Type<TelegramModuleOptionsFactory>
@@ -25,6 +27,7 @@ export class TelegramModule implements NestModule {
       module: TelegramModule,
       providers: [
         TelegramBot,
+        TelegramClient,
         {
           provide: TokenInjectionToken,
           useClass: factory.useClass,
