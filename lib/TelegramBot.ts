@@ -34,6 +34,7 @@ export class TelegramBot {
     const handlers = this.createHandlers()
 
     this.setupOnStart(handlers)
+    this.setupOnMessage(handlers)
     this.setupOnCommand(handlers)
   }
 
@@ -81,6 +82,14 @@ export class TelegramBot {
     }
 
     this.bot.start(this.adoptHandle(head(onStart)))
+  }
+
+  private setupOnMessage(handlers: Handler[]): void {
+    const onMessageHandlers = handlers.filter(({ config }) => config.message)
+
+    onMessageHandlers.forEach(handler => {
+      this.bot.hears(handler.config.message, this.adoptHandle(handler))
+    })
   }
 
   private setupOnCommand(handlers: Handler[]): void {

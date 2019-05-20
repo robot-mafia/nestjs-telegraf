@@ -9,5 +9,6 @@ interface ArgumentTransformation {
 export interface HandleParameters {
   onStart?: boolean
   command?: string
+  message?: string | RegExp
   transformations?: ArgumentTransformation[]
 }
