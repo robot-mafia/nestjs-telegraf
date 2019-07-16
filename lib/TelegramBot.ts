@@ -28,7 +28,7 @@ export class TelegramBot {
     this.bot = new Telegraf(token)
   }
 
-  public init(ref: ModuleRef) {
+  public init(ref: ModuleRef, devMode: boolean = false) {
     this.ref = ref
 
     const handlers = this.createHandlers()
@@ -36,6 +36,10 @@ export class TelegramBot {
     this.setupOnStart(handlers)
     this.setupOnMessage(handlers)
     this.setupOnCommand(handlers)
+
+    if (devMode) {
+      this.startPolling()
+    }
   }
 
   public getMiddleware(path: string) {
@@ -54,7 +58,11 @@ export class TelegramBot {
   }
 
   public startPolling() {
-    this.bot.startPolling()
+    try {
+      this.bot.startPolling()
+    } catch (e) {
+      // okay, never mind
+    }
   }
 
   private createHandlers(): Handler[] {
