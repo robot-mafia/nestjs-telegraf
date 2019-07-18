@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [0.5.0](https://github.com/igorkamyshev/nest-telegram/compare/v0.4.0...v0.5.0) (2019-07-18)
+
+
+### Features
+
+* add method for sending markdown ([9be7bdc](https://github.com/igorkamyshev/nest-telegram/commit/9be7bdc))
+
+
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
 # [0.4.0](https://github.com/igorkamyshev/nest-telegram/compare/v0.3.2...v0.4.0) (2019-05-20)
 
 
