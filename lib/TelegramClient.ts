@@ -22,4 +22,13 @@ export class TelegramClient {
   ): Promise<void> {
     await this.telegram.sendMessage(chatId, text)
   }
+
+  public async sendMarkdown(
+    chatId: string | number,
+    markdown: string,
+  ): Promise<void> {
+    await this.telegram.sendMessage(chatId, markdown, {
+      parse_mode: 'Markdown',
+    })
+  }
 }
