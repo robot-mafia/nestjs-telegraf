@@ -50,19 +50,22 @@ export class TelegramBot {
       )
     }
 
+    const url = `${this.sitePublicUrl}/${path}`
+
     this.bot.telegram
-      .setWebhook(`${this.sitePublicUrl}/${path}`)
-      .then(() => console.log('Webhook set success'))
+      .setWebhook(url)
+      .then(() => console.log(`Webhook set success @ ${url}`))
 
     return this.bot.webhookCallback(`/${path}`)
   }
 
   public startPolling() {
-    try {
-      this.bot.startPolling()
-    } catch (e) {
-      // okay, never mind
-    }
+    this.bot.telegram.deleteWebhook().then(
+      () => this.bot.startPolling(),
+      () => {
+        // okay, never mind
+      },
+    )
   }
 
   private createHandlers(): Handler[] {
