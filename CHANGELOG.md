@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.1](https://github.com/igorkamyshev/nest-telegram/compare/v0.5.0...v0.5.1) (2019-07-26)
+
+
+### Bug Fixes
+
+* add removing webhook before start pooling ([b9d659e](https://github.com/igorkamyshev/nest-telegram/commit/b9d659e))
+
+
+
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
 # [0.5.0](https://github.com/igorkamyshev/nest-telegram/compare/v0.4.0...v0.5.0) (2019-07-18)
 
 
