@@ -2,6 +2,7 @@
   "name": "nest-telegram",
   "version": "0.5.1",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "repository": "git@github.com:igorkamyshev/nest-telegram.git",
   "author": "Igor Kamyshev <igor@kamyshev.me>",
   "license": "MIT",
