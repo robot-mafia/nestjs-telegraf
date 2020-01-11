@@ -10,7 +10,7 @@ import { Handler } from './Handler'
 import { Bot } from './Bot'
 import { TelegramActionHandler } from './decorators/TelegramActionHandler'
 import { TokenInjectionToken } from './TokenInjectionToken'
-import { TelegramModuleOptionsFactory } from './TelegramModuleOptionsFactory'
+import { TelegrafOptionsFactory } from './interfaces'
 import { InvalidConfigurationException } from './InvalidConfigurationException'
 
 @Injectable()
@@ -20,7 +20,7 @@ export class TelegramBot {
   private ref: ModuleRef
 
   public constructor(
-    @Inject(TokenInjectionToken) factory: TelegramModuleOptionsFactory,
+    @Inject(TokenInjectionToken) factory: TelegrafOptionsFactory,
   ) {
     const { token, sitePublicUrl } = factory.createOptions()
 

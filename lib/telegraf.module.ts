@@ -4,27 +4,20 @@ import {
   NestModule,
   DynamicModule,
 } from '@nestjs/common'
-import { ModuleMetadata, Type } from '@nestjs/common/interfaces'
-
 import { TelegramBot } from './TelegramBot'
-import { TelegramModuleOptionsFactory } from './TelegramModuleOptionsFactory'
+import { TelegrafModuleAsyncOptions } from './interfaces'
 import { TokenInjectionToken } from './TokenInjectionToken'
 import { TelegramClient } from './TelegramClient'
 
-interface TelegramFactory extends Pick<ModuleMetadata, 'imports'> {
-  useClass?: Type<TelegramModuleOptionsFactory>
-  inject?: any[]
-}
-
 @Module({})
-export class TelegramModule implements NestModule {
+export class TelegrafModule implements NestModule {
   public configure(consumer: MiddlewareConsumer) {
     // pass
   }
 
-  static fromFactory(factory: TelegramFactory): DynamicModule {
+  static fromFactory(factory: TelegrafModuleAsyncOptions): DynamicModule {
     return {
-      module: TelegramModule,
+      module: TelegrafModule,
       providers: [
         TelegramBot,
         TelegramClient,
