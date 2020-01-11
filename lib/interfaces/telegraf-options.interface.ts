@@ -6,11 +6,15 @@ export interface TelegrafModuleOptions {
 }
 
 export interface TelegrafOptionsFactory {
-  createOptions(): TelegrafModuleOptions
+  createTelegrafOptions(): TelegrafModuleOptions
 }
 
 export interface TelegrafModuleAsyncOptions
   extends Pick<ModuleMetadata, 'imports'> {
+  useExisting?: Type<TelegrafOptionsFactory>
   useClass?: Type<TelegrafOptionsFactory>
+  useFactory?: (
+    ...args: any[]
+  ) => Promise<TelegrafModuleOptions> | TelegrafModuleOptions
   inject?: any[]
 }

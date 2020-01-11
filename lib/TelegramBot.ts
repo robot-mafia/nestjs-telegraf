@@ -22,7 +22,7 @@ export class TelegramBot {
   public constructor(
     @Inject(TokenInjectionToken) factory: TelegrafOptionsFactory,
   ) {
-    const { token, sitePublicUrl } = factory.createOptions()
+    const { token, sitePublicUrl } = factory.createTelegrafOptions()
 
     this.sitePublicUrl = sitePublicUrl
     this.bot = new Telegraf(token)

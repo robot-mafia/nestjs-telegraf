@@ -11,7 +11,7 @@ export class TelegramClient {
   public constructor(
     @Inject(TokenInjectionToken) factory: TelegrafOptionsFactory,
   ) {
-    const { token } = factory.createOptions()
+    const { token } = factory.createTelegrafOptions()
 
     this.telegram = new Telegram(token)
   }

@@ -3,9 +3,14 @@ import {
   Module,
   NestModule,
   DynamicModule,
+  Provider,
 } from '@nestjs/common'
 import { TelegramBot } from './TelegramBot'
-import { TelegrafModuleAsyncOptions } from './interfaces'
+import {
+  TelegrafModuleAsyncOptions,
+  TelegrafOptionsFactory,
+} from './interfaces'
+import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants'
 import { TokenInjectionToken } from './TokenInjectionToken'
 import { TelegramClient } from './TelegramClient'
 
@@ -15,18 +20,53 @@ export class TelegrafModule implements NestModule {
     // pass
   }
 
-  static fromFactory(factory: TelegrafModuleAsyncOptions): DynamicModule {
+  static fromFactory(options: TelegrafModuleAsyncOptions): DynamicModule {
     return {
       module: TelegrafModule,
+      imports: options.imports || [],
       providers: [
+        ...this.createAsyncProviders(options),
         TelegramBot,
         TelegramClient,
         {
           provide: TokenInjectionToken,
-          useClass: factory.useClass,
+          useClass: options.useClass,
         },
       ],
       exports: [TelegramBot, TelegramClient],
+    }
+  }
+
+  private static createAsyncProviders(
+    options: TelegrafModuleAsyncOptions,
+  ): Provider[] {
+    if (options.useExisting || options.useFactory) {
+      return [this.createAsyncOptionsProvider(options)]
+    }
+    return [
+      this.createAsyncOptionsProvider(options),
+      {
+        provide: options.useClass,
+        useClass: options.useClass,
+      },
+    ]
+  }
+
+  private static createAsyncOptionsProvider(
+    options: TelegrafModuleAsyncOptions,
+  ): Provider {
+    if (options.useFactory) {
+      return {
+        provide: TELEGRAF_MODULE_OPTIONS,
+        useFactory: options.useFactory,
+        inject: options.inject || [],
+      }
+    }
+    return {
+      provide: TELEGRAF_MODULE_OPTIONS,
+      useFactory: async (optionsFactory: TelegrafOptionsFactory) =>
+        await optionsFactory.createTelegrafOptions(),
+      inject: [options.useExisting || options.useClass],
     }
   }
 }
