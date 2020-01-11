@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common'
+import { Injectable, Inject, Logger } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
 import Telegraf, { ContextMessageUpdate } from 'telegraf'
 import { flatten, head } from 'lodash'
@@ -15,6 +15,7 @@ import { InvalidConfigurationException } from './InvalidConfigurationException'
 
 @Injectable()
 export class TelegramBot {
+  private readonly logger = new Logger(TelegramBot.name, true);
   private readonly sitePublicUrl?: string
   private readonly bot: Bot
   private ref: ModuleRef
@@ -54,7 +55,7 @@ export class TelegramBot {
 
     this.bot.telegram
       .setWebhook(url)
-      .then(() => console.log(`Webhook set success @ ${url}`))
+      .then(() => Logger.log(`Webhook set success @ ${url}`))
 
     return this.bot.webhookCallback(`/${path}`)
   }
