@@ -1,16 +1,11 @@
-import {
-  Module,
-  DynamicModule,
-  Provider,
-} from '@nestjs/common'
-import { TelegramBot } from './TelegramBot'
+import { Module, DynamicModule, Provider } from '@nestjs/common'
+import { TelegrafBotService } from './telegraf-bot.service'
 import {
   TelegrafModuleAsyncOptions,
   TelegrafOptionsFactory,
 } from './interfaces'
-import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants'
-import { TokenInjectionToken } from './TokenInjectionToken'
-import { TelegramClient } from './TelegramClient'
+import { TELEGRAF_MODULE_OPTIONS, TokenInjectionToken } from './telegraf.constants'
+import { TelegrafTelegramClientService } from './telegraf-telegram-client.service'
 
 @Module({})
 export class TelegrafModule {
@@ -20,14 +15,14 @@ export class TelegrafModule {
       imports: options.imports || [],
       providers: [
         ...this.createAsyncProviders(options),
-        TelegramBot,
-        TelegramClient,
+        TelegrafBotService,
+        TelegrafTelegramClientService,
         {
           provide: TokenInjectionToken,
           useClass: options.useClass,
         },
       ],
-      exports: [TelegramBot, TelegramClient],
+      exports: [TelegrafBotService, TelegrafTelegramClientService],
     }
   }
 

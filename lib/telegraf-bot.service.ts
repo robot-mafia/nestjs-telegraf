@@ -3,28 +3,27 @@ import { ModuleRef } from '@nestjs/core'
 import Telegraf, { ContextMessageUpdate } from 'telegraf'
 import { flatten, head } from 'lodash'
 
-import { ContextTransformer } from './ContextTransformer'
-import { TelegramCatch } from './decorators/TelegramCatch'
-import { TelegramErrorHandler } from './interfaces/TelegramErrorHandler'
-import { Handler } from './Handler'
-import { Bot } from './Bot'
-import { TelegramActionHandler } from './decorators/TelegramActionHandler'
-import { TokenInjectionToken } from './TokenInjectionToken'
-import { TelegrafOptionsFactory } from './interfaces'
-import { InvalidConfigurationException } from './InvalidConfigurationException'
+import { TelegramCatch, TelegramActionHandler } from './decorators'
+import { TokenInjectionToken } from './telegraf.constants'
+import {
+  TelegrafOptionsFactory,
+  TelegramErrorHandler,
+  Handler,
+  ContextTransformer,
+} from './interfaces'
+import { InvalidConfigurationException } from './exeptions'
 
 @Injectable()
-export class TelegramBot {
-  private readonly logger = new Logger(TelegramBot.name, true);
+export class TelegrafBotService {
+  private readonly logger = new Logger(TelegrafBotService.name, true)
   private readonly sitePublicUrl?: string
-  private readonly bot: Bot
+  private readonly bot: Telegraf<ContextMessageUpdate>
   private ref: ModuleRef
 
   public constructor(
-    @Inject(TokenInjectionToken) factory: TelegrafOptionsFactory,
+    @Inject(TokenInjectionToken) options: TelegrafOptionsFactory,
   ) {
-    const { token, sitePublicUrl } = factory.createTelegrafOptions()
-
+    const { token, sitePublicUrl } = options.createTelegrafOptions()
     this.sitePublicUrl = sitePublicUrl
     this.bot = new Telegraf(token)
   }
@@ -55,7 +54,7 @@ export class TelegramBot {
 
     this.bot.telegram
       .setWebhook(url)
-      .then(() => Logger.log(`Webhook set success @ ${url}`))
+      .then(() => this.logger.log(`Webhook set success @ ${url}`))
 
     return this.bot.webhookCallback(`/${path}`)
   }
