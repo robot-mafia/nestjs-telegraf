@@ -1,7 +1,5 @@
 import {
-  MiddlewareConsumer,
   Module,
-  NestModule,
   DynamicModule,
   Provider,
 } from '@nestjs/common'
@@ -15,11 +13,7 @@ import { TokenInjectionToken } from './TokenInjectionToken'
 import { TelegramClient } from './TelegramClient'
 
 @Module({})
-export class TelegrafModule implements NestModule {
-  public configure(consumer: MiddlewareConsumer) {
-    // pass
-  }
-
+export class TelegrafModule {
   static fromFactory(options: TelegrafModuleAsyncOptions): DynamicModule {
     return {
       module: TelegrafModule,
