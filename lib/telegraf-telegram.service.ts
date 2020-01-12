@@ -5,7 +5,7 @@ import { TokenInjectionToken } from './telegraf.constants'
 import { TelegrafOptionsFactory } from './interfaces'
 
 @Injectable()
-export class TelegrafTelegramClientService {
+export class TelegrafTelegramService {
   private telegram: any
 
   public constructor(

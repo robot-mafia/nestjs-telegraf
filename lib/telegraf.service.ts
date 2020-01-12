@@ -14,8 +14,8 @@ import {
 import { InvalidConfigurationException } from './exeptions'
 
 @Injectable()
-export class TelegrafBotService {
-  private readonly logger = new Logger(TelegrafBotService.name, true)
+export class TelegrafService {
+  private readonly logger = new Logger(TelegrafService.name, true)
   private readonly sitePublicUrl?: string
   private readonly bot: Telegraf<ContextMessageUpdate>
   private ref: ModuleRef

@@ -1,5 +1,5 @@
 export * from './telegraf.module'
 export * from './interfaces'
 export * from './decorators'
-export * from './telegraf-bot.service'
-export * from './telegraf-telegram-client.service'
+export * from './telegraf.service'
+export * from './telegraf-telegram.service'

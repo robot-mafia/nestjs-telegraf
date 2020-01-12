@@ -1,1 +1,1 @@
-export * from './invalid-configuration.exeption';
+export * from './invalid-configuration.exeption'
