@@ -1,33 +1,13 @@
-import { Injectable, Inject } from '@nestjs/common'
-const Telegram = require('telegraf/telegram')
+import { Injectable, Inject } from '@nestjs/common';
+const Telegram = require('telegraf/telegram');
+import { Telegram as TelegramClient } from 'telegraf';
 
-import { TokenInjectionToken } from './telegraf.constants'
-import { TelegrafOptionsFactory } from './interfaces'
+import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants';
+import { TelegrafModuleOptions } from './interfaces';
 
 @Injectable()
-export class TelegrafTelegramService {
-  private telegram: any
-
-  public constructor(
-    @Inject(TokenInjectionToken) options: TelegrafOptionsFactory,
-  ) {
-    const { token } = options.createTelegrafOptions()
-    this.telegram = new Telegram(token)
-  }
-
-  public async sendMessage(
-    chatId: string | number,
-    text: string,
-  ): Promise<void> {
-    await this.telegram.sendMessage(chatId, text)
-  }
-
-  public async sendMarkdown(
-    chatId: string | number,
-    markdown: string,
-  ): Promise<void> {
-    await this.telegram.sendMessage(chatId, markdown, {
-      parse_mode: 'Markdown',
-    })
+export class TelegrafTelegramService extends TelegramClient {
+  constructor(@Inject(TELEGRAF_MODULE_OPTIONS) options: TelegrafModuleOptions) {
+    super(options.token, {});
   }
 }
