@@ -1,153 +1,48 @@
-# nest-telegram
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
 
-Integrate [telegraf.js](https://telegraf.js.org/) to [NestJS](https://nestjs.com/) application.
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-> Warning! Package under development, please waiting for v1 release.
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
 
-## Instalation 
+## Description
 
-`yarn add nest-telegram`
+[Telegraf](https://github.com/telegraf/telegraf) module for [Nest](https://github.com/nestjs/nest).
 
-## Setup
+## Installation
 
-### Add TelegramModule to your app
-
-```ts
-import { TelegramModule, TelegramModuleOptionsFactory } from 'nest-telegram'
-
-// In real app, please, don't store token in source code
-class TelegramOptionsFactory implements TelegramModuleOptionsFactory {
-  createOptions(): TelegramModuleOptions {
-    return {
-      token: 'TelegramToken#1213',
-      sitePublicUrl: 'https://my-site.com',
-    }
-  }
-}
-
-@Module({
-  imports: [
-    TelegramModule.fromFactory({,
-      useClass: TelegramOptionsFactory,
-    }),
-    UtilsModule,
-  ],
-})
-export class MyModule implements NestModule {
-  constructor(
-    private readonly moduleRef: ModuleRef,
-    private readonly telegramBot: TelegramBot,
-  ) {}
-
-  onModuleInit() {
-    const isDev = process.env.NODE_ENV === 'development'
-
-    this.telegramBot.init(this.moduleRef)
-
-    if (isDev) {
-      // in dev mode, we can't use webhook
-      this.telegramBot.startPolling()
-    }
-  }
-
-  // ...
-}
-```
-
-### Add custom middleware to your app
-
-```ts
-import { TelegramBot } from 'nest-telegram'
-import { NestFactory } from '@nestjs/core'
-import { AppModule } from '@app/app.module'
-
-async function bootstrap() {
-  const isDev = process.env.NODE_ENV === 'development'
-
-  const app = await NestFactory.create(AppModule)
-
-  const bot = app.get(TelegramBot)
-
-  if (!isDev) {
-    app.use(bot.getMiddleware('hook-path'))
-  }
-
-  await app.listen(3000)
-}
-bootstrap()
+```bash
+$ npm i nestjs-telegraf telegraf
 ```
 
 ## Usage
+TBD
 
-Now, you can decorate any method with `TelegramActionHandler`.
+## Support
 
-Example:
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-```ts
-import { Injectable } from '@nestjs/common'
-import { Context, PipeContext, TelegramActionHandler } from 'nest-telegram'
+## People
 
-@Injectable()
-export class HelpActions {
-  @TelegramActionHandler({ onStart: true })
-  async start(ctx: Context) {
-    await ctx.reply('Hello!')
-  }
-}
-```
+- Authors - [Aleksandr Bukhalo](https://bukhalo.com/) & [Igor Kamyshev](https://kamyshev.me/)
+- Maintainers - [Aleksandr Bukhalo](https://bukhalo.com/)
+- Website - [https://nestjs.com](https://nestjs.com/)
 
-Available actions for decorator:
+## License
 
-+ `onStart` {boolean}, it triggers on `/start` command.
-+ `command` {string}, it triggers on any command, e.g. — `@TelegramActionHandler({ command: '/help' })`.
-+ `message` {string|RegExp}, it triggers on text message matching RegExp or string.
-
-Also, you can write Transformators for context (like Pipes in NestJS). Example:
-
-```ts
-import { Injectable } from '@nestjs/common'
-import { ContextTransformer, Context } from 'nest-telegram'
-
-@Injectable()
-class CurrentSender implements ContextTransformer<TokenPayloadModel> {
-  async transform(ctx: Context) {
-    const user = // get user from DB
-
-    return {
-      login: user.login,
-      isManager: user.isManager,
-    }
-  }
-}
-
-@Injectable()
-export class SomethingActions {
-  @TelegramActionHandler({ command: '/say' })
-  async say(
-    ctx: Context,
-    // apply this transformer like this
-    @PipeContext(CurrentSender) user: TokenPayloadModel,
-  ) {
-    const { login } = user
-
-    // now you can use `login`
-    await ctx.reply(`Hello, ${login}`)
-  }
-}
-```
-
-Also, you can write `Catchers` for exceptions (like Filters in NestJS). Example:
-
-```js
-import { TelegramErrorHandler, TelegramCatch, Context } from 'nest-telegram'
-
-@TelegramCatch(MyExecption)
-export class MyCatcher
-  implements TelegramErrorHandler<MyExecption> {
-  public async catch(ctx: Context, exception: MyExecption) {
-    await ctx.reply(exception.message)
-  }
-}
-```
-
-Stay tuned, stable release is coming. 🤓
+Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).

@@ -1,17 +1,40 @@
 {
   "name": "nestjs-telegraf",
   "version": "0.5.1",
-  "repository": "git@github.com:igorkamyshev/nest-telegram.git",
-  "author": "Igor Kamyshev <igor@kamyshev.me>",
+  "description": "Telegraf module for Nest framework",
+  "keywords": [
+    "nest",
+    "nestjs",
+    "nodejs",
+    "typescript",
+    "telegraf",
+    "telegram",
+    "telegram bot",
+    "telegram bot api",
+    "bot",
+    "bot api",
+    "bot framework"
+  ],
+  "homepage": "https://github.com/bukhalo/nestjs-telegraf#readme",
+  "bugs": {
+    "url": "https://github.com/bukhalo/nestjs-telegraf/issues",
+    "email": "aleksandr@bukhalo.com"
+  },
   "license": "MIT",
+  "author": "Aleksandr Bukhalo <aleksandr@bukhalo.com>",
+  "contributors": [
+    "Aleksandr Bukhalo <aleksandr@bukhalo.com> (https://bukhalo.com/)",
+    "Igor Kamyshev <igor@kamyshev.me> (https://kamyshev.me/)"
+  ],
+  "repository": "git@github.com:bukhalo/nestjs-telegraf.git",
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "precommit": "lint-staged",
+    "prepublish:npm": "npm run build",
+    "publish:npm": "npm publish --access public"
+  },
   "dependencies": {
     "lodash": "^4.17.13"
-  },
-  "peerDependencies": {
-    "@nestjs/common": "^6.7.0",
-    "@nestjs/core": "^6.7.0",
-    "reflect-metadata": "^0.1.13",
-    "telegraf": "^3.35.0"
   },
   "devDependencies": {
     "@nestjs/common": "^6.7.0",
@@ -24,11 +47,11 @@
     "telegraf": "^3.35.0",
     "typescript": "^3.7.4"
   },
-  "scripts": {
-    "build": "rm -rf dist && tsc -p tsconfig.json",
-    "precommit": "lint-staged",
-    "prepublish:npm": "npm run build",
-    "publish:npm": "npm publish --access public"
+  "peerDependencies": {
+    "@nestjs/common": "^6.7.0",
+    "@nestjs/core": "^6.7.0",
+    "reflect-metadata": "^0.1.13",
+    "telegraf": "^3.35.0"
   },
   "husky": {
     "hooks": {
