@@ -1,4 +1,4 @@
-import { ContextTransformer } from './ContextTransformer'
+import { ContextTransformer } from './'
 import { Type } from '@nestjs/common'
 
 interface ArgumentTransformation {

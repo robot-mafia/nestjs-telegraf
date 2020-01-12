@@ -1,38 +1,67 @@
 {
-  "name": "nest-telegram",
-  "version": "0.5.1",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "repository": "git@github.com:igorkamyshev/nest-telegram.git",
-  "author": "Igor Kamyshev <igor@kamyshev.me>",
+  "name": "nestjs-telegraf",
+  "version": "0.6.0",
+  "description": "Telegraf module for Nest framework",
+  "keywords": [
+    "nest",
+    "nestjs",
+    "nodejs",
+    "typescript",
+    "telegraf",
+    "telegram",
+    "telegram bot",
+    "telegram bot api",
+    "bot",
+    "bot api",
+    "bot framework"
+  ],
+  "homepage": "https://github.com/bukhalo/nestjs-telegraf#readme",
+  "bugs": {
+    "url": "https://github.com/bukhalo/nestjs-telegraf/issues",
+    "email": "aleksandr@bukhalo.com"
+  },
   "license": "MIT",
+  "author": "Aleksandr Bukhalo <aleksandr@bukhalo.com>",
+  "contributors": [
+    "Aleksandr Bukhalo <aleksandr@bukhalo.com> (https://bukhalo.com/)",
+    "Igor Kamyshev <igor@kamyshev.me> (https://kamyshev.me/)"
+  ],
+  "repository": "git@github.com:bukhalo/nestjs-telegraf.git",
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "precommit": "lint-staged",
+    "prepublish:npm": "npm run build",
+    "publish:npm": "npm publish --access public"
+  },
+  "dependencies": {
+    "lodash": "^4.17.13"
+  },
   "devDependencies": {
-    "@solid-soda/scripts": "^1.2.4",
-    "@team-griffin/install-self-peers": "^1.1.1",
-    "@types/lodash": "^4.14.121"
+    "@nestjs/common": "^6.7.0",
+    "@nestjs/core": "^6.7.0",
+    "@types/lodash": "^4.14.121",
+    "husky": "^4.0.7",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
+    "reflect-metadata": "^0.1.13",
+    "telegraf": "^3.35.0",
+    "typescript": "^3.7.4"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^6.7.0",
+    "@nestjs/core": "^6.7.0",
+    "reflect-metadata": "^0.1.13",
+    "telegraf": "^3.35.0"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn soda lint-staged",
-      "commit-msg": "yarn soda commitlint"
+      "pre-commit": "lint-staged"
     }
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "scripts": {
-    "build": "rimraf dist && tsc",
-    "prepare": "install-self-peers -- --ignore-scripts && yarn build",
-    "ci": "yarn soda lint",
-    "s": "yarn soda"
-  },
-  "peerDependencies": {
-    "@nestjs/common": "^5.7.3",
-    "@nestjs/core": "^5.7.3",
-    "reflect-metadata": "^0.1.13"
-  },
-  "dependencies": {
-    "lodash": "^4.17.13",
-    "telegraf": "^3.27.1"
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }

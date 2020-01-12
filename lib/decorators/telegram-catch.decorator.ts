@@ -1,5 +1,5 @@
 import { Type } from '@nestjs/common'
-import { TelegramErrorHandler } from '../interfaces/TelegramErrorHandler'
+import { TelegramErrorHandler } from '../interfaces'
 
 type Decorator = (error: any) => ClassDecorator
 

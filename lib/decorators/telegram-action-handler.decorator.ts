@@ -1,4 +1,4 @@
-import { HandleParameters } from '../HandleParameters'
+import { HandleParameters } from '../interfaces'
 
 type Decorator = (
   params: HandleParameters,
