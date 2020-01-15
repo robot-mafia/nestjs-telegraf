@@ -21,7 +21,7 @@ export class TelegrafService {
   private ref: ModuleRef
 
   public constructor(
-    @Inject(TokenInjectionToken) options: TelegrafOptionsFactory,
+    @Inject(TokenInjectionToken) options: TelegrafOptionsFactory
   ) {
     const { token, sitePublicUrl } = options.createTelegrafOptions()
     this.sitePublicUrl = sitePublicUrl
@@ -36,6 +36,7 @@ export class TelegrafService {
     this.setupOnStart(handlers)
     this.setupOnMessage(handlers)
     this.setupOnCommand(handlers)
+    this.setupActions(handlers)
 
     if (devMode) {
       this.startPolling()
@@ -46,7 +47,7 @@ export class TelegrafService {
     if (!this.sitePublicUrl) {
       throw new InvalidConfigurationException(
         'sitePublicUrl',
-        'does not exist, but webook used',
+        'does not exist, but webook used'
       )
     }
 
@@ -64,7 +65,7 @@ export class TelegrafService {
       () => this.bot.startPolling(),
       () => {
         // okay, never mind
-      },
+      }
     )
   }
 
@@ -78,10 +79,10 @@ export class TelegrafService {
             ([methodName, methodCondig]) => ({
               handle: handlerInstance[methodName].bind(handlerInstance),
               config: methodCondig,
-            }),
+            })
           )
-        },
-      ),
+        }
+      )
     )
   }
 
@@ -111,6 +112,14 @@ export class TelegrafService {
     })
   }
 
+  private setupActions(handlers: Handler[]): void {
+    const commandHandlers = handlers.filter(({ config }) => config.action)
+
+    commandHandlers.forEach(handler => {
+      this.bot.action(handler.config.action, this.adoptHandle(handler))
+    })
+  }
+
   private adoptHandle({ handle, config }: Handler) {
     const errorHandler = this.createCatch()
 
@@ -121,8 +130,8 @@ export class TelegrafService {
           .map(({ transform }) =>
             this.ref
               .get<ContextTransformer>(transform, { strict: false })
-              .transform(ctx),
-          ),
+              .transform(ctx)
+          )
       )
 
       return handle(ctx, ...args).catch(errorHandler(ctx))
@@ -131,7 +140,7 @@ export class TelegrafService {
 
   private createCatch() {
     const handlers = Array.from(
-      (TelegramCatch.handlers || new Map()).entries(),
+      (TelegramCatch.handlers || new Map()).entries()
     ).map(([errorType, handlerType]) => {
       const handler = this.ref.get<TelegramErrorHandler>(handlerType, {
         strict: false,
