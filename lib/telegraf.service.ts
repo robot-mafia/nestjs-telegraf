@@ -17,7 +17,7 @@ import { InvalidConfigurationException } from './exeptions'
 export class TelegrafService {
   private readonly logger = new Logger(TelegrafService.name, true)
   private readonly sitePublicUrl?: string
-  private readonly bot: Telegraf<ContextMessageUpdate>
+  public readonly bot: Telegraf<ContextMessageUpdate>
   private ref: ModuleRef
 
   public constructor(
