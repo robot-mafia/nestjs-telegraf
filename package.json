@@ -34,18 +34,18 @@
     "publish:npm": "npm publish --access public"
   },
   "dependencies": {
-    "lodash": "^4.17.13"
+    "lodash": "4.17.15"
   },
   "devDependencies": {
-    "@nestjs/common": "^6.7.0",
-    "@nestjs/core": "^6.7.0",
-    "@types/lodash": "^4.14.121",
-    "husky": "^4.0.7",
-    "lint-staged": "^9.5.0",
-    "prettier": "^1.19.1",
-    "reflect-metadata": "^0.1.13",
-    "telegraf": "^3.35.0",
-    "typescript": "^3.7.4"
+    "@nestjs/common": "6.10.14",
+    "@nestjs/core": "6.10.14",
+    "@types/lodash": "4.14.149",
+    "husky": "4.0.7",
+    "lint-staged": "9.5.0",
+    "prettier": "1.19.1",
+    "reflect-metadata": "0.1.13",
+    "telegraf": "3.35.0",
+    "typescript": "3.7.4"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.7.0",
