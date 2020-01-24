@@ -37,8 +37,8 @@
     "lodash": "4.17.15"
   },
   "devDependencies": {
-    "@nestjs/common": "6.10.14",
-    "@nestjs/core": "6.10.14",
+    "@nestjs/common": "6.11.0",
+    "@nestjs/core": "6.11.0",
     "@types/lodash": "4.14.149",
     "husky": "4.2.1",
     "lint-staged": "10.0.2",
