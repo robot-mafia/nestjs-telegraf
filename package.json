@@ -45,7 +45,7 @@
     "prettier": "1.19.1",
     "reflect-metadata": "0.1.13",
     "telegraf": "3.35.0",
-    "typescript": "3.7.4"
+    "typescript": "3.7.5"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.7.0",
