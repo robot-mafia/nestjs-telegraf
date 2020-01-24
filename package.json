@@ -41,7 +41,7 @@
     "@nestjs/core": "6.10.14",
     "@types/lodash": "4.14.149",
     "husky": "4.2.1",
-    "lint-staged": "9.5.0",
+    "lint-staged": "10.0.2",
     "prettier": "1.19.1",
     "reflect-metadata": "0.1.13",
     "telegraf": "3.36.0",
