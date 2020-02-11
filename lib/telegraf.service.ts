@@ -34,6 +34,7 @@ export class TelegrafService {
     const handlers = this.createHandlers()
 
     this.setupOnStart(handlers)
+    this.setupOn(handlers)
     this.setupOnMessage(handlers)
     this.setupOnCommand(handlers)
     this.setupActions(handlers)
@@ -94,6 +95,14 @@ export class TelegrafService {
     }
 
     this.bot.start(this.adoptHandle(head(onStart)))
+  }
+
+  private setupOn(handlers: Handler[]): void {
+    const onHandlers = handlers.filter(({ config }) => config.on)
+
+    onHandlers.forEach(handler => {
+      this.bot.on(handler.config.on, this.adoptHandle(handler))
+    })
   }
 
   private setupOnMessage(handlers: Handler[]): void {
