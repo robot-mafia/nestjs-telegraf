@@ -40,7 +40,7 @@
     "@nestjs/common": "6.11.6",
     "@nestjs/core": "6.11.6",
     "@types/lodash": "4.14.149",
-    "husky": "4.2.2",
+    "husky": "4.2.3",
     "lint-staged": "10.0.7",
     "prettier": "1.19.1",
     "reflect-metadata": "0.1.13",
