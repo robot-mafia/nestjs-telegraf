@@ -1,8 +1,10 @@
 import { ModuleMetadata, Type } from '@nestjs/common/interfaces'
+import { TelegrafOptions } from 'telegraf'
 
 export interface TelegrafModuleOptions {
   token: string
   sitePublicUrl?: string
+  telegrafOptions?: TelegrafOptions
 }
 
 export interface TelegrafOptionsFactory {
