@@ -109,10 +109,16 @@ export class TelegrafService {
   }
 
   private setupOnMessage(handlers: Handler[]): void {
-    const onMessageHandlers = handlers.filter(({ config }) => config.message)
+    const onMessageHandlers = handlers.filter(
+      ({ config }) => config.message !== undefined
+    )
 
     onMessageHandlers.forEach(handler => {
-      this.bot.hears(handler.config.message, this.adoptHandle(handler))
+      if (handler.config.message) {
+        this.bot.hears(handler.config.message, this.adoptHandle(handler))
+      } else {
+        this.bot.on('message', this.adoptHandle(handler))
+      }
     })
   }
 
