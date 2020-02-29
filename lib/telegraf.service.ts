@@ -1,17 +1,16 @@
-import { Injectable, Inject, Logger } from '@nestjs/common'
+import { Inject, Injectable, Logger } from '@nestjs/common'
 import { ModuleRef } from '@nestjs/core'
-import Telegraf, { ContextMessageUpdate } from 'telegraf'
 import { flatten, head } from 'lodash'
-
-import { TelegramCatch, TelegramActionHandler } from './decorators'
-import { TokenInjectionToken } from './telegraf.constants'
+import Telegraf, { ContextMessageUpdate } from 'telegraf'
+import { TelegramActionHandler, TelegramCatch } from './decorators'
+import { InvalidConfigurationException } from './exeptions'
 import {
+  ContextTransformer,
+  Handler,
   TelegrafOptionsFactory,
   TelegramErrorHandler,
-  Handler,
-  ContextTransformer,
 } from './interfaces'
-import { InvalidConfigurationException } from './exeptions'
+import { TokenInjectionToken } from './telegraf.constants'
 
 @Injectable()
 export class TelegrafService {
@@ -23,9 +22,13 @@ export class TelegrafService {
   public constructor(
     @Inject(TokenInjectionToken) options: TelegrafOptionsFactory
   ) {
-    const { token, sitePublicUrl } = options.createTelegrafOptions()
+    const {
+      token,
+      sitePublicUrl,
+      telegrafOptions,
+    } = options.createTelegrafOptions()
     this.sitePublicUrl = sitePublicUrl
-    this.bot = new Telegraf(token)
+    this.bot = new Telegraf(token, telegrafOptions)
   }
 
   public init(ref: ModuleRef, devMode: boolean = false) {
