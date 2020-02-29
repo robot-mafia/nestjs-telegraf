@@ -140,6 +140,68 @@ export class BotService {
 
 See https://github.com/bukhalo/nestjs-telegraf/issues/7#issuecomment-577582322
 
+### Telegraf use proxy
+
+```typescript
+
+/* bot.config.ts */
+
+import { registerAs } from '@nestjs/config'
+
+interface Config {
+  token: string
+  socksHost: string
+  socksPort: string | number
+  socksUser: string
+  socksPassword: string
+}
+
+export default registerAs(
+  'bot',
+  (): Config => ({
+    token: process.env.TELEGRAM_BOT_TOKEN,
+    socksHost: process.env.TELEGRAM_BOT_SOCKS_HOST,
+    socksPort: process.env.TELEGRAM_BOT_SOCKS_PORT,
+    socksUser: process.env.TELEGRAM_BOT_SOCKS_USER,
+    socksPassword: process.env.TELEGRAM_BOT_SOCKS_PASS,
+  }),
+);
+
+```
+
+```typescript
+
+/* telegraf-config.service.ts */
+
+import { Injectable } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
+import { TelegrafModuleOptions, TelegrafOptionsFactory } from 'nestjs-telegraf'
+import { SocksProxyAgent } from 'socks-proxy-agent'
+
+@Injectable()
+export class TelegrafConfigService implements TelegrafOptionsFactory {
+  private agent
+
+  constructor(private readonly configService: ConfigService) {}
+
+  createTelegrafOptions(): TelegrafModuleOptions {
+    const proxyConfig = {
+      host: this.configService.get('bot.socksHost'),
+      port: this.configService.get('bot.socksPort'),
+      userId: this.configService.get('bot.socksUser'),
+      password: this.configService.get('bot.socksPassword'),
+    }
+    this.agent = new SocksProxyAgent(proxyConfig)
+
+    return {
+      token: this.configService.get('bot.token'),
+      telegrafOptions: { telegram: { agent: this.agent } },
+    };
+  }
+}
+
+```
+
 ### Telegram
 
 #### Telegram methods usage
