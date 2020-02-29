@@ -140,7 +140,7 @@ export class BotService {
 
 See https://github.com/bukhalo/nestjs-telegraf/issues/7#issuecomment-577582322
 
-### Telegraf use proxy
+#### Telegraf proxy usage
 
 ```typescript
 
