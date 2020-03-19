@@ -214,7 +214,6 @@ export class TelegrafExplorer implements OnModuleInit {
     telegraf: Telegraf<ContextMessageUpdate>,
     metadata: any,
   ) {
-    // @ts-ignore
-    telegraf.cashtag(metadata.triggers, instance[key].bind(instance));
+    telegraf.action(metadata.triggers, instance[key].bind(instance));
   }
 }
