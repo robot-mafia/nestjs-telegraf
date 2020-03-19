@@ -53,6 +53,11 @@ export class TelegrafExplorer implements OnModuleInit {
               instance[key],
             );
             this.handleTelegrafHears(instance, key, telegraf, metadata);
+          } else if (this.metadataAccessor.isTelegrafCommand(instance[key])) {
+            const metadata = this.metadataAccessor.getTelegrafCommandMetadata(
+              instance[key],
+            );
+            this.handleTelegrafCommand(instance, key, telegraf, metadata);
           }
         },
       );
@@ -91,5 +96,14 @@ export class TelegrafExplorer implements OnModuleInit {
     metadata: any,
   ) {
     telegraf.hears(metadata.triggers, instance[key].bind(instance));
+  }
+
+  handleTelegrafCommand(
+    instance: object,
+    key: string,
+    telegraf: Telegraf<ContextMessageUpdate>,
+    metadata: any,
+  ) {
+    telegraf.command(metadata.commands, instance[key].bind(instance));
   }
 }
