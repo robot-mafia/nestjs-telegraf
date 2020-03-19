@@ -122,4 +122,15 @@ export class TelegrafMetadataAccessor {
   getTelegrafCashtagMetadata(target: Type<any> | Function) {
     return this.reflector.get(DECORATORS.CASHTAG, target);
   }
+
+  isTelegrafAction(target: Type<any> | Function): boolean {
+    if (!target) {
+      return false;
+    }
+    return !!this.reflector.get(DECORATORS.ACTION, target);
+  }
+
+  getTelegrafActionMetadata(target: Type<any> | Function) {
+    return this.reflector.get(DECORATORS.ACTION, target);
+  }
 }
