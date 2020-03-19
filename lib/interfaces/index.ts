@@ -1,5 +1,1 @@
-export * from './telegraf-options.interface'
-export * from './handler.interface'
-export * from './handle-parameters.interface'
-export * from './telegram-error-handler.interface'
-export * from './context-transformer.interface'
+export * from './telegraf-options.interface';

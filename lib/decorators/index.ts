@@ -1,3 +1,3 @@
-export * from './pipe-context.decorator'
-export * from './telegram-action-handler.decorator'
-export * from './telegram-catch.decorator'
+export * from './telegraf-on.decorator';
+export * from './telegraf-hears.decorator';
+export * from './telegraf-start.decorator';
