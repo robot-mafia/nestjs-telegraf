@@ -133,4 +133,15 @@ export class TelegrafMetadataAccessor {
   getTelegrafActionMetadata(target: Type<any> | Function) {
     return this.reflector.get(DECORATORS.ACTION, target);
   }
+
+  isTelegrafInlineQuery(target: Type<any> | Function): boolean {
+    if (!target) {
+      return false;
+    }
+    return !!this.reflector.get(DECORATORS.INLINE_QUERY, target);
+  }
+
+  getTelegrafInlineQueryMetadata(target: Type<any> | Function) {
+    return this.reflector.get(DECORATORS.INLINE_QUERY, target);
+  }
 }

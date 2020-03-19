@@ -92,6 +92,13 @@ export class TelegrafExplorer implements OnModuleInit {
               instance[key],
             );
             this.handleTelegrafAction(instance, key, telegraf, metadata);
+          } else if (
+            this.metadataAccessor.isTelegrafInlineQuery(instance[key])
+          ) {
+            const metadata = this.metadataAccessor.getTelegrafInlineQueryMetadata(
+              instance[key],
+            );
+            this.handleTelegrafInlineQuery(instance, key, telegraf, metadata);
           }
         },
       );
@@ -215,5 +222,15 @@ export class TelegrafExplorer implements OnModuleInit {
     metadata: any,
   ) {
     telegraf.action(metadata.triggers, instance[key].bind(instance));
+  }
+
+  handleTelegrafInlineQuery(
+    instance: object,
+    key: string,
+    telegraf: Telegraf<ContextMessageUpdate>,
+    metadata: any,
+  ) {
+    // @ts-ignore
+    telegraf.inlineQuery(metadata.triggers, instance[key].bind(instance));
   }
 }
