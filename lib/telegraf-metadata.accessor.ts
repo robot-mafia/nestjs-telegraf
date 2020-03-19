@@ -14,13 +14,6 @@ export class TelegrafMetadataAccessor {
     return !!this.reflector.get(DECORATORS.USE, target);
   }
 
-  isTelegrafStart(target: Type<any> | Function): boolean {
-    if (!target) {
-      return false;
-    }
-    return !!this.reflector.get(DECORATORS.START, target);
-  }
-
   isTelegrafOn(target: Type<any> | Function): boolean {
     if (!target) {
       return false;
@@ -52,5 +45,19 @@ export class TelegrafMetadataAccessor {
 
   getTelegrafCommandMetadata(target: Type<any> | Function) {
     return this.reflector.get(DECORATORS.COMMAND, target);
+  }
+
+  isTelegrafStart(target: Type<any> | Function): boolean {
+    if (!target) {
+      return false;
+    }
+    return !!this.reflector.get(DECORATORS.START, target);
+  }
+
+  isTelegrafHelp(target: Type<any> | Function): boolean {
+    if (!target) {
+      return false;
+    }
+    return !!this.reflector.get(DECORATORS.HELP, target);
   }
 }

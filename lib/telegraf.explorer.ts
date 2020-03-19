@@ -41,8 +41,6 @@ export class TelegrafExplorer implements OnModuleInit {
         (key: string) => {
           if (this.metadataAccessor.isTelegrafUse(instance[key])) {
             this.handleTelegrafUse(instance, key, telegraf);
-          } else if (this.metadataAccessor.isTelegrafStart(instance[key])) {
-            this.handleTelegrafStart(instance, key, telegraf);
           } else if (this.metadataAccessor.isTelegrafOn(instance[key])) {
             const metadata = this.metadataAccessor.getTelegrafOnMetadata(
               instance[key],
@@ -58,6 +56,10 @@ export class TelegrafExplorer implements OnModuleInit {
               instance[key],
             );
             this.handleTelegrafCommand(instance, key, telegraf, metadata);
+          } else if (this.metadataAccessor.isTelegrafStart(instance[key])) {
+            this.handleTelegrafStart(instance, key, telegraf);
+          } else if (this.metadataAccessor.isTelegrafHelp(instance[key])) {
+            this.handleTelegrafHelp(instance, key, telegraf);
           }
         },
       );
@@ -81,14 +83,6 @@ export class TelegrafExplorer implements OnModuleInit {
     telegraf.on(metadata.updateTypes, instance[key].bind(instance));
   }
 
-  handleTelegrafStart(
-    instance: object,
-    key: string,
-    telegraf: Telegraf<ContextMessageUpdate>,
-  ) {
-    telegraf.start(instance[key].bind(instance));
-  }
-
   handleTelegrafHears(
     instance: object,
     key: string,
@@ -105,5 +99,21 @@ export class TelegrafExplorer implements OnModuleInit {
     metadata: any,
   ) {
     telegraf.command(metadata.commands, instance[key].bind(instance));
+  }
+
+  handleTelegrafStart(
+    instance: object,
+    key: string,
+    telegraf: Telegraf<ContextMessageUpdate>,
+  ) {
+    telegraf.start(instance[key].bind(instance));
+  }
+
+  handleTelegrafHelp(
+    instance: object,
+    key: string,
+    telegraf: Telegraf<ContextMessageUpdate>,
+  ) {
+    telegraf.help(instance[key].bind(instance));
   }
 }
