@@ -39,7 +39,9 @@ export class TelegrafExplorer implements OnModuleInit {
         instance,
         Object.getPrototypeOf(instance),
         (key: string) => {
-          if (this.metadataAccessor.isTelegrafStart(instance[key])) {
+          if (this.metadataAccessor.isTelegrafUse(instance[key])) {
+            this.handleTelegrafUse(instance, key, telegraf);
+          } else if (this.metadataAccessor.isTelegrafStart(instance[key])) {
             this.handleTelegrafStart(instance, key, telegraf);
           } else if (this.metadataAccessor.isTelegrafOn(instance[key])) {
             const metadata = this.metadataAccessor.getTelegrafOnMetadata(
@@ -55,6 +57,14 @@ export class TelegrafExplorer implements OnModuleInit {
         },
       );
     });
+  }
+
+  handleTelegrafUse(
+    instance: object,
+    key: string,
+    telegraf: Telegraf<ContextMessageUpdate>,
+  ) {
+    telegraf.use(instance[key].bind(instance));
   }
 
   handleTelegrafOn(

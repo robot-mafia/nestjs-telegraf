@@ -7,6 +7,13 @@ import { DECORATORS } from './telegraf.constants';
 export class TelegrafMetadataAccessor {
   constructor(private readonly reflector: Reflector) {}
 
+  isTelegrafUse(target: Type<any> | Function): boolean {
+    if (!target) {
+      return false;
+    }
+    return !!this.reflector.get(DECORATORS.USE, target);
+  }
+
   isTelegrafStart(target: Type<any> | Function): boolean {
     if (!target) {
       return false;
