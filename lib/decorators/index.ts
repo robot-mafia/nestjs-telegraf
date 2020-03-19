@@ -12,3 +12,4 @@ export * from './telegraf-hashtag.decorator';
 export * from './telegraf-cashtag.decorator';
 export * from './telegraf-action.decorator';
 export * from './telegraf-inline-query.decorator';
+export * from './telegraf-game-query.decorator';

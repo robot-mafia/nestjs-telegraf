@@ -144,4 +144,11 @@ export class TelegrafMetadataAccessor {
   getTelegrafInlineQueryMetadata(target: Type<any> | Function) {
     return this.reflector.get(DECORATORS.INLINE_QUERY, target);
   }
+
+  isTelegrafGameQuery(target: Type<any> | Function): boolean {
+    if (!target) {
+      return false;
+    }
+    return !!this.reflector.get(DECORATORS.GAME_QUERY, target);
+  }
 }

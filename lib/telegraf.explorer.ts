@@ -99,6 +99,8 @@ export class TelegrafExplorer implements OnModuleInit {
               instance[key],
             );
             this.handleTelegrafInlineQuery(instance, key, telegraf, metadata);
+          } else if (this.metadataAccessor.isTelegrafGameQuery(instance[key])) {
+            this.handleTelegrafGameQuery(instance, key, telegraf);
           }
         },
       );
@@ -232,5 +234,13 @@ export class TelegrafExplorer implements OnModuleInit {
   ) {
     // @ts-ignore
     telegraf.inlineQuery(metadata.triggers, instance[key].bind(instance));
+  }
+
+  handleTelegrafGameQuery(
+    instance: object,
+    key: string,
+    telegraf: Telegraf<ContextMessageUpdate>,
+  ) {
+    telegraf.gameQuery(instance[key].bind(instance));
   }
 }
