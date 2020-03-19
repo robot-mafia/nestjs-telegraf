@@ -72,6 +72,11 @@ export class TelegrafExplorer implements OnModuleInit {
               instance[key],
             );
             this.handleTelegrafMention(instance, key, telegraf, metadata);
+          } else if (this.metadataAccessor.isTelegrafPhone(instance[key])) {
+            const metadata = this.metadataAccessor.getTelegrafPhoneMetadata(
+              instance[key],
+            );
+            this.handleTelegrafPhone(instance, key, telegraf, metadata);
           }
         },
       );
@@ -156,5 +161,15 @@ export class TelegrafExplorer implements OnModuleInit {
   ) {
     // @ts-ignore
     telegraf.mention(metadata.username, instance[key].bind(instance));
+  }
+
+  handleTelegrafPhone(
+    instance: object,
+    key: string,
+    telegraf: Telegraf<ContextMessageUpdate>,
+    metadata: any,
+  ) {
+    // @ts-ignore
+    telegraf.phone(metadata.phone, instance[key].bind(instance));
   }
 }
