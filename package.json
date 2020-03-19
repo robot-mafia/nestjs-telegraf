@@ -39,7 +39,6 @@
   "devDependencies": {
     "@nestjs/common": "6.11.11",
     "@nestjs/core": "6.11.11",
-    "@types/lodash": "4.14.149",
     "husky": "4.2.3",
     "lint-staged": "10.0.8",
     "prettier": "1.19.1",
