@@ -111,4 +111,15 @@ export class TelegrafMetadataAccessor {
   getTelegrafHashtagMetadata(target: Type<any> | Function) {
     return this.reflector.get(DECORATORS.HASHTAG, target);
   }
+
+  isTelegrafCashtag(target: Type<any> | Function): boolean {
+    if (!target) {
+      return false;
+    }
+    return !!this.reflector.get(DECORATORS.CASHTAG, target);
+  }
+
+  getTelegrafCashtagMetadata(target: Type<any> | Function) {
+    return this.reflector.get(DECORATORS.CASHTAG, target);
+  }
 }
