@@ -100,4 +100,15 @@ export class TelegrafMetadataAccessor {
   getTelegrafPhoneMetadata(target: Type<any> | Function) {
     return this.reflector.get(DECORATORS.PHONE, target);
   }
+
+  isTelegrafHashtag(target: Type<any> | Function): boolean {
+    if (!target) {
+      return false;
+    }
+    return !!this.reflector.get(DECORATORS.HASHTAG, target);
+  }
+
+  getTelegrafHashtagMetadata(target: Type<any> | Function) {
+    return this.reflector.get(DECORATORS.HASHTAG, target);
+  }
 }
