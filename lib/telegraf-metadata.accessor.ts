@@ -1,6 +1,18 @@
 import { Injectable, Type } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { TelegrafStart } from './decorators';
+import {
+  TelegrafActionMetadata,
+  TelegrafCashtagMetadata,
+  TelegrafCommandMetadata,
+  TelegrafEntityMetadata,
+  TelegrafHashtagMetadata,
+  TelegrafHearsMetadata,
+  TelegrafInlineQueryMetadata,
+  TelegrafMentionMetadata,
+  TelegrafOnMetadata,
+  TelegrafPhoneMetadata,
+  TelegrafStart,
+} from './decorators';
 import { DECORATORS } from './telegraf.constants';
 
 @Injectable()
@@ -21,7 +33,9 @@ export class TelegrafMetadataAccessor {
     return !!this.reflector.get(DECORATORS.ON, target);
   }
 
-  getTelegrafOnMetadata(target: Type<any> | Function) {
+  getTelegrafOnMetadata(
+    target: Type<any> | Function,
+  ): TelegrafOnMetadata | undefined {
     return this.reflector.get(DECORATORS.ON, target);
   }
 
@@ -32,7 +46,9 @@ export class TelegrafMetadataAccessor {
     return !!this.reflector.get(DECORATORS.HEARS, target);
   }
 
-  getTelegrafHearsMetadata(target: Type<any> | Function) {
+  getTelegrafHearsMetadata(
+    target: Type<any> | Function,
+  ): TelegrafHearsMetadata | undefined {
     return this.reflector.get(DECORATORS.HEARS, target);
   }
 
@@ -43,7 +59,9 @@ export class TelegrafMetadataAccessor {
     return !!this.reflector.get(DECORATORS.COMMAND, target);
   }
 
-  getTelegrafCommandMetadata(target: Type<any> | Function) {
+  getTelegrafCommandMetadata(
+    target: Type<any> | Function,
+  ): TelegrafCommandMetadata | undefined {
     return this.reflector.get(DECORATORS.COMMAND, target);
   }
 
@@ -75,7 +93,9 @@ export class TelegrafMetadataAccessor {
     return !!this.reflector.get(DECORATORS.ENTITY, target);
   }
 
-  getTelegrafEntityMetadata(target: Type<any> | Function) {
+  getTelegrafEntityMetadata(
+    target: Type<any> | Function,
+  ): TelegrafEntityMetadata | undefined {
     return this.reflector.get(DECORATORS.ENTITY, target);
   }
 
@@ -86,7 +106,9 @@ export class TelegrafMetadataAccessor {
     return !!this.reflector.get(DECORATORS.MENTION, target);
   }
 
-  getTelegrafMentionMetadata(target: Type<any> | Function) {
+  getTelegrafMentionMetadata(
+    target: Type<any> | Function,
+  ): TelegrafMentionMetadata | undefined {
     return this.reflector.get(DECORATORS.MENTION, target);
   }
 
@@ -97,7 +119,9 @@ export class TelegrafMetadataAccessor {
     return !!this.reflector.get(DECORATORS.PHONE, target);
   }
 
-  getTelegrafPhoneMetadata(target: Type<any> | Function) {
+  getTelegrafPhoneMetadata(
+    target: Type<any> | Function,
+  ): TelegrafPhoneMetadata | undefined {
     return this.reflector.get(DECORATORS.PHONE, target);
   }
 
@@ -108,7 +132,9 @@ export class TelegrafMetadataAccessor {
     return !!this.reflector.get(DECORATORS.HASHTAG, target);
   }
 
-  getTelegrafHashtagMetadata(target: Type<any> | Function) {
+  getTelegrafHashtagMetadata(
+    target: Type<any> | Function,
+  ): TelegrafHashtagMetadata | undefined {
     return this.reflector.get(DECORATORS.HASHTAG, target);
   }
 
@@ -119,7 +145,9 @@ export class TelegrafMetadataAccessor {
     return !!this.reflector.get(DECORATORS.CASHTAG, target);
   }
 
-  getTelegrafCashtagMetadata(target: Type<any> | Function) {
+  getTelegrafCashtagMetadata(
+    target: Type<any> | Function,
+  ): TelegrafCashtagMetadata | undefined {
     return this.reflector.get(DECORATORS.CASHTAG, target);
   }
 
@@ -130,7 +158,9 @@ export class TelegrafMetadataAccessor {
     return !!this.reflector.get(DECORATORS.ACTION, target);
   }
 
-  getTelegrafActionMetadata(target: Type<any> | Function) {
+  getTelegrafActionMetadata(
+    target: Type<any> | Function,
+  ): TelegrafActionMetadata | undefined {
     return this.reflector.get(DECORATORS.ACTION, target);
   }
 
@@ -141,7 +171,9 @@ export class TelegrafMetadataAccessor {
     return !!this.reflector.get(DECORATORS.INLINE_QUERY, target);
   }
 
-  getTelegrafInlineQueryMetadata(target: Type<any> | Function) {
+  getTelegrafInlineQueryMetadata(
+    target: Type<any> | Function,
+  ): TelegrafInlineQueryMetadata | undefined {
     return this.reflector.get(DECORATORS.INLINE_QUERY, target);
   }
 

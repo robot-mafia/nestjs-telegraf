@@ -7,6 +7,18 @@ import { TelegrafMetadataAccessor } from './telegraf-metadata.accessor';
 import { TelegrafProvider } from './telegraf.provider';
 import { TELEGRAF_PROVIDER } from './telegraf.constants';
 import { ContextMessageUpdate } from 'telegraf';
+import {
+  TelegrafActionMetadata,
+  TelegrafCashtagMetadata,
+  TelegrafCommandMetadata,
+  TelegrafEntityMetadata,
+  TelegrafHashtagMetadata,
+  TelegrafHearsMetadata,
+  TelegrafInlineQueryMetadata,
+  TelegrafMentionMetadata,
+  TelegrafOnMetadata,
+  TelegrafPhoneMetadata,
+} from './decorators';
 
 @Injectable()
 export class TelegrafExplorer implements OnModuleInit {
@@ -119,7 +131,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: Telegraf<ContextMessageUpdate>,
-    metadata: any,
+    metadata: TelegrafOnMetadata,
   ) {
     telegraf.on(metadata.updateTypes, instance[key].bind(instance));
   }
@@ -128,7 +140,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: Telegraf<ContextMessageUpdate>,
-    metadata: any,
+    metadata: TelegrafHearsMetadata,
   ) {
     telegraf.hears(metadata.triggers, instance[key].bind(instance));
   }
@@ -137,7 +149,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: Telegraf<ContextMessageUpdate>,
-    metadata: any,
+    metadata: TelegrafCommandMetadata,
   ) {
     telegraf.command(metadata.commands, instance[key].bind(instance));
   }
@@ -171,7 +183,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: Telegraf<ContextMessageUpdate>,
-    metadata: any,
+    metadata: TelegrafEntityMetadata,
   ) {
     // @ts-ignore
     telegraf.entity(metadata.entity, instance[key].bind(instance));
@@ -181,7 +193,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: Telegraf<ContextMessageUpdate>,
-    metadata: any,
+    metadata: TelegrafMentionMetadata,
   ) {
     // @ts-ignore
     telegraf.mention(metadata.username, instance[key].bind(instance));
@@ -191,7 +203,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: Telegraf<ContextMessageUpdate>,
-    metadata: any,
+    metadata: TelegrafPhoneMetadata,
   ) {
     // @ts-ignore
     telegraf.phone(metadata.phone, instance[key].bind(instance));
@@ -201,7 +213,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: Telegraf<ContextMessageUpdate>,
-    metadata: any,
+    metadata: TelegrafHashtagMetadata,
   ) {
     // @ts-ignore
     telegraf.hashtag(metadata.hashtag, instance[key].bind(instance));
@@ -211,7 +223,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: Telegraf<ContextMessageUpdate>,
-    metadata: any,
+    metadata: TelegrafCashtagMetadata,
   ) {
     // @ts-ignore
     telegraf.cashtag(metadata.cashtag, instance[key].bind(instance));
@@ -221,7 +233,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: Telegraf<ContextMessageUpdate>,
-    metadata: any,
+    metadata: TelegrafActionMetadata,
   ) {
     telegraf.action(metadata.triggers, instance[key].bind(instance));
   }
@@ -230,7 +242,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: Telegraf<ContextMessageUpdate>,
-    metadata: any,
+    metadata: TelegrafInlineQueryMetadata,
   ) {
     // @ts-ignore
     telegraf.inlineQuery(metadata.triggers, instance[key].bind(instance));
