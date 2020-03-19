@@ -1,6 +1,6 @@
 {
   "name": "nestjs-telegraf",
-  "version": "0.7.3",
+  "version": "1.0.0-alpha.1",
   "description": "Telegraf module for Nest framework",
   "keywords": [
     "nest",
@@ -34,24 +34,21 @@
     "publish:npm": "npm publish --access public"
   },
   "dependencies": {
-    "lodash": "4.17.15"
+    "telegraf": "^3.36.0"
   },
   "devDependencies": {
     "@nestjs/common": "6.11.11",
     "@nestjs/core": "6.11.11",
-    "@types/lodash": "4.14.149",
     "husky": "4.2.3",
     "lint-staged": "10.0.8",
     "prettier": "1.19.1",
     "reflect-metadata": "0.1.13",
-    "telegraf": "3.36.0",
     "typescript": "3.8.3"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.7.0",
     "@nestjs/core": "^6.7.0",
-    "reflect-metadata": "^0.1.13",
-    "telegraf": "^3.35.0"
+    "reflect-metadata": "^0.1.13"
   },
   "husky": {
     "hooks": {
