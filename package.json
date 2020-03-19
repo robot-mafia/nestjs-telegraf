@@ -33,7 +33,9 @@
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public"
   },
-  "dependencies": {},
+  "dependencies": {
+    "telegraf": "^3.36.0"
+  },
   "devDependencies": {
     "@nestjs/common": "6.11.11",
     "@nestjs/core": "6.11.11",
@@ -42,14 +44,12 @@
     "lint-staged": "10.0.8",
     "prettier": "1.19.1",
     "reflect-metadata": "0.1.13",
-    "telegraf": "3.36.0",
     "typescript": "3.8.3"
   },
   "peerDependencies": {
     "@nestjs/common": "^6.7.0",
     "@nestjs/core": "^6.7.0",
-    "reflect-metadata": "^0.1.13",
-    "telegraf": "^3.35.0"
+    "reflect-metadata": "^0.1.13"
   },
   "husky": {
     "hooks": {
