@@ -62,6 +62,11 @@ export class TelegrafExplorer implements OnModuleInit {
             this.handleTelegrafHelp(instance, key, telegraf);
           } else if (this.metadataAccessor.isTelegrafSettings(instance[key])) {
             this.handleTelegrafSettings(instance, key, telegraf);
+          } else if (this.metadataAccessor.isTelegrafEntity(instance[key])) {
+            const metadata = this.metadataAccessor.getTelegrafEntityMetadata(
+              instance[key],
+            );
+            this.handleTelegrafEntity(instance, key, telegraf, metadata);
           }
         },
       );
@@ -126,5 +131,15 @@ export class TelegrafExplorer implements OnModuleInit {
   ) {
     // @ts-ignore
     telegraf.settings(instance[key].bind(instance));
+  }
+
+  handleTelegrafEntity(
+    instance: object,
+    key: string,
+    telegraf: Telegraf<ContextMessageUpdate>,
+    metadata: any,
+  ) {
+    // @ts-ignore
+    telegraf.entity(metadata.entity, instance[key].bind(instance));
   }
 }

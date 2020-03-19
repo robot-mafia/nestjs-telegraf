@@ -4,3 +4,4 @@ export * from './telegraf-hears.decorator';
 export * from './telegraf-command.decorator';
 export * from './telegraf-start.decorator';
 export * from './telegraf-help.decorator';
+export * from './telegraf-entity.decorator';

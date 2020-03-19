@@ -67,4 +67,15 @@ export class TelegrafMetadataAccessor {
     }
     return !!this.reflector.get(DECORATORS.SETTINGS, target);
   }
+
+  isTelegrafEntity(target: Type<any> | Function): boolean {
+    if (!target) {
+      return false;
+    }
+    return !!this.reflector.get(DECORATORS.ENTITY, target);
+  }
+
+  getTelegrafEntityMetadata(target: Type<any> | Function) {
+    return this.reflector.get(DECORATORS.ENTITY, target);
+  }
 }
