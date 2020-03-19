@@ -19,10 +19,18 @@ import { TelegrafProvider } from './telegraf.provider';
 })
 export class TelegrafCoreModule {
   public static forRoot(options: TelegrafModuleOptions): DynamicModule {
+    const telegrafProvider = {
+      provide: TELEGRAF_PROVIDER,
+      useClass: TelegrafProvider,
+      inject: [TELEGRAF_MODULE_OPTIONS],
+    };
     return {
       module: TelegrafCoreModule,
-      providers: [],
-      exports: [],
+      providers: [
+        { provide: TELEGRAF_MODULE_OPTIONS, useValue: options },
+        telegrafProvider,
+      ],
+      exports: [telegrafProvider],
     };
   }
 
