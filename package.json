@@ -34,7 +34,7 @@
     "publish:npm": "npm publish --access public"
   },
   "dependencies": {
-    "telegraf": "^3.36.0"
+    "telegraf": "3.36.0"
   },
   "devDependencies": {
     "@nestjs/common": "6.11.11",
