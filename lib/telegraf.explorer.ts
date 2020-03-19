@@ -60,6 +60,8 @@ export class TelegrafExplorer implements OnModuleInit {
             this.handleTelegrafStart(instance, key, telegraf);
           } else if (this.metadataAccessor.isTelegrafHelp(instance[key])) {
             this.handleTelegrafHelp(instance, key, telegraf);
+          } else if (this.metadataAccessor.isTelegrafSettings(instance[key])) {
+            this.handleTelegrafSettings(instance, key, telegraf);
           }
         },
       );
@@ -115,5 +117,14 @@ export class TelegrafExplorer implements OnModuleInit {
     telegraf: Telegraf<ContextMessageUpdate>,
   ) {
     telegraf.help(instance[key].bind(instance));
+  }
+
+  handleTelegrafSettings(
+    instance: object,
+    key: string,
+    telegraf: Telegraf<ContextMessageUpdate>,
+  ) {
+    // @ts-ignore
+    telegraf.settings(instance[key].bind(instance));
   }
 }

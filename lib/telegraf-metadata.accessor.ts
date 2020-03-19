@@ -60,4 +60,11 @@ export class TelegrafMetadataAccessor {
     }
     return !!this.reflector.get(DECORATORS.HELP, target);
   }
+
+  isTelegrafSettings(target: Type<any> | Function): boolean {
+    if (!target) {
+      return false;
+    }
+    return !!this.reflector.get(DECORATORS.SETTINGS, target);
+  }
 }
