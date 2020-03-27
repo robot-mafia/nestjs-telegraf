@@ -21,7 +21,7 @@ export class TelegrafProvider<TContext extends ContextMessageUpdate>
   }
 
   onApplicationBootstrap() {
-    this.catch(e => {
+    this.catch((e) => {
       this.logger.error(e);
     });
     this.startPolling();
