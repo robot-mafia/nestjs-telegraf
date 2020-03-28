@@ -5,13 +5,13 @@ import {
   Logger,
   OnApplicationShutdown,
 } from '@nestjs/common';
-import Telegraf, { ContextMessageUpdate } from 'telegraf';
+import { Telegraf, ContextMessageUpdate } from 'telegraf';
 import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants';
 import { TelegrafModuleOptions } from './interfaces';
 
 @Injectable()
-// @ts-ignore
 export class TelegrafProvider<TContext extends ContextMessageUpdate>
+  // @ts-ignore
   extends Telegraf<TContext>
   implements OnApplicationBootstrap, OnApplicationShutdown {
   private logger = new Logger('Telegraf');
@@ -21,7 +21,7 @@ export class TelegrafProvider<TContext extends ContextMessageUpdate>
   }
 
   onApplicationBootstrap() {
-    this.catch(e => {
+    this.catch((e) => {
       this.logger.error(e);
     });
     this.startPolling();

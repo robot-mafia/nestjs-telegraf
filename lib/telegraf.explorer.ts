@@ -2,11 +2,10 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { DiscoveryService, ModuleRef } from '@nestjs/core';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
-import Telegraf from 'telegraf';
 import { TelegrafMetadataAccessor } from './telegraf-metadata.accessor';
 import { TelegrafProvider } from './telegraf.provider';
 import { TELEGRAF_PROVIDER } from './telegraf.constants';
-import { ContextMessageUpdate } from 'telegraf';
+import { Telegraf, ContextMessageUpdate } from 'telegraf';
 import {
   TelegrafActionMetadata,
   TelegrafCashtagMetadata,
