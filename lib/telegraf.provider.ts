@@ -5,13 +5,13 @@ import {
   Logger,
   OnApplicationShutdown,
 } from '@nestjs/common';
-const Telegraf = require('telegraf');
-import { ContextMessageUpdate } from 'telegraf';
+import { Telegraf, ContextMessageUpdate } from 'telegraf';
 import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants';
 import { TelegrafModuleOptions } from './interfaces';
 
 @Injectable()
 export class TelegrafProvider<TContext extends ContextMessageUpdate>
+  // @ts-ignore
   extends Telegraf<TContext>
   implements OnApplicationBootstrap, OnApplicationShutdown {
   private logger = new Logger('Telegraf');
