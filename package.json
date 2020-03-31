@@ -1,6 +1,6 @@
 {
   "name": "@robotmafia-inc/nestjs-telegraf",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Telegraf module for NestJS",
   "keywords": [
     "nest",
