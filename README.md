@@ -22,7 +22,7 @@
 
 ## Description
 
-[Telegraf](https://github.com/telegraf/telegraf) module for [Nest](https://github.com/nestjs/nest).
+[Telegraf](https://github.com/telegraf/telegraf) module for [NestJS](https://github.com/nestjs/nest).
 
 ## Installation
 
@@ -111,7 +111,7 @@ Like other [factory providers](https://docs.nestjs.com/fundamentals/custom-provi
 TelegrafModule.forRootAsync({
   imports: [ConfigModule],
   useFactory: async (configService: ConfigService) => ({
-    token: configService.getString('TELEGRAM_BOT_TOKEN'),
+    token: configService.get<string>('TELEGRAM_BOT_TOKEN'),
   }),
   inject: [ConfigService],
 });
@@ -153,8 +153,8 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## People
 
-- Authors - [Aleksandr Bukhalo](https://bukhalo.com/) & [Igor Kamyshev](https://kamyshev.me/)
-- Maintainers - [Aleksandr Bukhalo](https://bukhalo.com/)
+- Authors - [robotmafia Inc.](https://robotmafia.io) & [Aleksandr Bukhalo](https://bukhalo.com/) & [Igor Kamyshev](https://kamyshev.me/)
+- Maintainers - [robotmafia Inc.](https://robotmafia.io/)
 - Website - [https://nestjs.com](https://nestjs.com/)
 
 ## License

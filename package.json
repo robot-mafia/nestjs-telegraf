@@ -1,12 +1,11 @@
 {
-  "name": "nestjs-telegraf",
-  "version": "1.0.0-alpha.1",
-  "description": "Telegraf module for Nest framework",
+  "name": "@robotmafia-inc/nestjs-telegraf",
+  "version": "1.0.1",
+  "description": "Telegraf module for NestJS",
   "keywords": [
     "nest",
     "nestjs",
-    "nodejs",
-    "typescript",
+    "nestjs-module",
     "telegraf",
     "telegram",
     "telegram bot",
@@ -15,18 +14,18 @@
     "bot api",
     "bot framework"
   ],
-  "homepage": "https://github.com/bukhalo/nestjs-telegraf#readme",
+  "homepage": "https://github.com/robotmafia-inc/nestjs-telegraf#readme",
   "bugs": {
-    "url": "https://github.com/bukhalo/nestjs-telegraf/issues",
-    "email": "aleksandr@bukhalo.com"
+    "url": "https://github.com/robotmafia-inc/nestjs-telegraf/issues"
   },
   "license": "MIT",
-  "author": "Aleksandr Bukhalo <aleksandr@bukhalo.com>",
+  "author": "robotmafia Inc. <hello@robotmafia.io>",
   "contributors": [
+    "donbot <donbot@robotmafia.io>",
     "Aleksandr Bukhalo <aleksandr@bukhalo.com> (https://bukhalo.com/)",
     "Igor Kamyshev <igor@kamyshev.me> (https://kamyshev.me/)"
   ],
-  "repository": "git@github.com:bukhalo/nestjs-telegraf.git",
+  "repository": "git@github.com:robotmafia-inc/nestjs-telegraf.git",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
     "precommit": "lint-staged",
@@ -40,6 +39,11 @@
   "devDependencies": {
     "@nestjs/common": "7.0.7",
     "@nestjs/core": "7.0.7",
+    "@typescript-eslint/eslint-plugin": "2.25.0",
+    "@typescript-eslint/parser": "2.25.0",
+    "eslint": "6.8.0",
+    "eslint-config-prettier": "6.10.1",
+    "eslint-plugin-import": "2.20.1",
     "husky": "4.2.3",
     "lint-staged": "10.1.1",
     "prettier": "2.0.2",
