@@ -153,8 +153,8 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
 ## People
 
-- Authors - [robotmafia Inc.](https://robotmafia.io) & [Aleksandr Bukhalo](https://bukhalo.com/) & [Igor Kamyshev](https://kamyshev.me/)
-- Maintainers - [robotmafia Inc.](https://robotmafia.io/)
+- Authors - [Aleksandr Bukhalo](https://bukhalo.com/) & [Igor Kamyshev](https://kamyshev.me/)
+- Maintainers - [Aleksandr Bukhalo](https://bukhalo.com/)
 - Website - [https://nestjs.com](https://nestjs.com/)
 
 ## License

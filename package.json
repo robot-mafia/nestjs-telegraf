@@ -1,5 +1,5 @@
 {
-  "name": "@robotmafia-inc/nestjs-telegraf",
+  "name": "nestjs-telegraf",
   "version": "1.0.2",
   "description": "Telegraf module for NestJS",
   "keywords": [
@@ -14,18 +14,17 @@
     "bot api",
     "bot framework"
   ],
-  "homepage": "https://github.com/robotmafia-inc/nestjs-telegraf#readme",
+  "homepage": "https://github.com/bukhalo/nestjs-telegraf#readme",
   "bugs": {
-    "url": "https://github.com/robotmafia-inc/nestjs-telegraf/issues"
+    "url": "https://github.com/bukhalo/nestjs-telegraf/issues"
   },
   "license": "MIT",
-  "author": "robotmafia Inc. <hello@robotmafia.io>",
+  "author": "Aleksandr Bukhalo <a@bukhalo.com>",
   "contributors": [
-    "donbot <donbot@robotmafia.io>",
-    "Aleksandr Bukhalo <aleksandr@bukhalo.com> (https://bukhalo.com/)",
+    "Aleksandr Bukhalo <a@bukhalo.com> (https://bukhalo.com/)",
     "Igor Kamyshev <igor@kamyshev.me> (https://kamyshev.me/)"
   ],
-  "repository": "git@github.com:robotmafia-inc/nestjs-telegraf.git",
+  "repository": "git@github.com:bukhalo/nestjs-telegraf.git",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
     "precommit": "lint-staged",
