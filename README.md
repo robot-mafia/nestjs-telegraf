@@ -147,6 +147,22 @@ TelegrafModule.forRootAsync({
 });
 ```
 
+## Webhooks
+If you want to configure a telegram bot webhook, you need to get a middleware from `TelegrafProvider` for connect it in your `main.ts` file.
+ 
+To access it, you must use the `app.get()` method, followed by the provider reference:
+```typescript
+const telegrafProvider = app.get('TelegrafProvider');
+```
+
+Now you can connect middleware:
+```typescript
+app.use(telegrafService.webhookCallback('/secret-path'));
+
+// set up a webhook immediately if necessary
+telegrafService.telegram.setWebhook('https://server.tld:3000/secret-path');
+```
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
