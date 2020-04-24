@@ -130,7 +130,7 @@ The construction above instantiates `TelegrafConfigService` inside `TelegrafModu
 ```typescript
 @Injectable()
 class TelegrafConfigService implements TelegrafOptionsFactory {
-  createMongooseOptions(): TelegrafModuleOptions {
+  createTelegrafOptions(): TelegrafModuleOptions {
     return {
       token: 'TELEGRAM_BOT_TOKEN',
     };
