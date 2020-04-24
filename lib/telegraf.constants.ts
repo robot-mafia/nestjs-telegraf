@@ -1,5 +1,5 @@
 export const TELEGRAF_MODULE_OPTIONS = 'TELEGRAF_MODULE_OPTIONS';
-export const TELEGRAF_PROVIDER = 'TELEGRAF_PROVIDER';
+export const TELEGRAF_PROVIDER = 'TelegrafProvider';
 
 export const DECORATORS_PREFIX = 'TELEGRAF';
 export const DECORATORS = {
