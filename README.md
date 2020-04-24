@@ -158,9 +158,23 @@ const telegrafProvider = app.get('TelegrafProvider');
 Now you can connect middleware:
 ```typescript
 app.use(telegrafService.webhookCallback('/secret-path'));
+```
 
-// set up a webhook immediately if necessary
-telegrafService.telegram.setWebhook('https://server.tld:3000/secret-path');
+The last step is to specify launchOptions in `forRoot` method:
+```typescript
+TelegrafModule.forRootAsync({
+  imports: [ConfigModule],
+  useFactory: async (configService: ConfigService) => ({
+    token: configService.get<string>('TELEGRAM_BOT_TOKEN'),
+    launchOptions: {
+      webhook: {
+        domain: 'domain.tld',
+        hookPath: '/secret-path',
+      }
+    }
+  }),
+  inject: [ConfigService],
+});
 ```
 
 ## Support
