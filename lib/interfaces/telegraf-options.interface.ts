@@ -1,9 +1,9 @@
 import { ModuleMetadata, Type } from '@nestjs/common/interfaces';
 import {
-  TelegrafOptions,
   LaunchPollingOptions,
   LaunchWebhookOptions,
-} from 'telegraf';
+  TelegrafOptions,
+} from 'telegraf/typings/telegraf';
 
 export interface TelegrafModuleOptions {
   token: string;

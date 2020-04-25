@@ -1,8 +1,8 @@
 import { SetMetadata } from '@nestjs/common';
 import { DECORATORS } from '../telegraf.constants';
-import { HearsTriggers } from 'telegraf';
+import { HearsTriggers } from 'telegraf/typings/composer';
 
-export type TelegrafHearsTriggers = HearsTriggers;
+export type TelegrafHearsTriggers = HearsTriggers<any>;
 
 export interface TelegrafHearsMetadata {
   triggers: TelegrafHearsTriggers;
