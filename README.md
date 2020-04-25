@@ -157,7 +157,7 @@ const telegrafProvider = app.get('TelegrafProvider');
 
 Now you can connect middleware:
 ```typescript
-app.use(telegrafService.webhookCallback('/secret-path'));
+app.use(telegrafProvider.webhookCallback('/secret-path'));
 ```
 
 The last step is to specify launchOptions in `forRoot` method:
