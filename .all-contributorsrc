@@ -35,6 +35,25 @@
         "code",
         "bug"
       ]
+    },
+    {
+      "login": "bukhalo",
+      "name": "Aleksandr Bukhalo",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/14031838?v=4",
+      "profile": "https://bukhalo.com/",
+      "contributions": [
+        "business",
+        "code",
+        "doc",
+        "example",
+        "ideas",
+        "infra",
+        "maintenance",
+        "projectManagement",
+        "question",
+        "review",
+        "tutorial"
+      ]
     }
   ],
   "contributorsPerLine": 7,
