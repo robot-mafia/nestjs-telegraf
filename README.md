@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
@@ -205,6 +205,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://github.com/Sedjj"><img src="https://avatars3.githubusercontent.com/u/5383030?v=4" width="100px;" alt=""/><br /><sub><b>Eldar Salimzebarov</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3ASedjj" title="Bug reports">🐛</a> <a href="#ideas-Sedjj" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="http://www.ismb.it/vito.macchia"><img src="https://avatars3.githubusercontent.com/u/2249342?v=4" width="100px;" alt=""/><br /><sub><b>Vito Macchia</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=lamuertepeluda" title="Code">💻</a> <a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3Alamuertepeluda" title="Bug reports">🐛</a> <a href="#ideas-lamuertepeluda" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/edgesite"><img src="https://avatars3.githubusercontent.com/u/10336620?v=4" width="100px;" alt=""/><br /><sub><b>KITAHARA SETSUNA</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=edgesite" title="Code">💻</a> <a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3Aedgesite" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
