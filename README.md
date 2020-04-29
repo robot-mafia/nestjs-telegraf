@@ -1,6 +1,6 @@
 <p align="center">
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
@@ -207,6 +207,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="http://www.ismb.it/vito.macchia"><img src="https://avatars3.githubusercontent.com/u/2249342?v=4" width="100px;" alt=""/><br /><sub><b>Vito Macchia</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=lamuertepeluda" title="Code">💻</a> <a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3Alamuertepeluda" title="Bug reports">🐛</a> <a href="#ideas-lamuertepeluda" title="Ideas, Planning, & Feedback">🤔</a></td>
     <td align="center"><a href="https://github.com/edgesite"><img src="https://avatars3.githubusercontent.com/u/10336620?v=4" width="100px;" alt=""/><br /><sub><b>KITAHARA SETSUNA</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=edgesite" title="Code">💻</a> <a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3Aedgesite" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://bukhalo.com/"><img src="https://avatars2.githubusercontent.com/u/14031838?v=4" width="100px;" alt=""/><br /><sub><b>Aleksandr Bukhalo</b></sub></a><br /><a href="#business-bukhalo" title="Business development">💼</a> <a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=bukhalo" title="Code">💻</a> <a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=bukhalo" title="Documentation">📖</a> <a href="#example-bukhalo" title="Examples">💡</a> <a href="#ideas-bukhalo" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-bukhalo" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-bukhalo" title="Maintenance">🚧</a> <a href="#projectManagement-bukhalo" title="Project Management">📆</a> <a href="#question-bukhalo" title="Answering Questions">💬</a> <a href="https://github.com/bukhalo/nestjs-telegraf/pulls?q=is%3Apr+reviewed-by%3Abukhalo" title="Reviewed Pull Requests">👀</a> <a href="#tutorial-bukhalo" title="Tutorials">✅</a></td>
+    <td align="center"><a href="https://github.com/VyacheslavSaloidWork"><img src="https://avatars3.githubusercontent.com/u/43011265?v=4" width="100px;" alt=""/><br /><sub><b>Vyacheslav Saloid</b></sub></a><br /><a href="#question-VyacheslavSaloidWork" title="Answering Questions">💬</a> <a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3AVyacheslavSaloidWork" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
