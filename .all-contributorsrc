@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "Sedjj",
+      "name": "Eldar Salimzebarov",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/5383030?v=4",
+      "profile": "https://github.com/Sedjj",
+      "contributions": [
+        "bug",
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "nestjs-telegraf",
+  "projectOwner": "bukhalo",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
