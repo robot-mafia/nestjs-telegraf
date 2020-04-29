@@ -14,6 +14,17 @@
         "bug",
         "ideas"
       ]
+    },
+    {
+      "login": "lamuertepeluda",
+      "name": "Vito Macchia",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/2249342?v=4",
+      "profile": "http://www.ismb.it/vito.macchia",
+      "contributions": [
+        "code",
+        "bug",
+        "ideas"
+      ]
     }
   ],
   "contributorsPerLine": 7,
