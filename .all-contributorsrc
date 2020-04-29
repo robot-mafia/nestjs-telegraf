@@ -25,6 +25,16 @@
         "bug",
         "ideas"
       ]
+    },
+    {
+      "login": "edgesite",
+      "name": "KITAHARA SETSUNA",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/10336620?v=4",
+      "profile": "https://github.com/edgesite",
+      "contributions": [
+        "code",
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7,
