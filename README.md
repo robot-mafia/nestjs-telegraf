@@ -68,32 +68,45 @@ import {
   TelegrafHelp,
   TelegrafOn,
   TelegrafHears,
-  ContextMessageUpdate,
+  Context,
 } from 'nestjs-telegraf';
 
 @Injectable()
 export class AppService {
   @TelegrafStart()
-  start(ctx: ContextMessageUpdate) {
+  start(ctx: Context) {
     ctx.reply('Welcome');
   }
 
   @TelegrafHelp()
-  help(ctx: ContextMessageUpdate) {
+  help(ctx: Context) {
     ctx.reply('Send me a sticker');
   }
 
   @TelegrafOn('sticker')
-  on(ctx: ContextMessageUpdate) {
+  on(ctx: Context) {
     ctx.reply('👍');
   }
 
   @TelegrafHears('hi')
-  hears(ctx: ContextMessageUpdate) {
+  hears(ctx: Context) {
     ctx.reply('Hey there');
   }
 }
 ```
+
+## Bot injection
+At times you may need to access the native `Telegraf` instance. For example, you may want to connect stage middleware. You can inject the Telegraf by using the `@InjectBot()` decorator as follows:
+```typescript
+import { Injectable } from '@nestjs/common';
+import { InjectBot, TelegrafProvider } from 'nestjs-telegraf';
+
+@Injectable()
+export class BotSettingsService {
+  constructor(@InjectBot() private bot: TelegrafProvider) {}
+}
+```
+
 
 ## Async configuration
 When you need to pass module options asynchronously instead of statically, use the forRootAsync() method. As with most dynamic modules, Nest provides several techniques to deal with async configuration.
@@ -112,7 +125,7 @@ Like other [factory providers](https://docs.nestjs.com/fundamentals/custom-provi
 
 ```typescript
 TelegrafModule.forRootAsync({
-  imports: [ConfigModule],
+  imports: [ConfigModule.forFeature(telegrafModuleConfig)],
   useFactory: async (configService: ConfigService) => ({
     token: configService.get<string>('TELEGRAM_BOT_TOKEN'),
   }),
@@ -145,7 +158,7 @@ If you want to reuse an existing options provider instead of creating a private 
 
 ```typescript
 TelegrafModule.forRootAsync({
-  imports: [ConfigModule],
+  imports: [ConfigModule.forFeature(telegrafModuleConfig)],
   useExisting: ConfigService,
 });
 ```
@@ -166,7 +179,7 @@ app.use(telegrafProvider.webhookCallback('/secret-path'));
 The last step is to specify launchOptions in `forRoot` method:
 ```typescript
 TelegrafModule.forRootAsync({
-  imports: [ConfigModule],
+  imports: [ConfigModule.forFeature(telegrafModuleConfig)],
   useFactory: async (configService: ConfigService) => ({
     token: configService.get<string>('TELEGRAM_BOT_TOKEN'),
     launchOptions: {
@@ -179,6 +192,7 @@ TelegrafModule.forRootAsync({
   inject: [ConfigService],
 });
 ```
+
 
 ## Support
 
