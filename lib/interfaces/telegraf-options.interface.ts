@@ -3,7 +3,7 @@ import {
   TelegrafOptions,
   LaunchPollingOptions,
   LaunchWebhookOptions,
-} from 'telegraf';
+} from 'telegraf/typings/telegraf';
 
 export interface TelegrafModuleOptions {
   token: string;

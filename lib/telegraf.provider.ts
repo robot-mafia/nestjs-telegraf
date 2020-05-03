@@ -5,32 +5,30 @@ import {
   Logger,
   OnApplicationShutdown,
 } from '@nestjs/common';
-import Telegraf, { ContextMessageUpdate } from 'telegraf';
+import { Telegraf } from 'telegraf';
+import { Context, TelegrafModuleOptions } from './interfaces';
 import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants';
-import { TelegrafModuleOptions } from './interfaces';
 
 @Injectable()
-export class TelegrafProvider<TContext extends ContextMessageUpdate>
-  // @ts-ignore
-  extends Telegraf<TContext>
+export class TelegrafProvider extends Telegraf<Context>
   implements OnApplicationBootstrap, OnApplicationShutdown {
   private logger = new Logger('Telegraf');
-  private launchOptions;
+  private readonly launchOptions;
 
   constructor(@Inject(TELEGRAF_MODULE_OPTIONS) options: TelegrafModuleOptions) {
     super(options.token, options.options);
     this.launchOptions = options.launchOptions;
   }
 
-  onApplicationBootstrap() {
+  async onApplicationBootstrap() {
     this.catch((e) => {
       this.logger.error(e);
     });
 
-    this.launch(this.launchOptions);
+    await this.launch(this.launchOptions);
   }
 
-  async onApplicationShutdown(signal?: string) {
+  async onApplicationShutdown() {
     await this.stop();
   }
 }

@@ -1,29 +1,13 @@
 <p align="center">
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <a href="http://nestjs.com/" target="blank">
+    <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /
+  </a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/core.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-
-## Description
+# NestJS Telegraf
+![npm](https://img.shields.io/npm/dm/nestjs-telegraf)
+![GitHub last commit](https://img.shields.io/github/last-commit/bukhalo/nestjs-telegraf)
+![NPM](https://img.shields.io/npm/l/nestjs-telegraf)
 
 [Telegraf](https://github.com/telegraf/telegraf) module for [NestJS](https://github.com/nestjs/nest).
 
@@ -68,32 +52,45 @@ import {
   TelegrafHelp,
   TelegrafOn,
   TelegrafHears,
-  ContextMessageUpdate,
+  Context,
 } from 'nestjs-telegraf';
 
 @Injectable()
 export class AppService {
   @TelegrafStart()
-  start(ctx: ContextMessageUpdate) {
+  start(ctx: Context) {
     ctx.reply('Welcome');
   }
 
   @TelegrafHelp()
-  help(ctx: ContextMessageUpdate) {
+  help(ctx: Context) {
     ctx.reply('Send me a sticker');
   }
 
   @TelegrafOn('sticker')
-  on(ctx: ContextMessageUpdate) {
+  on(ctx: Context) {
     ctx.reply('👍');
   }
 
   @TelegrafHears('hi')
-  hears(ctx: ContextMessageUpdate) {
+  hears(ctx: Context) {
     ctx.reply('Hey there');
   }
 }
 ```
+
+## Bot injection
+At times you may need to access the native `Telegraf` instance. For example, you may want to connect stage middleware. You can inject the Telegraf by using the `@InjectBot()` decorator as follows:
+```typescript
+import { Injectable } from '@nestjs/common';
+import { InjectBot, TelegrafProvider } from 'nestjs-telegraf';
+
+@Injectable()
+export class BotSettingsService {
+  constructor(@InjectBot() private bot: TelegrafProvider) {}
+}
+```
+
 
 ## Async configuration
 When you need to pass module options asynchronously instead of statically, use the forRootAsync() method. As with most dynamic modules, Nest provides several techniques to deal with async configuration.
@@ -112,7 +109,7 @@ Like other [factory providers](https://docs.nestjs.com/fundamentals/custom-provi
 
 ```typescript
 TelegrafModule.forRootAsync({
-  imports: [ConfigModule],
+  imports: [ConfigModule.forFeature(telegrafModuleConfig)],
   useFactory: async (configService: ConfigService) => ({
     token: configService.get<string>('TELEGRAM_BOT_TOKEN'),
   }),
@@ -145,7 +142,7 @@ If you want to reuse an existing options provider instead of creating a private 
 
 ```typescript
 TelegrafModule.forRootAsync({
-  imports: [ConfigModule],
+  imports: [ConfigModule.forFeature(telegrafModuleConfig)],
   useExisting: ConfigService,
 });
 ```
@@ -166,7 +163,7 @@ app.use(telegrafProvider.webhookCallback('/secret-path'));
 The last step is to specify launchOptions in `forRoot` method:
 ```typescript
 TelegrafModule.forRootAsync({
-  imports: [ConfigModule],
+  imports: [ConfigModule.forFeature(telegrafModuleConfig)],
   useFactory: async (configService: ConfigService) => ({
     token: configService.get<string>('TELEGRAM_BOT_TOKEN'),
     launchOptions: {
@@ -179,6 +176,7 @@ TelegrafModule.forRootAsync({
   inject: [ConfigService],
 });
 ```
+
 
 ## Support
 
@@ -203,11 +201,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/Sedjj"><img src="https://avatars3.githubusercontent.com/u/5383030?v=4" width="100px;" alt=""/><br /><sub><b>Eldar Salimzebarov</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3ASedjj" title="Bug reports">🐛</a> <a href="#ideas-Sedjj" title="Ideas, Planning, & Feedback">🤔</a></td>
-    <td align="center"><a href="http://www.ismb.it/vito.macchia"><img src="https://avatars3.githubusercontent.com/u/2249342?v=4" width="100px;" alt=""/><br /><sub><b>Vito Macchia</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=lamuertepeluda" title="Code">💻</a> <a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3Alamuertepeluda" title="Bug reports">🐛</a> <a href="#ideas-lamuertepeluda" title="Ideas, Planning, & Feedback">🤔</a></td>
+    <td align="center"><a href="https://github.com/Sedjj"><img src="https://avatars3.githubusercontent.com/u/5383030?v=4" width="100px;" alt=""/><br /><sub><b>Eldar Salimzebarov</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3ASedjj" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://www.ismb.it/vito.macchia"><img src="https://avatars3.githubusercontent.com/u/2249342?v=4" width="100px;" alt=""/><br /><sub><b>Vito Macchia</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=lamuertepeluda" title="Code">💻</a> <a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3Alamuertepeluda" title="Bug reports">🐛</a></td>
     <td align="center"><a href="https://github.com/edgesite"><img src="https://avatars3.githubusercontent.com/u/10336620?v=4" width="100px;" alt=""/><br /><sub><b>KITAHARA SETSUNA</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=edgesite" title="Code">💻</a> <a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3Aedgesite" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://bukhalo.com/"><img src="https://avatars2.githubusercontent.com/u/14031838?v=4" width="100px;" alt=""/><br /><sub><b>Aleksandr Bukhalo</b></sub></a><br /><a href="#business-bukhalo" title="Business development">💼</a> <a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=bukhalo" title="Code">💻</a> <a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=bukhalo" title="Documentation">📖</a> <a href="#example-bukhalo" title="Examples">💡</a> <a href="#ideas-bukhalo" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-bukhalo" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#maintenance-bukhalo" title="Maintenance">🚧</a> <a href="#projectManagement-bukhalo" title="Project Management">📆</a> <a href="#question-bukhalo" title="Answering Questions">💬</a> <a href="https://github.com/bukhalo/nestjs-telegraf/pulls?q=is%3Apr+reviewed-by%3Abukhalo" title="Reviewed Pull Requests">👀</a> <a href="#tutorial-bukhalo" title="Tutorials">✅</a></td>
-    <td align="center"><a href="https://github.com/VyacheslavSaloidWork"><img src="https://avatars3.githubusercontent.com/u/43011265?v=4" width="100px;" alt=""/><br /><sub><b>Vyacheslav Saloid</b></sub></a><br /><a href="#question-VyacheslavSaloidWork" title="Answering Questions">💬</a> <a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3AVyacheslavSaloidWork" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://bukhalo.com/"><img src="https://avatars2.githubusercontent.com/u/14031838?v=4" width="100px;" alt=""/><br /><sub><b>Aleksandr Bukhalo</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=bukhalo" title="Code">💻</a> <a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=bukhalo" title="Documentation">📖</a> <a href="https://github.com/bukhalo/nestjs-telegraf/pulls?q=is%3Apr+reviewed-by%3Abukhalo" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/VyacheslavSaloidWork"><img src="https://avatars3.githubusercontent.com/u/43011265?v=4" width="100px;" alt=""/><br /><sub><b>Vyacheslav Saloid</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3AVyacheslavSaloidWork" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 

@@ -7,10 +7,11 @@ import {
 
 @Module({})
 export class TelegrafModule {
-  public static forRoot(options?: TelegrafModuleOptions): DynamicModule {
+  public static forRoot(options: TelegrafModuleOptions): DynamicModule {
     return {
       module: TelegrafModule,
       imports: [TelegrafCoreModule.forRoot(options)],
+      exports: [TelegrafCoreModule],
     };
   }
 
@@ -20,6 +21,7 @@ export class TelegrafModule {
     return {
       module: TelegrafModule,
       imports: [TelegrafCoreModule.forRootAsync(options)],
+      exports: [TelegrafCoreModule],
     };
   }
 }
