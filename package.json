@@ -33,7 +33,7 @@
     "test": ""
   },
   "dependencies": {
-    "telegraf": "3.37.0"
+    "telegraf": "3.38.0"
   },
   "devDependencies": {
     "@nestjs/common": "7.0.9",
