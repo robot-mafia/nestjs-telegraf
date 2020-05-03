@@ -1,3 +1,4 @@
+import { DiscoveryModule } from '@nestjs/core';
 import { Module, DynamicModule, Provider, Type } from '@nestjs/common';
 import {
   TelegrafModuleOptions,
@@ -10,7 +11,6 @@ import {
 } from './telegraf.constants';
 import { TelegrafMetadataAccessor } from './telegraf-metadata.accessor';
 import { TelegrafExplorer } from './telegraf.explorer';
-import { DiscoveryModule } from '@nestjs/core';
 import { TelegrafProvider } from './telegraf.provider';
 
 @Module({
