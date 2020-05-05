@@ -21,8 +21,11 @@ export class TelegrafProvider extends Telegraf<Context>
   }
 
   async onApplicationBootstrap() {
-    this.catch((e) => {
-      this.logger.error(e);
+    this.catch((err, ctx: Context) => {
+      this.logger.error(
+        `Encountered an error for ${ctx.updateType} update type`,
+        err,
+      );
     });
 
     await this.launch(this.launchOptions);
