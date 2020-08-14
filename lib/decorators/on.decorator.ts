@@ -8,18 +8,23 @@ export type TelegrafOnUpdateTypes =
   | MessageSubTypes
   | MessageSubTypes[];
 
-export interface TelegrafOnMetadata {
+export interface OnOptions {
   updateTypes: TelegrafOnUpdateTypes;
 }
 
 /**
  * Registers middleware for provided update type.
- * @param updateTypes Update type
  *
- * https://telegraf.js.org/#/?id=on
+ * @see https://telegraf.js.org/#/?id=on
  */
-export function TelegrafOn(
-  updateTypes: TelegrafOnUpdateTypes,
-): MethodDecorator {
+export const On = (updateTypes: TelegrafOnUpdateTypes): MethodDecorator => {
   return SetMetadata(DECORATORS.ON, { updateTypes: updateTypes });
-}
+};
+
+/**
+ * Registers middleware for provided update type.
+ *
+ * @see https://telegraf.js.org/#/?id=on
+ * @deprecated since v2, use On decorator instead.
+ */
+export const TelegrafOn = On;

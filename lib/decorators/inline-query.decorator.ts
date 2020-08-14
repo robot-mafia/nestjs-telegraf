@@ -3,18 +3,25 @@ import { DECORATORS } from '../telegraf.constants';
 
 export type TelegrafInlineQueryTriggers = string | string[] | RegExp | RegExp[];
 
-export interface TelegrafInlineQueryMetadata {
+export interface InlineQueryOptions {
   triggers: TelegrafInlineQueryTriggers;
 }
 
 /**
  * Registers middleware for handling inline_query actions with regular expressions.
- * @param triggers Triggers
  *
- * https://telegraf.js.org/#/?id=inlinequery
+ * @see https://telegraf.js.org/#/?id=inlinequery
  */
-export function TelegrafInlineQuery(
+export const InlineQuery = (
   triggers: TelegrafInlineQueryTriggers,
-): MethodDecorator {
+): MethodDecorator => {
   return SetMetadata(DECORATORS.INLINE_QUERY, { triggers });
-}
+};
+
+/**
+ * Registers middleware for handling inline_query actions with regular expressions.
+ *
+ * @see https://telegraf.js.org/#/?id=inlinequery
+ * @deprecated since v2, use InlineQuery decorator instead.
+ */
+export const TelegrafInlineQuery = InlineQuery;

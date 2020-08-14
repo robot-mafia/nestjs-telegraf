@@ -6,16 +6,16 @@ import { TelegrafMetadataAccessor } from './telegraf-metadata.accessor';
 import { TelegrafProvider } from './telegraf.provider';
 import { TELEGRAF_PROVIDER } from './telegraf.constants';
 import {
-  TelegrafActionMetadata,
-  TelegrafCashtagMetadata,
-  TelegrafCommandMetadata,
-  TelegrafEntityMetadata,
-  TelegrafHashtagMetadata,
-  TelegrafHearsMetadata,
-  TelegrafInlineQueryMetadata,
-  TelegrafMentionMetadata,
-  TelegrafOnMetadata,
-  TelegrafPhoneMetadata,
+  ActionOptions,
+  CashtagOptions,
+  CommandOptions,
+  EntityOptions,
+  HashtagOptions,
+  HearsOptions,
+  InlineQueryOptions,
+  MentionOptions,
+  OnOptions,
+  PhoneOptions,
 } from './decorators';
 
 @Injectable()
@@ -127,7 +127,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: TelegrafProvider,
-    metadata: TelegrafOnMetadata,
+    metadata: OnOptions,
   ) {
     telegraf.on(metadata.updateTypes, instance[key].bind(instance));
   }
@@ -136,7 +136,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: TelegrafProvider,
-    metadata: TelegrafHearsMetadata,
+    metadata: HearsOptions,
   ) {
     telegraf.hears(metadata.triggers, instance[key].bind(instance));
   }
@@ -145,7 +145,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: TelegrafProvider,
-    metadata: TelegrafCommandMetadata,
+    metadata: CommandOptions,
   ) {
     telegraf.command(metadata.commands, instance[key].bind(instance));
   }
@@ -179,7 +179,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: TelegrafProvider,
-    metadata: TelegrafEntityMetadata,
+    metadata: EntityOptions,
   ) {
     // @ts-ignore
     telegraf.entity(metadata.entity, instance[key].bind(instance));
@@ -189,7 +189,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: TelegrafProvider,
-    metadata: TelegrafMentionMetadata,
+    metadata: MentionOptions,
   ) {
     // @ts-ignore
     telegraf.mention(metadata.username, instance[key].bind(instance));
@@ -199,7 +199,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: TelegrafProvider,
-    metadata: TelegrafPhoneMetadata,
+    metadata: PhoneOptions,
   ) {
     // @ts-ignore
     telegraf.phone(metadata.phone, instance[key].bind(instance));
@@ -209,7 +209,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: TelegrafProvider,
-    metadata: TelegrafHashtagMetadata,
+    metadata: HashtagOptions,
   ) {
     // @ts-ignore
     telegraf.hashtag(metadata.hashtag, instance[key].bind(instance));
@@ -219,7 +219,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: TelegrafProvider,
-    metadata: TelegrafCashtagMetadata,
+    metadata: CashtagOptions,
   ) {
     // @ts-ignore
     telegraf.cashtag(metadata.cashtag, instance[key].bind(instance));
@@ -229,7 +229,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: TelegrafProvider,
-    metadata: TelegrafActionMetadata,
+    metadata: ActionOptions,
   ) {
     telegraf.action(metadata.triggers, instance[key].bind(instance));
   }
@@ -238,7 +238,7 @@ export class TelegrafExplorer implements OnModuleInit {
     instance: object,
     key: string,
     telegraf: TelegrafProvider,
-    metadata: TelegrafInlineQueryMetadata,
+    metadata: InlineQueryOptions,
   ) {
     // @ts-ignore
     telegraf.inlineQuery(metadata.triggers, instance[key].bind(instance));

@@ -1,6 +1,6 @@
 {
   "name": "nestjs-telegraf",
-  "version": "1.2.1",
+  "version": "1.3.0",
   "description": "Telegraf module for NestJS",
   "keywords": [
     "nest",
@@ -47,6 +47,7 @@
     "lint-staged": "10.2.11",
     "prettier": "2.0.5",
     "reflect-metadata": "0.1.13",
+    "rxjs": "6.6.2",
     "typescript": "3.9.7"
   },
   "peerDependencies": {

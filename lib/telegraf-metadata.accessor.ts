@@ -1,17 +1,16 @@
 import { Injectable, Type } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import {
-  TelegrafActionMetadata,
-  TelegrafCashtagMetadata,
-  TelegrafCommandMetadata,
-  TelegrafEntityMetadata,
-  TelegrafHashtagMetadata,
-  TelegrafHearsMetadata,
-  TelegrafInlineQueryMetadata,
-  TelegrafMentionMetadata,
-  TelegrafOnMetadata,
-  TelegrafPhoneMetadata,
-  TelegrafStart,
+  ActionOptions,
+  CashtagOptions,
+  CommandOptions,
+  EntityOptions,
+  HashtagOptions,
+  HearsOptions,
+  InlineQueryOptions,
+  MentionOptions,
+  OnOptions,
+  PhoneOptions,
 } from './decorators';
 import { DECORATORS } from './telegraf.constants';
 
@@ -33,9 +32,7 @@ export class TelegrafMetadataAccessor {
     return !!this.reflector.get(DECORATORS.ON, target);
   }
 
-  getTelegrafOnMetadata(
-    target: Type<any> | Function,
-  ): TelegrafOnMetadata | undefined {
+  getTelegrafOnMetadata(target: Type<any> | Function): OnOptions | undefined {
     return this.reflector.get(DECORATORS.ON, target);
   }
 
@@ -48,7 +45,7 @@ export class TelegrafMetadataAccessor {
 
   getTelegrafHearsMetadata(
     target: Type<any> | Function,
-  ): TelegrafHearsMetadata | undefined {
+  ): HearsOptions | undefined {
     return this.reflector.get(DECORATORS.HEARS, target);
   }
 
@@ -61,7 +58,7 @@ export class TelegrafMetadataAccessor {
 
   getTelegrafCommandMetadata(
     target: Type<any> | Function,
-  ): TelegrafCommandMetadata | undefined {
+  ): CommandOptions | undefined {
     return this.reflector.get(DECORATORS.COMMAND, target);
   }
 
@@ -95,7 +92,7 @@ export class TelegrafMetadataAccessor {
 
   getTelegrafEntityMetadata(
     target: Type<any> | Function,
-  ): TelegrafEntityMetadata | undefined {
+  ): EntityOptions | undefined {
     return this.reflector.get(DECORATORS.ENTITY, target);
   }
 
@@ -108,7 +105,7 @@ export class TelegrafMetadataAccessor {
 
   getTelegrafMentionMetadata(
     target: Type<any> | Function,
-  ): TelegrafMentionMetadata | undefined {
+  ): MentionOptions | undefined {
     return this.reflector.get(DECORATORS.MENTION, target);
   }
 
@@ -121,7 +118,7 @@ export class TelegrafMetadataAccessor {
 
   getTelegrafPhoneMetadata(
     target: Type<any> | Function,
-  ): TelegrafPhoneMetadata | undefined {
+  ): PhoneOptions | undefined {
     return this.reflector.get(DECORATORS.PHONE, target);
   }
 
@@ -134,7 +131,7 @@ export class TelegrafMetadataAccessor {
 
   getTelegrafHashtagMetadata(
     target: Type<any> | Function,
-  ): TelegrafHashtagMetadata | undefined {
+  ): HashtagOptions | undefined {
     return this.reflector.get(DECORATORS.HASHTAG, target);
   }
 
@@ -147,7 +144,7 @@ export class TelegrafMetadataAccessor {
 
   getTelegrafCashtagMetadata(
     target: Type<any> | Function,
-  ): TelegrafCashtagMetadata | undefined {
+  ): CashtagOptions | undefined {
     return this.reflector.get(DECORATORS.CASHTAG, target);
   }
 
@@ -160,7 +157,7 @@ export class TelegrafMetadataAccessor {
 
   getTelegrafActionMetadata(
     target: Type<any> | Function,
-  ): TelegrafActionMetadata | undefined {
+  ): ActionOptions | undefined {
     return this.reflector.get(DECORATORS.ACTION, target);
   }
 
@@ -173,7 +170,7 @@ export class TelegrafMetadataAccessor {
 
   getTelegrafInlineQueryMetadata(
     target: Type<any> | Function,
-  ): TelegrafInlineQueryMetadata | undefined {
+  ): InlineQueryOptions | undefined {
     return this.reflector.get(DECORATORS.INLINE_QUERY, target);
   }
 

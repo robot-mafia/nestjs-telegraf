@@ -5,18 +5,23 @@ import { Context } from '../interfaces';
 
 export type TelegrafActionTriggers = HearsTriggers<Context>;
 
-export interface TelegrafActionMetadata {
+export interface ActionOptions {
   triggers: TelegrafActionTriggers;
 }
 
 /**
  * Registers middleware for handling callback_data actions with regular expressions.
- * @param triggers Triggers
  *
- * https://telegraf.js.org/#/?id=action
+ * @see https://telegraf.js.org/#/?id=action
  */
-export function TelegrafAction(
-  triggers: TelegrafActionTriggers,
-): MethodDecorator {
+export const Action = (triggers: TelegrafActionTriggers): MethodDecorator => {
   return SetMetadata(DECORATORS.ACTION, { triggers });
-}
+};
+
+/**
+ * Registers middleware for handling callback_data actions with regular expressions.
+ *
+ * @see https://telegraf.js.org/#/?id=action
+ * @deprecated since v2, use Action decorator instead.
+ */
+export const TelegrafAction = Action;

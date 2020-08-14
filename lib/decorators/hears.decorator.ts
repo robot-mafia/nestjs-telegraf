@@ -5,18 +5,23 @@ import { Context } from '../interfaces';
 
 export type TelegrafHearsTriggers = HearsTriggers<Context>;
 
-export interface TelegrafHearsMetadata {
+export interface HearsOptions {
   triggers: TelegrafHearsTriggers;
 }
 
 /**
  * Registers middleware for handling text messages.
- * @param triggers Triggers
  *
- * https://telegraf.js.org/#/?id=hears
+ * @see https://telegraf.js.org/#/?id=hears
  */
-export function TelegrafHears(
-  triggers: TelegrafHearsTriggers,
-): MethodDecorator {
+export const Hears = (triggers: TelegrafHearsTriggers): MethodDecorator => {
   return SetMetadata(DECORATORS.HEARS, { triggers: triggers });
-}
+};
+
+/**
+ * Registers middleware for handling text messages.
+ *
+ * @see https://telegraf.js.org/#/?id=hears
+ * @deprecated since v2, use Hears decorator instead.
+ */
+export const TelegrafHears = Hears;
