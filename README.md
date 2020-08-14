@@ -48,31 +48,31 @@ Now let's try to repeat the example from the Telegraf [documentation page](https
 
 import { Injectable } from '@nestjs/common';
 import {
-  TelegrafStart,
-  TelegrafHelp,
-  TelegrafOn,
-  TelegrafHears,
+  Start,
+  Help,
+  On,
+  Hears,
   Context,
 } from 'nestjs-telegraf';
 
 @Injectable()
 export class AppService {
-  @TelegrafStart()
+  @Start()
   start(ctx: Context) {
     ctx.reply('Welcome');
   }
 
-  @TelegrafHelp()
+  @Help()
   help(ctx: Context) {
     ctx.reply('Send me a sticker');
   }
 
-  @TelegrafOn('sticker')
+  @On('sticker')
   on(ctx: Context) {
     ctx.reply('👍');
   }
 
-  @TelegrafHears('hi')
+  @Hears('hi')
   hears(ctx: Context) {
     ctx.reply('Hey there');
   }
