@@ -38,8 +38,7 @@ export class AppModule {}
 The `forRoot()` method accepts the same configuration object as Telegraf class constructor from the Telegraf package, as described [here](https://telegraf.js.org/#/?id=constructor).
 
 ## Telegraf methods
-
-Each Telegraf instance method described [here](https://telegraf.js.org/#/?id=telegraf) has own decorator in `nestjs-telegraf` package. The name of the decorator corresponds to the name of the Telegraf method and starts with `Telegraf`. For example [`@TelegrafHears`](https://telegraf.js.org/#/?id=hears), [`@TelegrafOn`](https://telegraf.js.org/#/?id=on), [`@TelegrafAction`](https://telegraf.js.org/#/?id=action) and so on.
+Each Telegraf instance method described [here](https://telegraf.js.org/#/?id=telegraf) has own decorator in `nestjs-telegraf` package. The name of the decorator corresponds to the name of the Telegraf method. For example [`@Hears`](https://telegraf.js.org/#/?id=hears), [`@On`](https://telegraf.js.org/#/?id=on), [`@Action`](https://telegraf.js.org/#/?id=action) and so on.
 
 Now let's try to repeat the example from the Telegraf [documentation page](https://telegraf.js.org/#/?id=example).
 
