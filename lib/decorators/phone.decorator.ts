@@ -15,11 +15,3 @@ export interface PhoneOptions {
 export const Phone = (phone: TelegrafPhonePhone): MethodDecorator => {
   return SetMetadata(DECORATORS.PHONE, { phone });
 };
-
-/**
- * Phone number handling.
- *
- * @see https://telegraf.js.org/#/?id=phone
- * @deprecated since v2, use Phone decorator instead.
- */
-export const TelegrafPhone = Phone;

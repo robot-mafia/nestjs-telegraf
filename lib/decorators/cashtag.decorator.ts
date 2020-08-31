@@ -15,11 +15,3 @@ export interface CashtagOptions {
 export const Cashtag = (cashtag: TelegrafCashtagCashtag): MethodDecorator => {
   return SetMetadata(DECORATORS.CASHTAG, { cashtag });
 };
-
-/**
- * Cashtag handling.
- *
- * @see https://telegraf.js.org/#/?id=cashtag
- * @deprecated since v2, use Cashtag decorator instead.
- */
-export const TelegrafCashtag = Cashtag;

@@ -20,11 +20,3 @@ export interface EntityOptions {
 export const Entity = (entity: TelegrafEntityEntity): MethodDecorator => {
   return SetMetadata(DECORATORS.ENTITY, { entity });
 };
-
-/**
- * Entity handling.
- *
- * @see https://telegraf.js.org/#/?id=entity
- * @deprecated since v2, use Entity decorator instead.
- */
-export const TelegrafEntity = Entity;

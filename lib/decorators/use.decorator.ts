@@ -9,11 +9,3 @@ import { DECORATORS } from '../telegraf.constants';
 export const Use = (): MethodDecorator => {
   return SetMetadata(DECORATORS.USE, {});
 };
-
-/**
- * Registers a middleware.
- *
- * @see https://telegraf.js.org/#/?id=use
- * @deprecated since v2, use Use decorator instead.
- */
-export const TelegrafUse = Use;

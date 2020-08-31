@@ -15,11 +15,3 @@ export interface HashtagOptions {
 export const Hashtag = (hashtag: TelegrafHashtagHashtag): MethodDecorator => {
   return SetMetadata(DECORATORS.HASHTAG, { hashtag });
 };
-
-/**
- * Hashtag handling.
- *
- * @see https://telegraf.js.org/#/?id=hashtag
- * @deprecated since v2, use Hashtag decorator instead.
- */
-export const TelegrafHashtag = Hashtag;

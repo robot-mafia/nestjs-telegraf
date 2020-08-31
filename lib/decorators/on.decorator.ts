@@ -20,11 +20,3 @@ export interface OnOptions {
 export const On = (updateTypes: TelegrafOnUpdateTypes): MethodDecorator => {
   return SetMetadata(DECORATORS.ON, { updateTypes: updateTypes });
 };
-
-/**
- * Registers middleware for provided update type.
- *
- * @see https://telegraf.js.org/#/?id=on
- * @deprecated since v2, use On decorator instead.
- */
-export const TelegrafOn = On;

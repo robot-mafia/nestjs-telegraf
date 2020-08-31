@@ -17,11 +17,3 @@ export interface ActionOptions {
 export const Action = (triggers: TelegrafActionTriggers): MethodDecorator => {
   return SetMetadata(DECORATORS.ACTION, { triggers });
 };
-
-/**
- * Registers middleware for handling callback_data actions with regular expressions.
- *
- * @see https://telegraf.js.org/#/?id=action
- * @deprecated since v2, use Action decorator instead.
- */
-export const TelegrafAction = Action;

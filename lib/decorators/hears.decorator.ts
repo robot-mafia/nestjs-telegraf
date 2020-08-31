@@ -17,11 +17,3 @@ export interface HearsOptions {
 export const Hears = (triggers: TelegrafHearsTriggers): MethodDecorator => {
   return SetMetadata(DECORATORS.HEARS, { triggers: triggers });
 };
-
-/**
- * Registers middleware for handling text messages.
- *
- * @see https://telegraf.js.org/#/?id=hears
- * @deprecated since v2, use Hears decorator instead.
- */
-export const TelegrafHears = Hears;

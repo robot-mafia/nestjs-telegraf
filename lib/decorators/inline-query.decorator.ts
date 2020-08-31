@@ -17,11 +17,3 @@ export const InlineQuery = (
 ): MethodDecorator => {
   return SetMetadata(DECORATORS.INLINE_QUERY, { triggers });
 };
-
-/**
- * Registers middleware for handling inline_query actions with regular expressions.
- *
- * @see https://telegraf.js.org/#/?id=inlinequery
- * @deprecated since v2, use InlineQuery decorator instead.
- */
-export const TelegrafInlineQuery = InlineQuery;

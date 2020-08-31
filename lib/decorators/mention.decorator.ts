@@ -15,11 +15,3 @@ export interface MentionOptions {
 export const Mention = (username: TelegrafMentionUsername): MethodDecorator => {
   return SetMetadata(DECORATORS.MENTION, { username });
 };
-
-/**
- * Mention handling.
- *
- * @see https://telegraf.js.org/#/?id=mention
- * @deprecated since v2, use Mention decorator instead.
- */
-export const TelegrafMention = Mention;
