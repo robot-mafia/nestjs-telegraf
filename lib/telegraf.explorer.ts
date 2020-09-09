@@ -16,6 +16,7 @@ import {
   MentionOptions,
   OnOptions,
   PhoneOptions,
+  UpdateHookOptions,
 } from './decorators';
 
 @Injectable()
@@ -27,12 +28,44 @@ export class TelegrafExplorer implements OnModuleInit {
     private readonly metadataScanner: MetadataScanner,
   ) {}
 
+  private telegraf: TelegrafProvider;
+
   onModuleInit() {
+    this.telegraf = this.moduleRef.get<TelegrafProvider>(TELEGRAF_PROVIDER, {
+      strict: false,
+    });
     this.explore();
   }
 
   explore() {
+    /**
+     * Update providers section is only for decorators under Update decorator
+     */
+    const updateProviders: InstanceWrapper[] = this.discoveryService
+      .getProviders()
+      .filter((wrapper: InstanceWrapper) =>
+        this.metadataAccessor.isUpdate(wrapper.metatype),
+      );
+
+    updateProviders.forEach((wrapper: InstanceWrapper) => {
+      const { instance } = wrapper;
+
+      this.metadataScanner.scanFromPrototype(
+        instance,
+        Object.getPrototypeOf(instance),
+        (key: string) => {
+          if (this.metadataAccessor.isUpdateHook(instance[key])) {
+            const metadata = this.metadataAccessor.getUpdateHookMetadata(
+              instance[key],
+            );
+            this.handleUpdateHook(instance, key, metadata);
+          }
+        },
+      );
+    });
+
     const providers: InstanceWrapper[] = this.discoveryService.getProviders();
+
     providers.forEach((wrapper: InstanceWrapper) => {
       const { instance } = wrapper;
 
@@ -117,6 +150,10 @@ export class TelegrafExplorer implements OnModuleInit {
         },
       );
     });
+  }
+
+  handleUpdateHook(instance: object, key: string, metadata: UpdateHookOptions) {
+    this.telegraf.on(metadata.updateType, instance[key].bind(instance));
   }
 
   handleTelegrafUse(instance: object, key: string, telegraf: TelegrafProvider) {

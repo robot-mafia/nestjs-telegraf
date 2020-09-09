@@ -11,12 +11,33 @@ import {
   MentionOptions,
   OnOptions,
   PhoneOptions,
+  UpdateHookOptions,
 } from './decorators';
 import { DECORATORS } from './telegraf.constants';
 
 @Injectable()
 export class TelegrafMetadataAccessor {
   constructor(private readonly reflector: Reflector) {}
+
+  isUpdate(target: Type<any> | Function): boolean {
+    if (!target) {
+      return false;
+    }
+    return !!this.reflector.get(DECORATORS.UPDATE, target);
+  }
+
+  isUpdateHook(target: Type<any> | Function): boolean {
+    if (!target) {
+      return false;
+    }
+    return !!this.reflector.get(DECORATORS.UPDATE_HOOK, target);
+  }
+
+  getUpdateHookMetadata(
+    target: Type<any> | Function,
+  ): UpdateHookOptions | undefined {
+    return this.reflector.get(DECORATORS.UPDATE_HOOK, target);
+  }
 
   isTelegrafUse(target: Type<any> | Function): boolean {
     if (!target) {
