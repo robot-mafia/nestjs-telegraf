@@ -11,17 +11,18 @@
 
 [Telegraf](https://github.com/telegraf/telegraf) module for [NestJS](https://github.com/nestjs/nest).
 
+## Documentation
+If you want to dive fully into NestJS Telegraf then don't waste your time in this dump, check out the [documentation site](https://nestjs-telegraf.vercel.com).
+
 ## Installation
 
 ```bash
 $ npm i nestjs-telegraf
 ```
 
-Once the installation process is complete, we can import the TelegrafModule into the root AppModule.
+Once the installation process is complete, we can import the `TelegrafModule` into the root `AppModule`:
 
 ```typescript
-/* app.module.ts */
-
 import { Module } from '@nestjs/common';
 import { TelegrafModule } from 'nestjs-telegraf';
 
@@ -35,16 +36,9 @@ import { TelegrafModule } from 'nestjs-telegraf';
 export class AppModule {}
 ```
 
-The `forRoot()` method accepts the same configuration object as Telegraf class constructor from the Telegraf package, as described [here](https://telegraf.js.org/#/?id=constructor).
-
-## Telegraf methods
-Each Telegraf instance method described [here](https://telegraf.js.org/#/?id=telegraf) has own decorator in `nestjs-telegraf` package. The name of the decorator corresponds to the name of the Telegraf method. For example [`@Hears`](https://telegraf.js.org/#/?id=hears), [`@On`](https://telegraf.js.org/#/?id=on), [`@Action`](https://telegraf.js.org/#/?id=action) and so on.
-
-Now let's try to repeat the example from the Telegraf [documentation page](https://telegraf.js.org/#/?id=example).
+Then add some decorators into the `app.service.ts` for handling Telegram bot API updates:
 
 ```typescript
-/* app.service.ts */
-
 import { Injectable } from '@nestjs/common';
 import {
   Start,
@@ -77,105 +71,6 @@ export class AppService {
   }
 }
 ```
-
-## Bot injection
-At times you may need to access the native `Telegraf` instance. For example, you may want to connect stage middleware. You can inject the Telegraf by using the `@InjectBot()` decorator as follows:
-```typescript
-import { Injectable } from '@nestjs/common';
-import { InjectBot, TelegrafProvider } from 'nestjs-telegraf';
-
-@Injectable()
-export class BotSettingsService {
-  constructor(@InjectBot() private bot: TelegrafProvider) {}
-}
-```
-
-
-## Async configuration
-When you need to pass module options asynchronously instead of statically, use the forRootAsync() method. As with most dynamic modules, Nest provides several techniques to deal with async configuration.
-
-One technique is to use a factory function:
-
-```typescript
-TelegrafModule.forRootAsync({
-  useFactory: () => ({
-    token: 'TELEGRAM_BOT_TOKEN',
-  }),
-});
-```
-
-Like other [factory providers](https://docs.nestjs.com/fundamentals/custom-providers#factory-providers-usefactory), our factory function can be async and can inject dependencies through inject.
-
-```typescript
-TelegrafModule.forRootAsync({
-  imports: [ConfigModule.forFeature(telegrafModuleConfig)],
-  useFactory: async (configService: ConfigService) => ({
-    token: configService.get<string>('TELEGRAM_BOT_TOKEN'),
-  }),
-  inject: [ConfigService],
-});
-```
-
-Alternatively, you can configure the TelegrafModule using a class instead of a factory, as shown below:
-
-```typescript
-TelegrafModule.forRootAsync({
-  useClass: TelegrafConfigService,
-});
-```
-
-The construction above instantiates `TelegrafConfigService` inside `TelegrafModule`, using it to create the required options object. Note that in this example, the `TelegrafConfigService` has to implement the `TelegrafOptionsFactory` interface, as shown below. The `TelegrafModule` will call the `createTelegrafOptions()` method on the instantiated object of the supplied class.
-
-```typescript
-@Injectable()
-class TelegrafConfigService implements TelegrafOptionsFactory {
-  createTelegrafOptions(): TelegrafModuleOptions {
-    return {
-      token: 'TELEGRAM_BOT_TOKEN',
-    };
-  }
-}
-```
-
-If you want to reuse an existing options provider instead of creating a private copy inside the `TelegrafModule`, use the `useExisting` syntax.
-
-```typescript
-TelegrafModule.forRootAsync({
-  imports: [ConfigModule.forFeature(telegrafModuleConfig)],
-  useExisting: ConfigService,
-});
-```
-
-## Webhooks
-If you want to configure a telegram bot webhook, you need to get a middleware from `TelegrafProvider` for connect it in your `main.ts` file.
- 
-To access it, you must use the `app.get()` method, followed by the provider reference:
-```typescript
-const telegrafProvider = app.get('TelegrafProvider');
-```
-
-Now you can connect middleware:
-```typescript
-app.use(telegrafProvider.webhookCallback('/secret-path'));
-```
-
-The last step is to specify launchOptions in `forRoot` method:
-```typescript
-TelegrafModule.forRootAsync({
-  imports: [ConfigModule.forFeature(telegrafModuleConfig)],
-  useFactory: async (configService: ConfigService) => ({
-    token: configService.get<string>('TELEGRAM_BOT_TOKEN'),
-    launchOptions: {
-      webhook: {
-        domain: 'domain.tld',
-        hookPath: '/secret-path',
-      }
-    }
-  }),
-  inject: [ConfigService],
-});
-```
-
 
 ## Support
 

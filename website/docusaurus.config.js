@@ -1,7 +1,7 @@
 module.exports = {
   title: 'NestJS Telegraf',
   tagline: 'Powerful Nest module for easy and fast creation Telegram bots',
-  url: 'https://your-docusaurus-test-site.com',
+  url: 'https://nestjs-telegraf.vercel.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
