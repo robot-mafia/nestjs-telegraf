@@ -12,7 +12,7 @@
 [Telegraf](https://github.com/telegraf/telegraf) module for [NestJS](https://github.com/nestjs/nest).
 
 ## Documentation
-If you want to dive fully into NestJS Telegraf then don't waste your time in this dump, check out the [documentation site](https://nestjs-telegraf.vercel.com).
+If you want to dive fully into NestJS Telegraf then don't waste your time in this dump, check out the [documentation site](https://nestjs-telegraf.vercel.app).
 
 ## Installation
 
