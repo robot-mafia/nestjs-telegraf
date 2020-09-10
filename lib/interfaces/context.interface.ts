@@ -1,4 +1,4 @@
-import { TelegrafContext } from 'telegraf/typings/context';
+import { Context as TelegrafContext } from 'telegraf';
 
 export interface Context extends TelegrafContext {
   [key: string]: any;
