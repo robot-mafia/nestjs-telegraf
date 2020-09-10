@@ -1,0 +1,42 @@
+{
+  "version-1.3.0/docs": [
+    {
+      "collapsed": false,
+      "type": "category",
+      "label": "Getting Started",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.3.0/installation"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.3.0/telegraf-methods"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.3.0/bot-injection"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.3.0/async-configuration"
+        },
+        {
+          "type": "doc",
+          "id": "version-1.3.0/webhooks"
+        }
+      ]
+    },
+    {
+      "collapsed": true,
+      "type": "category",
+      "label": "API Reference",
+      "items": [
+        {
+          "type": "doc",
+          "id": "version-1.3.0/api-reference/decorators"
+        }
+      ]
+    }
+  ]
+}
