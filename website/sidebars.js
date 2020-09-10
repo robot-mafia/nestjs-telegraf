@@ -1,5 +1,12 @@
 module.exports = {
-  someSidebar: {
-    'Getting Started': ['installation', 'telegraf-methods', 'bot-injection', 'async-configuration', 'webhooks'],
+  docs: {
+    'Getting Started': [
+      'installation',
+      'telegraf-methods',
+      'bot-injection',
+      'async-configuration',
+      'webhooks',
+    ],
+    'API Reference': ['api-reference/decorators'],
   },
 };

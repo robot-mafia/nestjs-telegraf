@@ -228,8 +228,15 @@ export class TelegrafExplorer implements OnModuleInit {
     key: string,
     metadata: InlineQueryOptions,
   ) {
-    // @ts-ignore
-    this.telegraf.inlineQuery(metadata.triggers, instance[key].bind(instance));
+    if (metadata.triggers) {
+      // @ts-ignore
+      this.telegraf.inlineQuery(
+        metadata.triggers,
+        instance[key].bind(instance),
+      );
+    } else {
+      this.telegraf.on(metadata.updateType, instance[key].bind(instance));
+    }
   }
 
   handleTelegrafGameQuery(instance: object, key: string) {

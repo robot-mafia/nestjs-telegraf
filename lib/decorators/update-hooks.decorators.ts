@@ -14,7 +14,7 @@ export interface UpdateHookOptions {
  * New incoming message of any kind — text, photo, sticker, etc.
  * @constructor
  */
-export const OnMessage = (): MethodDecorator => {
+export const Message = (): MethodDecorator => {
   return SetMetadata(DECORATORS.UPDATE_HOOK, {
     updateType: 'message',
   });
@@ -24,7 +24,7 @@ export const OnMessage = (): MethodDecorator => {
  * New version of a message that is known to the bot and was edited
  * @constructor
  */
-export const OnEditedMessage = (): MethodDecorator => {
+export const EditedMessage = (): MethodDecorator => {
   return SetMetadata(DECORATORS.UPDATE_HOOK, {
     updateType: 'edited_message',
   });
@@ -34,7 +34,7 @@ export const OnEditedMessage = (): MethodDecorator => {
  * New incoming channel post of any kind — text, photo, sticker, etc.
  * @constructor
  */
-export const OnChannelPost = (): MethodDecorator => {
+export const ChannelPost = (): MethodDecorator => {
   return SetMetadata(DECORATORS.UPDATE_HOOK, {
     updateType: 'channel_post',
   });
@@ -44,7 +44,7 @@ export const OnChannelPost = (): MethodDecorator => {
  * New version of a channel post that is known to the bot and was edited
  * @constructor
  */
-export const OnEditedChannelPost = (): MethodDecorator => {
+export const EditedChannelPost = (): MethodDecorator => {
   return SetMetadata(DECORATORS.UPDATE_HOOK, {
     updateType: 'edited_channel_post',
   });
@@ -52,19 +52,20 @@ export const OnEditedChannelPost = (): MethodDecorator => {
 
 /**
  * New incoming inline query
+ * See this decorator in inline-query.decorator.ts
  * @constructor
  */
-export const OnInlineQuery = (): MethodDecorator => {
-  return SetMetadata(DECORATORS.UPDATE_HOOK, {
-    updateType: 'inline_query',
-  });
-};
+// export const InlineQuery = (): MethodDecorator => {
+//   return SetMetadata(DECORATORS.UPDATE_HOOK, {
+//     updateType: 'inline_query',
+//   });
+// };
 
 /**
  * The result of an inline query that was chosen by a user and sent to their chat partner.
  * @constructor
  */
-export const OnChosenInlineResult = (): MethodDecorator => {
+export const ChosenInlineResult = (): MethodDecorator => {
   return SetMetadata(DECORATORS.UPDATE_HOOK, {
     updateType: 'chosen_inline_result',
   });
@@ -74,7 +75,7 @@ export const OnChosenInlineResult = (): MethodDecorator => {
  * New incoming callback query
  * @constructor
  */
-export const OnCallbackQuery = (): MethodDecorator => {
+export const CallbackQuery = (): MethodDecorator => {
   return SetMetadata(DECORATORS.UPDATE_HOOK, {
     updateType: 'callback_query',
   });
@@ -84,7 +85,7 @@ export const OnCallbackQuery = (): MethodDecorator => {
  * New incoming shipping query. Only for invoices with flexible price
  * @constructor
  */
-export const OnShippingQuery = (): MethodDecorator => {
+export const ShippingQuery = (): MethodDecorator => {
   return SetMetadata(DECORATORS.UPDATE_HOOK, {
     updateType: 'shipping_query',
   });
@@ -94,7 +95,7 @@ export const OnShippingQuery = (): MethodDecorator => {
  * New incoming pre-checkout query. Contains full information about checkout
  * @constructor
  */
-export const OnPreCheckoutQuery = (): MethodDecorator => {
+export const PreCheckoutQuery = (): MethodDecorator => {
   return SetMetadata(DECORATORS.UPDATE_HOOK, {
     updateType: 'pre_checkout_query',
   });

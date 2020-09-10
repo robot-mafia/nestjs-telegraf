@@ -16,6 +16,10 @@ module.exports = {
       // },
       items: [
         {
+          type: 'docsVersionDropdown',
+          position: 'left',
+        },
+        {
           to: 'docs/',
           activeBasePath: 'docs',
           label: 'Docs',
@@ -88,6 +92,8 @@ module.exports = {
           // Please change this to your repo.
           editUrl:
             'https://github.com/bukhalo/nestjs-telegraf/edit/master/website/',
+          showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
         },
         // blog: {
         //   showReadingTime: true,
