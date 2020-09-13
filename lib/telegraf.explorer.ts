@@ -178,12 +178,10 @@ export class TelegrafExplorer implements OnModuleInit {
   }
 
   handleTelegrafSettings(instance: object, key: string) {
-    // @ts-ignore
     this.telegraf.settings(instance[key].bind(instance));
   }
 
   handleTelegrafEntity(instance: object, key: string, metadata: EntityOptions) {
-    // @ts-ignore
     this.telegraf.entity(metadata.entity, instance[key].bind(instance));
   }
 
@@ -192,12 +190,10 @@ export class TelegrafExplorer implements OnModuleInit {
     key: string,
     metadata: MentionOptions,
   ) {
-    // @ts-ignore
     this.telegraf.mention(metadata.username, instance[key].bind(instance));
   }
 
   handleTelegrafPhone(instance: object, key: string, metadata: PhoneOptions) {
-    // @ts-ignore
     this.telegraf.phone(metadata.phone, instance[key].bind(instance));
   }
 
@@ -206,7 +202,6 @@ export class TelegrafExplorer implements OnModuleInit {
     key: string,
     metadata: HashtagOptions,
   ) {
-    // @ts-ignore
     this.telegraf.hashtag(metadata.hashtag, instance[key].bind(instance));
   }
 
@@ -215,7 +210,6 @@ export class TelegrafExplorer implements OnModuleInit {
     key: string,
     metadata: CashtagOptions,
   ) {
-    // @ts-ignore
     this.telegraf.cashtag(metadata.cashtag, instance[key].bind(instance));
   }
 
@@ -229,7 +223,6 @@ export class TelegrafExplorer implements OnModuleInit {
     metadata: InlineQueryOptions,
   ) {
     if (metadata.triggers) {
-      // @ts-ignore
       this.telegraf.inlineQuery(
         metadata.triggers,
         instance[key].bind(instance),
