@@ -30,7 +30,8 @@
     "precommit": "lint-staged",
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public",
-    "test": ""
+    "test": "",
+    "typedoc:build": "typedoc --tsconfig ./tsconfig.typedoc.json"
   },
   "dependencies": {
     "telegraf": "3.38.0"
@@ -48,6 +49,7 @@
     "prettier": "2.1.1",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.6.3",
+    "typedoc": "^0.19.1",
     "typescript": "4.0.2"
   },
   "peerDependencies": {

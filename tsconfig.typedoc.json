@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./"
+  },
+  "typedocOptions": {
+    "mode": "file",
+    "out": "docs"
+  }
+}
