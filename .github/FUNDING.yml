@@ -1,5 +1,6 @@
-patreon: 'donbot_dev'
-open_collective: 'donbot_dev'
-ko_fi: 'donbot_dev'
-liberapay: 'donbot_dev'
-custom: ['https://paypal.me/donbotdev', 'https://www.tinkoff.ru/sl/95M2htqoxux']
+patreon: 'evilsprut'
+open_collective: 'evilsprut'
+ko_fi: 'evilsprut'
+liberapay: 'evilsprut'
+custom:
+  ['https://paypal.me/evilsprutcom', 'https://www.tinkoff.ru/sl/95M2htqoxux']

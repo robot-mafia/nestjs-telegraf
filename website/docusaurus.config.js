@@ -5,7 +5,7 @@ module.exports = {
   baseUrl: '/',
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
-  organizationName: 'bukhalo', // Usually your GitHub org/user name.
+  organizationName: 'evilsprut', // Usually your GitHub org/user name.
   projectName: 'nestjs-telegraf', // Usually your repo name.
   themeConfig: {
     navbar: {
@@ -27,7 +27,7 @@ module.exports = {
         },
         // {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/bukhalo/nestjs-telegraf',
+          href: 'https://github.com/evilsprut/nestjs-telegraf',
           label: 'GitHub',
           position: 'right',
         },
@@ -91,7 +91,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl:
-            'https://github.com/bukhalo/nestjs-telegraf/edit/master/website/',
+            'https://github.com/evilsprut/nestjs-telegraf/edit/master/website/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
@@ -99,7 +99,7 @@ module.exports = {
         //   showReadingTime: true,
         //   // Please change this to your repo.
         //   editUrl:
-        //     'https://github.com/bukhalo/nestjs-telegraf/edit/master/website/blog/',
+        //     'https://github.com/evilsprut/nestjs-telegraf/edit/master/website/blog/',
         // },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

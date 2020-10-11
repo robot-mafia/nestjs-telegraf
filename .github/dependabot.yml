@@ -1,11 +1,11 @@
 version: 2
 updates:
   # Configuration for npm
-  - package-ecosystem: "npm"
-    directory: "/"
+  - package-ecosystem: 'npm'
+    directory: '/'
     schedule:
-      interval: "daily"
+      interval: 'daily'
     reviewers:
-      - "bukhalo"
+      - 'evilsprut'
     assignees:
-      - "bukhalo"
+      - 'evilsprut'
