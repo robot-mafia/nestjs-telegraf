@@ -33,7 +33,7 @@
     "test": ""
   },
   "dependencies": {
-    "telegraf": "git://github.com/telegraf/telegraf.git#addd845af3a20948ba0ee32fe6b1b4374bff1f09"
+    "telegraf": "https://github.com/telegraf/telegraf.git#develop"
   },
   "devDependencies": {
     "@nestjs/common": "7.4.4",
