@@ -1,5 +1,6 @@
 import { SetMetadata } from '@nestjs/common';
-import { DECORATORS } from '../telegraf.constants';
+import { TELEGRAF_LISTENER_TYPE } from '../../telegraf.constants';
+import { ListenerType } from '../../enums/listener-type.enum';
 
 /**
  * Registers middleware for handling callback_data actions with game query.
@@ -7,5 +8,5 @@ import { DECORATORS } from '../telegraf.constants';
  * @see https://telegraf.js.org/#/?id=inlinequery
  */
 export const GameQuery = (): MethodDecorator => {
-  return SetMetadata(DECORATORS.GAME_QUERY, {});
+  return SetMetadata(TELEGRAF_LISTENER_TYPE, ListenerType.GameQuery);
 };

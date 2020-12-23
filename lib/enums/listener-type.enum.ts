@@ -1,0 +1,16 @@
+export enum ListenerType {
+  Use = 'use',
+  On = 'on',
+  Hears = 'hears',
+  Command = 'command',
+  Start = 'start',
+  Help = 'help',
+  Settings = 'settings',
+  Mention = 'mention',
+  Phone = 'phone',
+  Hashtag = 'hashtag',
+  Cashtag = 'cashtag',
+  Action = 'action',
+  InlineQuery = 'inlineQuery',
+  GameQuery = 'gameQuery',
+}

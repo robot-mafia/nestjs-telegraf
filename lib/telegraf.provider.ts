@@ -10,7 +10,8 @@ import { Context, TelegrafModuleOptions } from './interfaces';
 import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants';
 
 @Injectable()
-export class TelegrafProvider extends Telegraf<Context>
+export class TelegrafProvider<C extends Context = Context>
+  extends Telegraf<C>
   implements OnApplicationBootstrap, OnApplicationShutdown {
   private logger = new Logger('Telegraf');
   private readonly launchOptions;
@@ -20,18 +21,18 @@ export class TelegrafProvider extends Telegraf<Context>
     this.launchOptions = options.launchOptions;
   }
 
-  async onApplicationBootstrap() {
-    this.catch((err, ctx: Context) => {
+  async onApplicationBootstrap(): Promise<void> {
+    this.catch(async (err, ctx) => {
       this.logger.error(
         `Encountered an error for ${ctx.updateType} update type`,
-        err,
+        err as string,
       );
     });
 
     await this.launch(this.launchOptions);
   }
 
-  async onApplicationShutdown() {
+  async onApplicationShutdown(): Promise<void> {
     await this.stop();
   }
 }
