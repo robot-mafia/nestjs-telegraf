@@ -15,4 +15,4 @@ export * from './settings.decorator';
 export * from './start.decorator';
 export * from './update.decorator';
 export * from './update-hooks.decorators';
-export * from './use.decorator';
+export * from './core/use.decorator';
