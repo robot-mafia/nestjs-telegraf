@@ -7,7 +7,7 @@ import { ListenerType } from '../../enums/listener-type.enum';
 import { TelegrafCommand } from '../../telegraf.types';
 
 export interface CommandOptions {
-  commands: TelegrafCommand;
+  command: TelegrafCommand;
 }
 
 /**
@@ -15,11 +15,11 @@ export interface CommandOptions {
  *
  * @see https://telegraf.js.org/#/?id=command
  */
-export const Command = (commands: TelegrafCommand): MethodDecorator => {
+export const Command = (command: TelegrafCommand): MethodDecorator => {
   return applyDecorators(
     SetMetadata(TELEGRAF_LISTENER_TYPE, ListenerType.Command),
     SetMetadata(TELEGRAF_LISTENER_OPTIONS, {
-      commands,
+      command: command,
     } as CommandOptions),
   );
 };
