@@ -3,7 +3,7 @@ import {
   UPDATE_LISTENER_OPTIONS_METADATA,
   UPDATE_LISTENER_TYPE_METADATA,
 } from '../../telegraf.constants';
-import { ListenerType } from '../../enums/listener-type.enum';
+import { ListenerType } from '../../enums';
 import { TelegrafHearsTriggers } from '../../telegraf.types';
 
 export interface HearsOptions {

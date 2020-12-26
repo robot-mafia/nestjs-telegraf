@@ -24,33 +24,27 @@ import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 @Injectable()
 export class TelegrafExplorer implements OnModuleInit {
   constructor(
-    private readonly moduleRef: ModuleRef,
+    private readonly telegraf: TelegrafProvider,
     private readonly discoveryService: DiscoveryService,
     private readonly metadataAccessor: TelegrafMetadataAccessor,
     private readonly metadataScanner: MetadataScanner,
   ) {}
 
-  private telegraf: TelegrafProvider;
-
   onModuleInit(): void {
-    this.telegraf = this.moduleRef.get<TelegrafProvider>(TelegrafProvider, {
-      strict: false,
-    });
     this.explore();
   }
 
   explore(): void {
-    const updateInstanceWrappers = this.filterUpdateClass();
+    const updateClasses = this.filterUpdateClass();
 
-    updateInstanceWrappers.forEach((wrapper) => {
+    updateClasses.forEach((wrapper) => {
       const { instance } = wrapper;
 
       const prototype = Object.getPrototypeOf(instance);
       this.metadataScanner.scanFromPrototype(
         instance,
         prototype,
-        (methodKey: string) =>
-          this.registerIfUpdateListener(instance, methodKey),
+        (methodKey: string) => this.registerIfListener(instance, methodKey),
       );
     });
   }
@@ -59,10 +53,12 @@ export class TelegrafExplorer implements OnModuleInit {
     return this.discoveryService
       .getProviders()
       .filter((wrapper) => wrapper.instance)
-      .filter((wrapper) => this.metadataAccessor.isUpdate(wrapper.instance));
+      .filter((wrapper) =>
+        this.metadataAccessor.isUpdate(wrapper.instance.constructor),
+      );
   }
 
-  private registerIfUpdateListener(
+  private registerIfListener(
     instance: Record<string, Function>,
     methodKey: string,
   ): void {
