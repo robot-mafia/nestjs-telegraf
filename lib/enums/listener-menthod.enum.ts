@@ -1,4 +1,4 @@
-export enum ListenerType {
+export enum ListenerMethod {
   Use = 'use',
   On = 'on',
   Hears = 'hears',

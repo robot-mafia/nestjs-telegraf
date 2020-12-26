@@ -1,6 +1,6 @@
 import { SetMetadata } from '@nestjs/common';
-import { UPDATE_LISTENER_TYPE_METADATA } from '../../telegraf.constants';
-import { ListenerType } from '../../enums/listener-type.enum';
+import { UPDATE_LISTENER_METHOD_METADATA } from '../../telegraf.constants';
+import { ListenerMethod } from '../../enums';
 
 /**
  * Handler for /help command.
@@ -8,5 +8,5 @@ import { ListenerType } from '../../enums/listener-type.enum';
  * @see https://telegraf.js.org/#/?id=help
  */
 export const Help = (): MethodDecorator => {
-  return SetMetadata(UPDATE_LISTENER_TYPE_METADATA, ListenerType.Help);
+  return SetMetadata(UPDATE_LISTENER_METHOD_METADATA, ListenerMethod.Help);
 };

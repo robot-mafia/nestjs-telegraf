@@ -1,14 +1,10 @@
 import { applyDecorators, SetMetadata } from '@nestjs/common';
 import {
   UPDATE_LISTENER_OPTIONS_METADATA,
-  UPDATE_LISTENER_TYPE_METADATA,
+  UPDATE_LISTENER_METHOD_METADATA,
 } from '../../telegraf.constants';
-import { ListenerType } from '../../enums/listener-type.enum';
+import { ListenerMethod } from '../../enums';
 import { TelegrafHashtag } from '../../telegraf.types';
-
-export interface HashtagOptions {
-  hashtag: TelegrafHashtag;
-}
 
 /**
  * Hashtag handling.
@@ -17,9 +13,7 @@ export interface HashtagOptions {
  */
 export const Hashtag = (hashtag: TelegrafHashtag): MethodDecorator => {
   return applyDecorators(
-    SetMetadata(UPDATE_LISTENER_TYPE_METADATA, ListenerType.Hashtag),
-    SetMetadata(UPDATE_LISTENER_OPTIONS_METADATA, {
-      hashtag,
-    } as HashtagOptions),
+    SetMetadata(UPDATE_LISTENER_METHOD_METADATA, ListenerMethod.Hashtag),
+    SetMetadata(UPDATE_LISTENER_OPTIONS_METADATA, [hashtag]),
   );
 };

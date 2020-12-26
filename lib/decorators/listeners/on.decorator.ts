@@ -1,14 +1,10 @@
 import { applyDecorators, SetMetadata } from '@nestjs/common';
 import {
   UPDATE_LISTENER_OPTIONS_METADATA,
-  UPDATE_LISTENER_TYPE_METADATA,
+  UPDATE_LISTENER_METHOD_METADATA,
 } from '../../telegraf.constants';
-import { ListenerType } from '../../enums/listener-type.enum';
+import { ListenerMethod } from '../../enums';
 import { TelegrafUpdateType } from '../../telegraf.types';
-
-export interface OnOptions {
-  updateTypes: TelegrafUpdateType;
-}
 
 /**
  * Registers middleware for provided update type.
@@ -17,9 +13,7 @@ export interface OnOptions {
  */
 export const On = (updateTypes: TelegrafUpdateType): MethodDecorator => {
   return applyDecorators(
-    SetMetadata(UPDATE_LISTENER_TYPE_METADATA, ListenerType.On),
-    SetMetadata(UPDATE_LISTENER_OPTIONS_METADATA, {
-      updateTypes,
-    } as OnOptions),
+    SetMetadata(UPDATE_LISTENER_METHOD_METADATA, ListenerMethod.On),
+    SetMetadata(UPDATE_LISTENER_OPTIONS_METADATA, [updateTypes]),
   );
 };
