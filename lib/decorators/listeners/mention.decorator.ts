@@ -1,7 +1,7 @@
 import { applyDecorators, SetMetadata } from '@nestjs/common';
 import {
-  TELEGRAF_LISTENER_OPTIONS,
-  TELEGRAF_LISTENER_TYPE,
+  LISTENER_OPTIONS_METADATA,
+  LISTENER_TYPE_METADATA,
 } from '../../telegraf.constants';
 import { ListenerType } from '../../enums/listener-type.enum';
 import { TelegrafMention } from '../../telegraf.types';
@@ -17,8 +17,8 @@ export interface MentionOptions {
  */
 export const Mention = (mention: TelegrafMention): MethodDecorator => {
   return applyDecorators(
-    SetMetadata(TELEGRAF_LISTENER_TYPE, ListenerType.Mention),
-    SetMetadata(TELEGRAF_LISTENER_OPTIONS, {
+    SetMetadata(LISTENER_TYPE_METADATA, ListenerType.Mention),
+    SetMetadata(LISTENER_OPTIONS_METADATA, {
       mention,
     } as MentionOptions),
   );

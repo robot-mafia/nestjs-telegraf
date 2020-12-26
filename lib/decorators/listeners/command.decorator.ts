@@ -1,7 +1,7 @@
 import { applyDecorators, SetMetadata } from '@nestjs/common';
 import {
-  TELEGRAF_LISTENER_OPTIONS,
-  TELEGRAF_LISTENER_TYPE,
+  LISTENER_OPTIONS_METADATA,
+  LISTENER_TYPE_METADATA,
 } from '../../telegraf.constants';
 import { ListenerType } from '../../enums/listener-type.enum';
 import { TelegrafCommand } from '../../telegraf.types';
@@ -17,8 +17,8 @@ export interface CommandOptions {
  */
 export const Command = (command: TelegrafCommand): MethodDecorator => {
   return applyDecorators(
-    SetMetadata(TELEGRAF_LISTENER_TYPE, ListenerType.Command),
-    SetMetadata(TELEGRAF_LISTENER_OPTIONS, {
+    SetMetadata(LISTENER_TYPE_METADATA, ListenerType.Command),
+    SetMetadata(LISTENER_OPTIONS_METADATA, {
       command: command,
     } as CommandOptions),
   );

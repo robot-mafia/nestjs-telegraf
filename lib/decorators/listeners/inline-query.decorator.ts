@@ -1,7 +1,7 @@
 import { applyDecorators, SetMetadata } from '@nestjs/common';
 import {
-  TELEGRAF_LISTENER_OPTIONS,
-  TELEGRAF_LISTENER_TYPE,
+  LISTENER_OPTIONS_METADATA,
+  LISTENER_TYPE_METADATA,
 } from '../../telegraf.constants';
 import { ListenerType } from '../../enums/listener-type.enum';
 import { TelegrafInlineQueryTriggers } from '../../telegraf.types';
@@ -19,8 +19,8 @@ export const InlineQuery = (
   triggers: TelegrafInlineQueryTriggers,
 ): MethodDecorator => {
   return applyDecorators(
-    SetMetadata(TELEGRAF_LISTENER_TYPE, ListenerType.InlineQuery),
-    SetMetadata(TELEGRAF_LISTENER_OPTIONS, {
+    SetMetadata(LISTENER_TYPE_METADATA, ListenerType.InlineQuery),
+    SetMetadata(LISTENER_OPTIONS_METADATA, {
       triggers,
     } as InlineQueryOptions),
   );

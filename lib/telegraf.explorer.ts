@@ -3,8 +3,7 @@ import { DiscoveryService, ModuleRef } from '@nestjs/core';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
 import { TelegrafMetadataAccessor } from './telegraf-metadata.accessor';
 import { TelegrafProvider } from './telegraf.provider';
-import { TELEGRAF_PROVIDER } from './telegraf.constants';
-import { ListenerType } from './enums/listener-type.enum';
+import { ListenerType } from './enums';
 import {
   ActionOptions,
   CashtagOptions,
@@ -33,7 +32,7 @@ export class TelegrafExplorer implements OnModuleInit {
   private telegraf: TelegrafProvider;
 
   onModuleInit(): void {
-    this.telegraf = this.moduleRef.get<TelegrafProvider>(TELEGRAF_PROVIDER, {
+    this.telegraf = this.moduleRef.get<TelegrafProvider>(TelegrafProvider, {
       strict: false,
     });
     this.explore();
@@ -50,11 +49,16 @@ export class TelegrafExplorer implements OnModuleInit {
         this.metadataScanner.scanFromPrototype(
           instance,
           prototype,
-          (methodKey: string) => {
-            this.registerIfListener(instance, methodKey);
-          },
+          (methodKey: string) => this.registerIfUpdate(instance, methodKey),
         );
       });
+  }
+
+  private registerIfUpdate(
+    instance: Record<string, Function>,
+    methodKey: string,
+  ): void {
+    const isUpdate = this.metadataAccessor.isUpdate(instance);
   }
 
   private registerIfListener(
