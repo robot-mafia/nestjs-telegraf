@@ -1,5 +1,5 @@
 import { SetMetadata } from '@nestjs/common';
-import { LISTENER_TYPE_METADATA } from '../../telegraf.constants';
+import { UPDATE_LISTENER_TYPE_METADATA } from '../../telegraf.constants';
 import { ListenerType } from '../../enums/listener-type.enum';
 
 /**
@@ -8,5 +8,5 @@ import { ListenerType } from '../../enums/listener-type.enum';
  * @see https://telegraf.js.org/#/?id=settings
  */
 export const Settings = (): MethodDecorator => {
-  return SetMetadata(LISTENER_TYPE_METADATA, ListenerType.Settings);
+  return SetMetadata(UPDATE_LISTENER_TYPE_METADATA, ListenerType.Settings);
 };

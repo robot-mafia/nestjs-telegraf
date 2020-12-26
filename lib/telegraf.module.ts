@@ -6,7 +6,7 @@ import {
   TelegrafOptionsFactory,
 } from './interfaces';
 import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants';
-import { TelegrafMetadataAccessor } from './telegraf-metadata.accessor';
+import { TelegrafMetadataAccessor } from './telegraf.metadata-accessor';
 import { TelegrafExplorer } from './telegraf.explorer';
 import { TelegrafProvider } from './telegraf.provider';
 

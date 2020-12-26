@@ -1,7 +1,7 @@
 import { applyDecorators, SetMetadata } from '@nestjs/common';
 import {
-  LISTENER_OPTIONS_METADATA,
-  LISTENER_TYPE_METADATA,
+  UPDATE_LISTENER_OPTIONS_METADATA,
+  UPDATE_LISTENER_TYPE_METADATA,
 } from '../../telegraf.constants';
 import { TelegrafActionTriggers } from '../../telegraf.types';
 import { ListenerType } from '../../enums/listener-type.enum';
@@ -17,8 +17,8 @@ export interface ActionOptions {
  */
 export const Action = (triggers: TelegrafActionTriggers): MethodDecorator => {
   return applyDecorators(
-    SetMetadata(LISTENER_TYPE_METADATA, ListenerType.Action),
-    SetMetadata(LISTENER_OPTIONS_METADATA, {
+    SetMetadata(UPDATE_LISTENER_TYPE_METADATA, ListenerType.Action),
+    SetMetadata(UPDATE_LISTENER_OPTIONS_METADATA, {
       triggers,
     } as ActionOptions),
   );

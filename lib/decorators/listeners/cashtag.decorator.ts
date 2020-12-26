@@ -1,7 +1,7 @@
 import { applyDecorators, SetMetadata } from '@nestjs/common';
 import {
-  LISTENER_OPTIONS_METADATA,
-  LISTENER_TYPE_METADATA,
+  UPDATE_LISTENER_OPTIONS_METADATA,
+  UPDATE_LISTENER_TYPE_METADATA,
 } from '../../telegraf.constants';
 import { TelegrafCashtag } from '../../telegraf.types';
 import { ListenerType } from '../../enums/listener-type.enum';
@@ -17,8 +17,8 @@ export interface CashtagOptions {
  */
 export const Cashtag = (cashtag: TelegrafCashtag): MethodDecorator => {
   return applyDecorators(
-    SetMetadata(LISTENER_TYPE_METADATA, ListenerType.Cashtag),
-    SetMetadata(LISTENER_OPTIONS_METADATA, {
+    SetMetadata(UPDATE_LISTENER_TYPE_METADATA, ListenerType.Cashtag),
+    SetMetadata(UPDATE_LISTENER_OPTIONS_METADATA, {
       cashtag,
     } as CashtagOptions),
   );

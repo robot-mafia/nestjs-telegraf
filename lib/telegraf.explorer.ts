@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { DiscoveryService, ModuleRef } from '@nestjs/core';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
-import { TelegrafMetadataAccessor } from './telegraf-metadata.accessor';
+import { TelegrafMetadataAccessor } from './telegraf.metadata-accessor';
 import { TelegrafProvider } from './telegraf.provider';
 import { ListenerType } from './enums';
 import {
@@ -19,6 +19,7 @@ import {
   TextMentionOptions,
   UrlOptions,
 } from './decorators';
+import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 
 @Injectable()
 export class TelegrafExplorer implements OnModuleInit {
@@ -39,29 +40,29 @@ export class TelegrafExplorer implements OnModuleInit {
   }
 
   explore(): void {
-    this.discoveryService
+    const updateInstanceWrappers = this.filterUpdateClass();
+
+    updateInstanceWrappers.forEach((wrapper) => {
+      const { instance } = wrapper;
+
+      const prototype = Object.getPrototypeOf(instance);
+      this.metadataScanner.scanFromPrototype(
+        instance,
+        prototype,
+        (methodKey: string) =>
+          this.registerIfUpdateListener(instance, methodKey),
+      );
+    });
+  }
+
+  private filterUpdateClass(): InstanceWrapper[] {
+    return this.discoveryService
       .getProviders()
       .filter((wrapper) => wrapper.instance)
-      .forEach((wrapper) => {
-        const { instance } = wrapper;
-
-        const prototype = Object.getPrototypeOf(instance);
-        this.metadataScanner.scanFromPrototype(
-          instance,
-          prototype,
-          (methodKey: string) => this.registerIfUpdate(instance, methodKey),
-        );
-      });
+      .filter((wrapper) => this.metadataAccessor.isUpdate(wrapper.instance));
   }
 
-  private registerIfUpdate(
-    instance: Record<string, Function>,
-    methodKey: string,
-  ): void {
-    const isUpdate = this.metadataAccessor.isUpdate(instance);
-  }
-
-  private registerIfListener(
+  private registerIfUpdateListener(
     instance: Record<string, Function>,
     methodKey: string,
   ): void {
