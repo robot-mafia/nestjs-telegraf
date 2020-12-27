@@ -1,19 +1,8 @@
-import { applyDecorators, SetMetadata } from '@nestjs/common';
-import {
-  UPDATE_LISTENER_OPTIONS_METADATA,
-  UPDATE_LISTENER_METHOD_METADATA,
-} from '../../telegraf.constants';
-import { ListenerMethod } from '../../enums';
-import { TelegrafCashtag } from '../../telegraf.types';
+import { createUpdateDecorator } from '../../helpers/create-update-decorator.helper';
 
 /**
  * Cashtag handling.
  *
  * @see https://telegraf.js.org/#/?id=cashtag
  */
-export const Cashtag = (cashtag: TelegrafCashtag): MethodDecorator => {
-  return applyDecorators(
-    SetMetadata(UPDATE_LISTENER_METHOD_METADATA, ListenerMethod.Cashtag),
-    SetMetadata(UPDATE_LISTENER_OPTIONS_METADATA, [cashtag]),
-  );
-};
+export const Cashtag = createUpdateDecorator('cashtag');

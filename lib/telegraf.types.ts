@@ -1,26 +1,24 @@
-import { Type } from '@nestjs/common/interfaces/type.interface';
-import { Composer, Telegraf } from 'telegraf';
-import { Context } from './interfaces';
+import { Composer, Middleware, Telegraf } from 'telegraf';
 
-type CtxComposer = Composer<Context>;
+export type Filter<T extends any[], F> = T extends []
+  ? []
+  : T extends [infer Head, ...infer Tail]
+  ? Head extends F
+    ? Filter<Tail, F>
+    : [Head, ...Filter<Tail, F>]
+  : [];
 
-type ComposerMethodFirstArg<T extends keyof CtxComposer> = Parameters<
-  CtxComposer[T]
->[0];
+export type UpdateMethods = Exclude<
+  keyof Composer<never>,
+  'middleware' | 'guard' | 'filter' | 'drop'
+>;
+export type UpdateMethodArgs<T extends UpdateMethods> = Filter<
+  Parameters<Composer<never>[T]>,
+  Middleware<any>
+>;
+// type Test0 = Filter<[['foo', 'bar', 'booz'], ...Middleware<any>[]], Middleware<any>>;
+// type Test1 = UpdateMethodArgs<'on'>;
+// type Test2 = Parameters<Composer<never>['on']>;
 
-export type TelegrafActionTriggers = ComposerMethodFirstArg<'action'>;
-export type TelegrafHearsTriggers = ComposerMethodFirstArg<'hears'>;
-export type TelegrafInlineQueryTriggers = ComposerMethodFirstArg<'inlineQuery'>;
-export type TelegrafEmail = ComposerMethodFirstArg<'email'>;
-export type TelegrafUrl = ComposerMethodFirstArg<'url'>;
-export type TelegrafTextLink = ComposerMethodFirstArg<'textLink'>;
-export type TelegrafTextMention = ComposerMethodFirstArg<'textMention'>;
-export type TelegrafCashtag = ComposerMethodFirstArg<'cashtag'>;
-export type TelegrafHashtag = ComposerMethodFirstArg<'hashtag'>;
-export type TelegrafCommand = ComposerMethodFirstArg<'command'>;
-export type TelegrafMention = ComposerMethodFirstArg<'mention'>;
-export type TelegrafPhone = ComposerMethodFirstArg<'phone'>;
-export type TelegrafUpdateType = ComposerMethodFirstArg<'on'>;
-
-export type TelegrafOption = ConstructorParameters<Type<Telegraf<Context>>>[1];
+export type TelegrafOption = ConstructorParameters<typeof Telegraf>[1];
 export type TelegrafLaunchOption = Parameters<Telegraf['launch']>[0];

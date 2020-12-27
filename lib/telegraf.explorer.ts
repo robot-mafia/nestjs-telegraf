@@ -1,9 +1,10 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { DiscoveryService } from '@nestjs/core';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
+import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
+import { Composer } from 'telegraf';
 import { TelegrafMetadataAccessor } from './telegraf.metadata-accessor';
 import { TelegrafProvider } from './telegraf.provider';
-import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 
 @Injectable()
 export class TelegrafExplorer implements OnModuleInit {
@@ -49,12 +50,16 @@ export class TelegrafExplorer implements OnModuleInit {
     const methodRef = instance[methodKey];
     const middlewareFn = methodRef.bind(instance);
 
-    const listenerMethod = this.metadataAccessor.getListenerMethod(methodRef);
-    if (!listenerMethod) return;
+    const listenerMetadata = this.metadataAccessor.getListenerMetadata(
+      methodRef,
+    );
+    if (!listenerMetadata) return;
 
-    const listenerOptions = this.metadataAccessor.getListenerOptions(methodRef);
+    const { method, args } = listenerMetadata;
+    const composerMiddlewareFn = Composer[method](...args, middlewareFn);
 
-    // NOTE: Disable spread operator checking because of error: "Expected at least 1 arguments, but got 1 or more."
-    (this.telegraf as any)[listenerMethod](...listenerOptions, middlewareFn);
+    console.log('composerMiddlewareFn', composerMiddlewareFn);
+
+    this.telegraf.use(composerMiddlewareFn);
   }
 }

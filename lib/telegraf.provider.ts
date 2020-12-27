@@ -10,8 +10,8 @@ import { Context, TelegrafModuleOptions } from './interfaces';
 import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants';
 
 @Injectable()
-export class TelegrafProvider<C extends Context = Context>
-  extends Telegraf<C>
+export class TelegrafProvider
+  extends Telegraf<Context>
   implements OnApplicationBootstrap, OnApplicationShutdown {
   private logger = new Logger('Telegraf');
   private readonly launchOptions;
