@@ -11,7 +11,7 @@ export class HelloScene {
   }
 
   @SceneLeave()
-  async onSceneLeave(): Promise<void> {
+  async onSceneLeave(ctx: Context): Promise<void> {
     console.log('Leave from scene');
     await ctx.reply('Bye Bye 👋');
   }

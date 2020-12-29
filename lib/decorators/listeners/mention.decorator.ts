@@ -1,8 +1,8 @@
-import { createUpdateDecorator } from '../../helpers/create-update-decorator.helper';
+import { createUpdateListenerDecorator } from '../../helpers';
 
 /**
  * Mention handling.
  *
  * @see https://telegraf.js.org/#/?id=mention
  */
-export const Mention = createUpdateDecorator('mention');
+export const Mention = createUpdateListenerDecorator('mention');

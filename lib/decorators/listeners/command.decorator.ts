@@ -1,8 +1,8 @@
-import { createUpdateDecorator } from '../../helpers/create-update-decorator.helper';
+import { createUpdateListenerDecorator } from '../../helpers';
 
 /**
  * Command handling.
  *
  * @see https://telegraf.js.org/#/?id=command
  */
-export const Command = createUpdateDecorator('command');
+export const Command = createUpdateListenerDecorator('command');

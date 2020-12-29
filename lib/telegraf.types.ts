@@ -1,4 +1,4 @@
-import { Composer, Middleware, Telegraf } from 'telegraf';
+import { Composer, Middleware, BaseScene, Telegraf } from 'telegraf';
 
 export type Filter<T extends any[], F> = T extends []
   ? []
@@ -8,14 +8,22 @@ export type Filter<T extends any[], F> = T extends []
     : [Head, ...Filter<Tail, F>]
   : [];
 
-export type UpdateMethods = Exclude<
-  keyof Composer<never>,
-  'middleware' | 'guard' | 'filter' | 'drop'
->;
-export type UpdateMethodArgs<T extends UpdateMethods> = Filter<
-  Parameters<Composer<never>[T]>,
-  Middleware<any>
->;
+export type OnlyFunctionPropertyNames<T> = {
+  [K in keyof T]: T[K] extends (...args: any) => any ? K : never;
+}[keyof T];
+
+// export type FilterComposerMethods<T extends string> = Exclude<
+//   T,
+//   'middleware' | 'guard' | 'filter' | 'drop'
+//   >;
+
+export type ComposerMethodArgs<
+  T extends Composer<never>,
+  U extends OnlyFunctionPropertyNames<T> = OnlyFunctionPropertyNames<T>
+> = Filter<Parameters<T[U]>, Middleware<never>>;
+
+export type UpdateMethods = OnlyFunctionPropertyNames<Composer<never>>;
+export type SceneMethods = OnlyFunctionPropertyNames<BaseScene<never>>;
 
 export type TelegrafOption = ConstructorParameters<typeof Telegraf>[1];
 export type TelegrafLaunchOption = Parameters<Telegraf['launch']>[0];

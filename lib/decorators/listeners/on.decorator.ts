@@ -1,8 +1,8 @@
-import { createUpdateDecorator } from '../../helpers/create-update-decorator.helper';
+import { createUpdateListenerDecorator } from '../../helpers';
 
 /**
  * Registers middleware for provided update type.
  *
  * @see https://telegraf.js.org/#/?id=on
  */
-export const On = createUpdateDecorator('on');
+export const On = createUpdateListenerDecorator('on');

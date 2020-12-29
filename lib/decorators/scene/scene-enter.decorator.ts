@@ -1,6 +1,3 @@
-import { SetMetadata } from '@nestjs/common';
-import { SCENE_LISTENER_METADATA } from '../../telegraf.constants';
-import { SceneEventType } from '../../enums/scene-event-type.enum';
+import { createSceneListenerDecorator } from '../../helpers';
 
-export const SceneEnter = (): MethodDecorator =>
-  SetMetadata(SCENE_LISTENER_METADATA, SceneEventType.Enter);
+export const SceneEnter = createSceneListenerDecorator('enter');

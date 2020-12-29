@@ -1,8 +1,8 @@
-import { createUpdateDecorator } from '../../helpers/create-update-decorator.helper';
+import { createUpdateListenerDecorator } from '../../helpers';
 
 /**
  * Hashtag handling.
  *
  * @see https://telegraf.js.org/#/?id=hashtag
  */
-export const Hashtag = createUpdateDecorator('hashtag');
+export const Hashtag = createUpdateListenerDecorator('hashtag');

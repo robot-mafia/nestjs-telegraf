@@ -1,10 +1,12 @@
 import { ModuleMetadata, Type } from '@nestjs/common/interfaces';
+import { Middleware, Context } from 'telegraf';
 import { TelegrafLaunchOption, TelegrafOption } from '../telegraf.types';
 
-export interface TelegrafModuleOptions {
+export interface TelegrafModuleOptions<C extends Context = Context> {
   token: string;
   options?: TelegrafOption;
   launchOptions?: TelegrafLaunchOption;
+  middlewares?: Middleware<C>[];
 }
 
 export interface TelegrafOptionsFactory {

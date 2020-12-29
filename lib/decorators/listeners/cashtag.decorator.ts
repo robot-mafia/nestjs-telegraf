@@ -1,8 +1,8 @@
-import { createUpdateDecorator } from '../../helpers/create-update-decorator.helper';
+import { createUpdateListenerDecorator } from '../../helpers';
 
 /**
  * Cashtag handling.
  *
  * @see https://telegraf.js.org/#/?id=cashtag
  */
-export const Cashtag = createUpdateDecorator('cashtag');
+export const Cashtag = createUpdateListenerDecorator('cashtag');

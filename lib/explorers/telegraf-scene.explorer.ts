@@ -2,48 +2,60 @@ import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { DiscoveryService } from '@nestjs/core';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
-import { Telegraf } from 'telegraf';
-import { TelegrafMetadataAccessor } from './telegraf.metadata-accessor';
+import { BaseScene as Scene, Stage, Telegraf } from 'telegraf';
+import { TelegrafMetadataAccessor } from '../telegraf.metadata-accessor';
 
 @Injectable()
-export class TelegrafUpdateExplorer implements OnModuleInit {
+export class TelegrafSceneExplorer implements OnModuleInit {
+  private readonly stage = new Stage();
+
   constructor(
     @Inject(Telegraf)
     private readonly telegraf: Telegraf,
     private readonly discoveryService: DiscoveryService,
     private readonly metadataAccessor: TelegrafMetadataAccessor,
     private readonly metadataScanner: MetadataScanner,
-  ) {}
+  ) {
+    this.telegraf.use(this.stage.middleware());
+  }
 
   onModuleInit(): void {
     this.explore();
   }
 
   private explore(): void {
-    const updateClasses = this.filterUpdateClasses();
+    const sceneClasses = this.filterSceneClasses();
 
-    updateClasses.forEach((wrapper) => {
+    sceneClasses.forEach((wrapper) => {
       const { instance } = wrapper;
+
+      const sceneId = this.metadataAccessor.getSceneMetadata(
+        instance.constructor,
+      );
+      const scene = new Scene(sceneId);
+      this.stage.register(scene);
 
       const prototype = Object.getPrototypeOf(instance);
       this.metadataScanner.scanFromPrototype(
         instance,
         prototype,
-        (methodKey: string) => this.registerIfListener(instance, methodKey),
+        (methodKey: string) =>
+          this.registerIfListener(scene, instance, methodKey),
       );
     });
   }
 
-  private filterUpdateClasses(): InstanceWrapper[] {
+  private filterSceneClasses(): InstanceWrapper[] {
     return this.discoveryService
       .getProviders()
       .filter((wrapper) => wrapper.instance)
       .filter((wrapper) =>
-        this.metadataAccessor.isUpdate(wrapper.instance.constructor),
+        this.metadataAccessor.isScene(wrapper.instance.constructor),
       );
   }
 
   private registerIfListener(
+    scene: Scene,
     instance: Record<string, Function>,
     methodKey: string,
   ): void {
@@ -56,8 +68,6 @@ export class TelegrafUpdateExplorer implements OnModuleInit {
     if (!listenerMetadata) return;
 
     const { method, args } = listenerMetadata;
-    // NOTE: Use "any" to disable "Expected at least 1 arguments, but got 1 or more." error.
-    // Use telegraf instance for non-scene listeners
-    (this.telegraf[method] as any)(...args, middlewareFn);
+    (scene[method] as any)(...args, middlewareFn);
   }
 }

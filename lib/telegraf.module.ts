@@ -15,8 +15,8 @@ import {
 } from './interfaces';
 import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants';
 import { TelegrafMetadataAccessor } from './telegraf.metadata-accessor';
-import { TelegrafUpdateExplorer } from './telegraf-update.explorer';
-import { TelegrafSceneExplorer } from './telegraf-scene.explorer';
+import { TelegrafUpdateExplorer } from './explorers/telegraf-update.explorer';
+import { TelegrafSceneExplorer } from './explorers/telegraf-scene.explorer';
 import { createProviders, TelegrafProvider } from './telegraf.providers';
 
 @Module({

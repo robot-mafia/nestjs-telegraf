@@ -1,8 +1,8 @@
-import { createUpdateDecorator } from '../../helpers/create-update-decorator.helper';
+import { createUpdateListenerDecorator } from '../../helpers';
 
 /**
  * Phone number handling.
  *
  * @see https://telegraf.js.org/#/?id=phone
  */
-export const Phone = createUpdateDecorator('phone');
+export const Phone = createUpdateListenerDecorator('phone');

@@ -1,8 +1,8 @@
-import { createUpdateDecorator } from '../../helpers/create-update-decorator.helper';
+import { createUpdateListenerDecorator } from '../../helpers';
 
 /**
  * Registers middleware for handling messages with text_link entity.
  *
  * @see https://telegraf.js.org/#/?id=telegraf-textlink
  */
-export const TextLink = createUpdateDecorator('textLink');
+export const TextLink = createUpdateListenerDecorator('textLink');
