@@ -1,13 +1,14 @@
-import { Telegraf } from 'telegraf';
-import { Help, InjectBot, On, Start, Update } from '../lib/decorators';
-import { Context } from '../lib/interfaces';
+import { SceneContext, Telegraf } from 'telegraf';
+import { Command, Help, InjectBot, On, Start, Update } from '../lib';
 import { EchoService } from './echo.service';
+import { HELLO_SCENE_ID } from './app.constants';
+import { Context } from './interfaces/context.interface';
 
 @Update()
 export class AppUpdate {
   constructor(
     @InjectBot()
-    private readonly bot: Telegraf<Context>,
+    private readonly bot: Telegraf<SceneContext>,
     private readonly echoService: EchoService,
   ) {}
 
@@ -20,6 +21,11 @@ export class AppUpdate {
   @Help()
   async onHelp(ctx: Context): Promise<void> {
     await ctx.reply('Send me any text');
+  }
+
+  @Command('scene')
+  async onSceneCommand(ctx: Context): Promise<void> {
+    await ctx.scene.enter(HELLO_SCENE_ID);
   }
 
   @On('message')

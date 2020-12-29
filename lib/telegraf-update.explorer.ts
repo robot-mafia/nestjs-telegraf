@@ -1,15 +1,15 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { DiscoveryService } from '@nestjs/core';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
-import { Composer } from 'telegraf';
+import { Telegraf } from 'telegraf';
 import { TelegrafMetadataAccessor } from './telegraf.metadata-accessor';
-import { TelegrafProvider } from './telegraf.provider';
 
 @Injectable()
-export class TelegrafExplorer implements OnModuleInit {
+export class TelegrafUpdateExplorer implements OnModuleInit {
   constructor(
-    private readonly telegraf: TelegrafProvider,
+    @Inject(Telegraf)
+    private readonly telegraf: Telegraf,
     private readonly discoveryService: DiscoveryService,
     private readonly metadataAccessor: TelegrafMetadataAccessor,
     private readonly metadataScanner: MetadataScanner,
@@ -19,7 +19,7 @@ export class TelegrafExplorer implements OnModuleInit {
     this.explore();
   }
 
-  explore(): void {
+  private explore(): void {
     const updateClasses = this.filterUpdateClasses();
 
     updateClasses.forEach((wrapper) => {
@@ -56,10 +56,8 @@ export class TelegrafExplorer implements OnModuleInit {
     if (!listenerMetadata) return;
 
     const { method, args } = listenerMetadata;
-    const composerMiddlewareFn = Composer[method](...args, middlewareFn);
-
-    console.log('composerMiddlewareFn', composerMiddlewareFn);
-
-    this.telegraf.use(composerMiddlewareFn);
+    // NOTE: Use "any" to disable "Expected at least 1 arguments, but got 1 or more." error.
+    // Use telegraf instance for non-scene listeners
+    (this.telegraf[method] as any)(...args, middlewareFn);
   }
 }

@@ -1,37 +1,59 @@
-import { DiscoveryModule } from '@nestjs/core';
-import { Module, DynamicModule, Provider } from '@nestjs/common';
+import { DiscoveryModule, ModuleRef } from '@nestjs/core';
 import {
-  TelegrafModuleOptions,
+  DynamicModule,
+  Inject,
+  Module,
+  OnApplicationBootstrap,
+  OnApplicationShutdown,
+  Provider,
+} from '@nestjs/common';
+import { Telegraf } from 'telegraf';
+import {
   TelegrafModuleAsyncOptions,
+  TelegrafModuleOptions,
   TelegrafOptionsFactory,
 } from './interfaces';
 import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants';
 import { TelegrafMetadataAccessor } from './telegraf.metadata-accessor';
-import { TelegrafExplorer } from './telegraf.explorer';
-import { TelegrafProvider } from './telegraf.provider';
+import { TelegrafUpdateExplorer } from './telegraf-update.explorer';
+import { TelegrafSceneExplorer } from './telegraf-scene.explorer';
+import { createProviders, TelegrafProvider } from './telegraf.providers';
 
 @Module({
   imports: [DiscoveryModule],
-  providers: [TelegrafMetadataAccessor, TelegrafExplorer],
+  providers: [
+    TelegrafMetadataAccessor,
+    TelegrafSceneExplorer,
+    TelegrafUpdateExplorer,
+  ],
 })
-export class TelegrafModule {
+export class TelegrafModule
+  implements OnApplicationBootstrap, OnApplicationShutdown {
+  constructor(
+    @Inject(TELEGRAF_MODULE_OPTIONS)
+    private readonly options: TelegrafModuleOptions,
+    private readonly moduleRef: ModuleRef,
+  ) {}
+
+  async onApplicationBootstrap(): Promise<void> {
+    const { launchOptions } = this.options;
+    const telegraf = this.moduleRef.get(Telegraf);
+    await telegraf.launch(launchOptions);
+  }
+
+  async onApplicationShutdown(): Promise<void> {
+    const telegraf = this.moduleRef.get(Telegraf);
+    await telegraf.stop();
+  }
+
   public static forRoot(options: TelegrafModuleOptions): DynamicModule {
-    const providers = [...this.createProviders(options), TelegrafProvider];
+    const providers = [...createProviders(options), TelegrafProvider];
 
     return {
       module: TelegrafModule,
       providers,
       exports: providers,
     };
-  }
-
-  private static createProviders(options: TelegrafModuleOptions): Provider[] {
-    return [
-      {
-        provide: TELEGRAF_MODULE_OPTIONS,
-        useValue: options,
-      },
-    ];
   }
 
   public static forRootAsync(
