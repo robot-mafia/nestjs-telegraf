@@ -16,9 +16,6 @@ export type UpdateMethodArgs<T extends UpdateMethods> = Filter<
   Parameters<Composer<never>[T]>,
   Middleware<any>
 >;
-// type Test0 = Filter<[['foo', 'bar', 'booz'], ...Middleware<any>[]], Middleware<any>>;
-// type Test1 = UpdateMethodArgs<'on'>;
-// type Test2 = Parameters<Composer<never>['on']>;
 
 export type TelegrafOption = ConstructorParameters<typeof Telegraf>[1];
 export type TelegrafLaunchOption = Parameters<Telegraf['launch']>[0];

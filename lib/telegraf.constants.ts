@@ -1,4 +1,3 @@
-export const STAGE_MIDDLEWARE = 'StageMiddleware';
 export const TELEGRAF_MODULE_OPTIONS = 'TELEGRAF_MODULE_OPTIONS';
 
 export const UPDATE_METADATA = 'UPDATE_METADATA';

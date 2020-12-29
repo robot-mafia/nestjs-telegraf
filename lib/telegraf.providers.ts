@@ -1,5 +1,5 @@
 import { Provider } from '@nestjs/common';
-import { session, Telegraf } from 'telegraf';
+import { Telegraf } from 'telegraf';
 import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants';
 import { TelegrafModuleOptions } from './interfaces';
 
