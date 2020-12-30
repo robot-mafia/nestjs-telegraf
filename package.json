@@ -35,8 +35,8 @@
     "telegraf": "3.38.0"
   },
   "devDependencies": {
-    "@nestjs/common": "7.6.1",
-    "@nestjs/core": "7.6.1",
+    "@nestjs/common": "7.6.5",
+    "@nestjs/core": "7.6.5",
     "@typescript-eslint/eslint-plugin": "4.11.1",
     "@typescript-eslint/parser": "4.11.1",
     "eslint": "7.15.0",
