@@ -14,16 +14,16 @@
     "bot api",
     "bot framework"
   ],
-  "homepage": "https://github.com/evilsprut/nestjs-telegraf#readme",
+  "homepage": "https://github.com/bukhalo/nestjs-telegraf#readme",
   "bugs": {
-    "url": "https://github.com/evilsprut/nestjs-telegraf/issues"
+    "url": "https://github.com/bukhalo/nestjs-telegraf/issues"
   },
   "license": "MIT",
-  "author": "Aleksandr Bukhalo <hey@evilsprut.com>",
+  "author": "Alexander Bukhalo <a@bukhalo.com>",
   "contributors": [
-    "Aleksandr Bukhalo <hey@evilsprut.com> (https://evilsprut.com/)"
+    "Alexander Bukhalo <a@bukhalo.com> (https://bukhalo.com/)"
   ],
-  "repository": "git@github.com:evilsprut/nestjs-telegraf.git",
+  "repository": "git@github.com:bukhalo/nestjs-telegraf.git",
   "scripts": {
     "build": "rm -rf dist && tsc -p tsconfig.json",
     "precommit": "lint-staged",

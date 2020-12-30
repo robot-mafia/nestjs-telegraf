@@ -35,10 +35,10 @@
       ]
     },
     {
-      "login": "evilsprut",
-      "name": "Aleksandr Bukhalo",
+      "login": "bukhalo",
+      "name": "Alexander Bukhalo",
       "avatar_url": "https://avatars2.githubusercontent.com/u/14031838?v=4",
-      "profile": "https://evilsprut.com/",
+      "profile": "https://bukhalo.com/",
       "contributions": [
         "code",
         "doc",
@@ -57,7 +57,7 @@
   ],
   "contributorsPerLine": 7,
   "projectName": "nestjs-telegraf",
-  "projectOwner": "evilsprut",
+  "projectOwner": "bukhalo",
   "repoType": "github",
   "repoHost": "https://github.com",
   "skipCi": true

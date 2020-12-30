@@ -6,7 +6,7 @@
 
 # NestJS Telegraf
 ![npm](https://img.shields.io/npm/dm/nestjs-telegraf)
-![GitHub last commit](https://img.shields.io/github/last-commit/evilsprut/nestjs-telegraf)
+![GitHub last commit](https://img.shields.io/github/last-commit/bukhalo/nestjs-telegraf)
 ![NPM](https://img.shields.io/npm/l/nestjs-telegraf)
 
 [Telegraf](https://github.com/telegraf/telegraf) module for [NestJS](https://github.com/nestjs/nest).
@@ -81,11 +81,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/Sedjj"><img src="https://avatars3.githubusercontent.com/u/5383030?v=4" width="100px;" alt=""/><br /><sub><b>Eldar Salimzebarov</b></sub></a><br /><a href="https://github.com/evilsprut/nestjs-telegraf/issues?q=author%3ASedjj" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="http://www.ismb.it/vito.macchia"><img src="https://avatars3.githubusercontent.com/u/2249342?v=4" width="100px;" alt=""/><br /><sub><b>Vito Macchia</b></sub></a><br /><a href="https://github.com/evilsprut/nestjs-telegraf/commits?author=lamuertepeluda" title="Code">💻</a> <a href="https://github.com/evilsprut/nestjs-telegraf/issues?q=author%3Alamuertepeluda" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/edgesite"><img src="https://avatars3.githubusercontent.com/u/10336620?v=4" width="100px;" alt=""/><br /><sub><b>KITAHARA SETSUNA</b></sub></a><br /><a href="https://github.com/evilsprut/nestjs-telegraf/commits?author=edgesite" title="Code">💻</a> <a href="https://github.com/evilsprut/nestjs-telegraf/issues?q=author%3Aedgesite" title="Bug reports">🐛</a></td>
-    <td align="center"><a href="https://github.com/evilsprut"><img src="https://avatars2.githubusercontent.com/u/14031838?v=4" width="100px;" alt=""/><br /><sub><b>Aleksandr Bukhalo</b></sub></a><br /><a href="https://github.com/evilsprut/nestjs-telegraf/commits?author=evilsprut" title="Code">💻</a> <a href="https://github.com/evilsprut/nestjs-telegraf/commits?author=bukhalo" title="Documentation">📖</a> <a href="https://github.com/bukhalo/nestjs-telegraf/pulls?q=is%3Apr+reviewed-by%3Abukhalo" title="Reviewed Pull Requests">👀</a></td>
-    <td align="center"><a href="https://github.com/VyacheslavSaloidWork"><img src="https://avatars3.githubusercontent.com/u/43011265?v=4" width="100px;" alt=""/><br /><sub><b>Vyacheslav Saloid</b></sub></a><br /><a href="https://github.com/evilsprut/nestjs-telegraf/issues?q=author%3AVyacheslavSaloidWork" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/Sedjj"><img src="https://avatars3.githubusercontent.com/u/5383030?v=4" width="100px;" alt=""/><br /><sub><b>Eldar Salimzebarov</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3ASedjj" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="http://www.ismb.it/vito.macchia"><img src="https://avatars3.githubusercontent.com/u/2249342?v=4" width="100px;" alt=""/><br /><sub><b>Vito Macchia</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=lamuertepeluda" title="Code">💻</a> <a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3Alamuertepeluda" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/edgesite"><img src="https://avatars3.githubusercontent.com/u/10336620?v=4" width="100px;" alt=""/><br /><sub><b>KITAHARA SETSUNA</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=edgesite" title="Code">💻</a> <a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3Aedgesite" title="Bug reports">🐛</a></td>
+    <td align="center"><a href="https://github.com/bukhalo"><img src="https://avatars2.githubusercontent.com/u/14031838?v=4" width="100px;" alt=""/><br /><sub><b>Alexander Bukhalo</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=bukhalo" title="Code">💻</a> <a href="https://github.com/bukhalo/nestjs-telegraf/commits?author=bukhalo" title="Documentation">📖</a> <a href="https://github.com/bukhalo/nestjs-telegraf/pulls?q=is%3Apr+reviewed-by%3Abukhalo" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="https://github.com/VyacheslavSaloidWork"><img src="https://avatars3.githubusercontent.com/u/43011265?v=4" width="100px;" alt=""/><br /><sub><b>Vyacheslav Saloid</b></sub></a><br /><a href="https://github.com/bukhalo/nestjs-telegraf/issues?q=author%3AVyacheslavSaloidWork" title="Bug reports">🐛</a></td>
   </tr>
 </table>
 
