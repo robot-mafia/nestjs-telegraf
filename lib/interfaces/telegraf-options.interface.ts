@@ -5,6 +5,7 @@ import {
   LaunchWebhookOptions,
 } from 'telegraf/typings/telegraf';
 import { Middleware } from 'telegraf/typings/composer';
+import { Context } from './context.interface';
 
 export interface TelegrafModuleOptions {
   token: string;
@@ -15,7 +16,8 @@ export interface TelegrafModuleOptions {
   };
   botName?: string;
   include?: Function[];
-  middlewares?: ReadonlyArray<Middleware<any>>;
+  middlewares?: ReadonlyArray<Middleware<Context>>;
+  disableGlobalCatch?: boolean;
 }
 
 export interface TelegrafOptionsFactory {

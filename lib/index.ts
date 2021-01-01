@@ -11,6 +11,8 @@ export * from './interfaces';
 export * from './telegraf.module';
 
 /**
- * Backward compatibility with versions < 1.4.0
+ * Backward compatibility with versions < 1.4.0,
+ * after removing TelegrafProvider service
+ * TODO: remove that on next major release
  */
 export { Telegraf as TelegrafProvider } from 'telegraf';

@@ -7,11 +7,13 @@ import {
   Global,
   Inject,
   OnApplicationShutdown,
+  Logger,
 } from '@nestjs/common';
 import {
   TelegrafModuleOptions,
   TelegrafModuleAsyncOptions,
   TelegrafOptionsFactory,
+  Context,
 } from './interfaces';
 import {
   TELEGRAF_BOT_NAME,
@@ -28,6 +30,8 @@ import { defer } from 'rxjs';
   providers: [UpdatesExplorerService, MetadataAccessorService],
 })
 export class TelegrafCoreModule implements OnApplicationShutdown {
+  private static logger = new Logger(TelegrafCoreModule.name);
+
   constructor(
     @Inject(TELEGRAF_BOT_NAME) private readonly botName: string,
     private readonly moduleRef: ModuleRef,
@@ -40,8 +44,22 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
       provide: telegrafBotName,
       useFactory: async (): Promise<any> =>
         await defer(async () => {
-          const bot = new Telegraf(options.token);
+          const bot = new Telegraf<Context>(options.token);
           this.applyBotMiddlewares(bot, options.middlewares);
+
+          /**
+           * Backward compatibility with versions < 1.4.0,
+           * TODO: remove that on next major release,
+           *  after exception filters has been added
+           */
+          if (!options.disableGlobalCatch) {
+            bot.catch((err, ctx: Context) => {
+              this.logger.error(
+                `Encountered an error for ${ctx.updateType} update type`,
+                err,
+              );
+            });
+          }
           await bot.launch(options.launchOptions);
           return bot;
         }).toPromise(),
@@ -77,8 +95,22 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
         const { botName, ...telegrafOptions } = telegrafModuleOptions;
 
         return await defer(async () => {
-          const bot = new Telegraf(telegrafOptions.token);
+          const bot = new Telegraf<Context>(telegrafOptions.token);
           this.applyBotMiddlewares(bot, telegrafOptions.middlewares);
+
+          /**
+           * Backward compatibility with versions < 1.4.0,
+           * TODO: remove that on next major release,
+           *  after exception filters has been added
+           */
+          if (!telegrafOptions.disableGlobalCatch) {
+            bot.catch((err, ctx: Context) => {
+              this.logger.error(
+                `Encountered an error for ${ctx.updateType} update type`,
+                err,
+              );
+            });
+          }
           await bot.launch(telegrafOptions.launchOptions);
           return bot;
         }).toPromise();
