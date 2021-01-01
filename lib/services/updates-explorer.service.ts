@@ -1,10 +1,12 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { DiscoveryService, ModuleRef } from '@nestjs/core';
+import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { DiscoveryService, ModuleRef, ModulesContainer } from '@nestjs/core';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
-import { TelegrafMetadataAccessor } from './telegraf-metadata.accessor';
-import { TelegrafProvider } from './telegraf.provider';
-import { TELEGRAF_PROVIDER } from './telegraf.constants';
+import { MetadataAccessorService } from './metadata-accessor.service';
+import {
+  TELEGRAF_BOT_NAME,
+  TELEGRAF_MODULE_OPTIONS,
+} from '../telegraf.constants';
 import {
   ActionOptions,
   CashtagOptions,
@@ -17,65 +19,88 @@ import {
   OnOptions,
   PhoneOptions,
   UpdateHookOptions,
-} from './decorators';
+} from '../decorators';
+import { Telegraf } from 'telegraf';
+import { TelegrafModuleOptions } from '../interfaces';
+import { BaseExplorerService } from './base-explorer.service';
+import { Module } from '@nestjs/core/injector/module';
 
 @Injectable()
-export class TelegrafExplorer implements OnModuleInit {
+export class UpdatesExplorerService
+  extends BaseExplorerService
+  implements OnModuleInit {
+  private readonly logger = new Logger(UpdatesExplorerService.name);
+
   constructor(
+    @Inject(TELEGRAF_BOT_NAME)
+    private readonly botName: string,
+    @Inject(TELEGRAF_MODULE_OPTIONS)
+    private readonly telegrafModuleOptions: TelegrafModuleOptions,
     private readonly moduleRef: ModuleRef,
     private readonly discoveryService: DiscoveryService,
-    private readonly metadataAccessor: TelegrafMetadataAccessor,
+    private readonly metadataAccessor: MetadataAccessorService,
     private readonly metadataScanner: MetadataScanner,
-  ) {}
+    private readonly modulesContainer: ModulesContainer,
+  ) {
+    super();
+  }
 
-  private telegraf: TelegrafProvider;
+  private bot: Telegraf<any>;
 
-  onModuleInit() {
-    this.telegraf = this.moduleRef.get<TelegrafProvider>(TELEGRAF_PROVIDER, {
+  onModuleInit(): void {
+    this.logger.debug(this.botName);
+    this.bot = this.moduleRef.get<Telegraf<any>>(this.botName, {
       strict: false,
     });
     this.explore();
   }
 
   explore() {
-    /**
-     * Update providers section is only for decorators under Update decorator
-     */
-    const updateProviders: InstanceWrapper[] = this.discoveryService
-      .getProviders()
-      .filter((wrapper: InstanceWrapper) =>
+    const modules = this.getModules(
+      this.modulesContainer,
+      this.telegrafModuleOptions.include || [],
+    );
+    const updates = this.flatMap(modules, (instance, moduleRef) =>
+      this.applyUpdates(instance, moduleRef),
+    );
+  }
+
+  private applyUpdates(wrapper: InstanceWrapper, moduleRef: Module) {
+    const { instance } = wrapper;
+    if (!instance) {
+      return undefined;
+    }
+    const prototype = Object.getPrototypeOf(instance);
+
+    const providers: InstanceWrapper[] = this.discoveryService.getProviders();
+    const updateProviders: InstanceWrapper[] = providers.filter(
+      (wrapper: InstanceWrapper) =>
         this.metadataAccessor.isUpdate(wrapper.metatype),
-      );
+    );
 
     updateProviders.forEach((wrapper: InstanceWrapper) => {
       const { instance } = wrapper;
-
-      this.metadataScanner.scanFromPrototype(
-        instance,
-        Object.getPrototypeOf(instance),
-        (key: string) => {
-          if (this.metadataAccessor.isUpdateHook(instance[key])) {
-            const metadata = this.metadataAccessor.getUpdateHookMetadata(
-              instance[key],
-            );
-            this.handleUpdateHook(instance, key, metadata);
-          }
-        },
-      );
+      if (!instance) {
+        return undefined;
+      }
+      this.metadataScanner.scanFromPrototype(instance, prototype, (name) => {
+        if (this.metadataAccessor.isUpdateHook(instance[name])) {
+          const metadata = this.metadataAccessor.getUpdateHookMetadata(
+            instance[name],
+          );
+          this.handleUpdateHook(instance, name, metadata);
+        }
+      });
     });
-
-    const providers: InstanceWrapper[] = this.discoveryService.getProviders();
 
     providers.forEach((wrapper: InstanceWrapper) => {
       const { instance } = wrapper;
-
       if (!instance) {
-        return;
+        return undefined;
       }
-
       this.metadataScanner.scanFromPrototype(
         instance,
-        Object.getPrototypeOf(instance),
+        prototype,
         (key: string) => {
           if (this.metadataAccessor.isTelegrafUse(instance[key])) {
             this.handleTelegrafUse(instance, key);
@@ -146,19 +171,19 @@ export class TelegrafExplorer implements OnModuleInit {
   }
 
   handleUpdateHook(instance: object, key: string, metadata: UpdateHookOptions) {
-    this.telegraf.on(metadata.updateType, instance[key].bind(instance));
+    this.bot.on(metadata.updateType, instance[key].bind(instance));
   }
 
   handleTelegrafUse(instance: object, key: string) {
-    this.telegraf.use(instance[key].bind(instance));
+    this.bot.use(instance[key].bind(instance));
   }
 
   handleTelegrafOn(instance: object, key: string, metadata: OnOptions) {
-    this.telegraf.on(metadata.updateTypes, instance[key].bind(instance));
+    this.bot.on(metadata.updateTypes, instance[key].bind(instance));
   }
 
   handleTelegrafHears(instance: object, key: string, metadata: HearsOptions) {
-    this.telegraf.hears(metadata.triggers, instance[key].bind(instance));
+    this.bot.hears(metadata.triggers, instance[key].bind(instance));
   }
 
   handleTelegrafCommand(
@@ -166,25 +191,25 @@ export class TelegrafExplorer implements OnModuleInit {
     key: string,
     metadata: CommandOptions,
   ) {
-    this.telegraf.command(metadata.commands, instance[key].bind(instance));
+    this.bot.command(metadata.commands, instance[key].bind(instance));
   }
 
   handleTelegrafStart(instance: object, key: string) {
-    this.telegraf.start(instance[key].bind(instance));
+    this.bot.start(instance[key].bind(instance));
   }
 
   handleTelegrafHelp(instance: object, key: string) {
-    this.telegraf.help(instance[key].bind(instance));
+    this.bot.help(instance[key].bind(instance));
   }
 
   handleTelegrafSettings(instance: object, key: string) {
     // @ts-ignore
-    this.telegraf.settings(instance[key].bind(instance));
+    this.bot.settings(instance[key].bind(instance));
   }
 
   handleTelegrafEntity(instance: object, key: string, metadata: EntityOptions) {
     // @ts-ignore
-    this.telegraf.entity(metadata.entity, instance[key].bind(instance));
+    this.bot.entity(metadata.entity, instance[key].bind(instance));
   }
 
   handleTelegrafMention(
@@ -193,12 +218,12 @@ export class TelegrafExplorer implements OnModuleInit {
     metadata: MentionOptions,
   ) {
     // @ts-ignore
-    this.telegraf.mention(metadata.username, instance[key].bind(instance));
+    this.bot.mention(metadata.username, instance[key].bind(instance));
   }
 
   handleTelegrafPhone(instance: object, key: string, metadata: PhoneOptions) {
     // @ts-ignore
-    this.telegraf.phone(metadata.phone, instance[key].bind(instance));
+    this.bot.phone(metadata.phone, instance[key].bind(instance));
   }
 
   handleTelegrafHashtag(
@@ -207,7 +232,7 @@ export class TelegrafExplorer implements OnModuleInit {
     metadata: HashtagOptions,
   ) {
     // @ts-ignore
-    this.telegraf.hashtag(metadata.hashtag, instance[key].bind(instance));
+    this.bot.hashtag(metadata.hashtag, instance[key].bind(instance));
   }
 
   handleTelegrafCashtag(
@@ -216,11 +241,11 @@ export class TelegrafExplorer implements OnModuleInit {
     metadata: CashtagOptions,
   ) {
     // @ts-ignore
-    this.telegraf.cashtag(metadata.cashtag, instance[key].bind(instance));
+    this.bot.cashtag(metadata.cashtag, instance[key].bind(instance));
   }
 
   handleTelegrafAction(instance: object, key: string, metadata: ActionOptions) {
-    this.telegraf.action(metadata.triggers, instance[key].bind(instance));
+    this.bot.action(metadata.triggers, instance[key].bind(instance));
   }
 
   handleTelegrafInlineQuery(
@@ -230,16 +255,13 @@ export class TelegrafExplorer implements OnModuleInit {
   ) {
     if (metadata.triggers) {
       // @ts-ignore
-      this.telegraf.inlineQuery(
-        metadata.triggers,
-        instance[key].bind(instance),
-      );
+      this.bot.inlineQuery(metadata.triggers, instance[key].bind(instance));
     } else {
-      this.telegraf.on(metadata.updateType, instance[key].bind(instance));
+      this.bot.on(metadata.updateType, instance[key].bind(instance));
     }
   }
 
   handleTelegrafGameQuery(instance: object, key: string) {
-    this.telegraf.gameQuery(instance[key].bind(instance));
+    this.bot.gameQuery(instance[key].bind(instance));
   }
 }

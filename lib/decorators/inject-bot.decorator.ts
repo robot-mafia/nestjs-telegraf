@@ -1,4 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { TELEGRAF_PROVIDER } from '../telegraf.constants';
+import { getBotToken } from '../utils';
 
-export const InjectBot = (): ParameterDecorator => Inject(TELEGRAF_PROVIDER);
+export const InjectBot = (name?: string): ParameterDecorator =>
+  Inject(getBotToken(name));

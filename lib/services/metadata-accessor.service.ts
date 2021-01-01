@@ -12,11 +12,11 @@ import {
   OnOptions,
   PhoneOptions,
   UpdateHookOptions,
-} from './decorators';
-import { DECORATORS } from './telegraf.constants';
+} from '../decorators';
+import { DECORATORS } from '../telegraf.constants';
 
 @Injectable()
-export class TelegrafMetadataAccessor {
+export class MetadataAccessorService {
   constructor(private readonly reflector: Reflector) {}
 
   isUpdate(target: Type<any> | Function): boolean {
