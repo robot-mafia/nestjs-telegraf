@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { DiscoveryService, ModuleRef, ModulesContainer } from '@nestjs/core';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
@@ -29,8 +29,6 @@ import { Module } from '@nestjs/core/injector/module';
 export class UpdatesExplorerService
   extends BaseExplorerService
   implements OnModuleInit {
-  private readonly logger = new Logger(UpdatesExplorerService.name);
-
   constructor(
     @Inject(TELEGRAF_BOT_NAME)
     private readonly botName: string,
@@ -48,7 +46,6 @@ export class UpdatesExplorerService
   private bot: Telegraf<any>;
 
   onModuleInit(): void {
-    this.logger.debug(this.botName);
     this.bot = this.moduleRef.get<Telegraf<any>>(this.botName, {
       strict: false,
     });

@@ -7,7 +7,6 @@ import {
   Global,
   Inject,
   OnApplicationShutdown,
-  Logger,
 } from '@nestjs/common';
 import {
   TelegrafModuleOptions,
@@ -29,14 +28,10 @@ import { defer } from 'rxjs';
   providers: [UpdatesExplorerService, MetadataAccessorService],
 })
 export class TelegrafCoreModule implements OnApplicationShutdown {
-  private readonly logger = new Logger(TelegrafCoreModule.name);
-
   constructor(
     @Inject(TELEGRAF_BOT_NAME) private readonly botName: string,
     private readonly moduleRef: ModuleRef,
-  ) {
-    this.logger.debug(botName);
-  }
+  ) {}
 
   public static forRoot(options: TelegrafModuleOptions): DynamicModule {
     const telegrafBotName = getBotToken(options.botName);
