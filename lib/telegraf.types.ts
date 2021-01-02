@@ -1,4 +1,4 @@
-import { Composer, Middleware, BaseScene, Telegraf } from 'telegraf';
+import { BaseScene, Composer, Middleware } from 'telegraf';
 
 export type Filter<T extends any[], F> = T extends []
   ? []
@@ -19,6 +19,3 @@ export type ComposerMethodArgs<
 
 export type UpdateMethods = OnlyFunctionPropertyNames<Composer<never>>;
 export type SceneMethods = OnlyFunctionPropertyNames<BaseScene<never>>;
-
-export type TelegrafOption = ConstructorParameters<typeof Telegraf>[1];
-export type TelegrafLaunchOption = Parameters<Telegraf<never>['launch']>[0];
