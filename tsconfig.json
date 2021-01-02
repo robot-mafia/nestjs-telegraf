@@ -9,10 +9,10 @@
     "experimentalDecorators": true,
     "target": "es6",
     "sourceMap": false,
-    "baseUrl": "./",
     "outDir": "./dist",
+    "rootDir": "./lib",
     "skipLibCheck": true
   },
-  "include": ["lib/**/*", "sample/**/*"],
+  "include": ["lib/**/*", "../index.ts"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
