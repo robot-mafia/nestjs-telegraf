@@ -4,18 +4,31 @@ import {
   SCENE_METADATA,
   UPDATE_LISTENER_METADATA,
   UPDATE_METADATA,
-} from './telegraf.constants';
-import { ListenerMetadata } from './interfaces';
+} from '../telegraf.constants';
+import { ListenerMetadata } from '../interfaces';
 
 @Injectable()
-export class TelegrafMetadataAccessor {
+export class MetadataAccessorService {
   constructor(private readonly reflector: Reflector) {}
 
   isUpdate(target: Function): boolean {
+    if (!target) {
+      return false;
+    }
     return !!this.reflector.get(UPDATE_METADATA, target);
   }
 
+  isUpdateListener(target: Function) {
+    if (!target) {
+      return false;
+    }
+    return !!this.reflector.get(UPDATE_LISTENER_METADATA, target);
+  }
+
   isScene(target: Function): boolean {
+    if (!target) {
+      return false;
+    }
     return !!this.reflector.get(SCENE_METADATA, target);
   }
 

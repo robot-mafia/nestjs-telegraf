@@ -1,6 +1,6 @@
 import { SetMetadata } from '@nestjs/common';
 import { BaseScene as Scene } from 'telegraf';
-import { ComposerMethodArgs, SceneMethods } from '../telegraf.types';
+import { ComposerMethodArgs, SceneMethods } from '../types';
 import { UPDATE_LISTENER_METADATA } from '../telegraf.constants';
 import { ListenerMetadata } from '../interfaces';
 

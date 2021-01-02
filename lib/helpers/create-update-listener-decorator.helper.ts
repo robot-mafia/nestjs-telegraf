@@ -1,6 +1,6 @@
 import { SetMetadata } from '@nestjs/common';
 import { Composer } from 'telegraf';
-import { ComposerMethodArgs, UpdateMethods } from '../telegraf.types';
+import { ComposerMethodArgs, UpdateMethods } from '../types';
 import { UPDATE_LISTENER_METADATA } from '../telegraf.constants';
 import { ListenerMetadata } from '../interfaces';
 
