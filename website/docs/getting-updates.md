@@ -1,12 +1,18 @@
 ---
-id: webhooks
-title: Webhooks
-sidebar_label: Webhooks
-slug: webhooks
+id: getting-updates
+title: Getting updates
+sidebar_label: Getting updates
+slug: getting-updates
 ---
 
+## Long polling
+
+By default, the bot receives updates using long-polling and requires no additional action.
+
+## Webhooks
+
 If you want to configure a telegram bot webhook, you need to get a middleware from `TelegrafProvider` for connect it in your `main.ts` file.
- 
+
 To access it, you must use the `app.get()` method, followed by the provider reference:
 ```typescript
 const telegrafProvider = app.get('TelegrafProvider');
