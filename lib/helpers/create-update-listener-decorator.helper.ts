@@ -5,7 +5,7 @@ import { UPDATE_LISTENER_METADATA } from '../telegraf.constants';
 import { ListenerMetadata } from '../interfaces';
 
 export function createUpdateListenerDecorator<Method extends UpdateMethods>(
-  method: Method,
+  method: unknown,
 ) {
   return (
     ...args: ComposerMethodArgs<Composer<never>, Method>

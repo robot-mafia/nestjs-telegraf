@@ -7,7 +7,9 @@ export const TelegrafProvider = {
   provide: Telegraf,
   useFactory: (options: TelegrafModuleOptions) => {
     const telegraf = new Telegraf(options.token, options.options);
-    telegraf.use(...options.middlewares);
+    if (options.middlewares?.length > 0) {
+      telegraf.use(...options.middlewares);
+    }
     return telegraf;
   },
   inject: [TELEGRAF_MODULE_OPTIONS],

@@ -1,4 +1,4 @@
-import { SceneContext, Telegraf } from 'telegraf';
+import { Telegraf } from 'telegraf';
 import { Command, Help, InjectBot, On, Start, Update } from '../lib';
 import { EchoService } from './echo.service';
 import { HELLO_SCENE_ID } from './app.constants';
@@ -8,7 +8,7 @@ import { Context } from './interfaces/context.interface';
 export class AppUpdate {
   constructor(
     @InjectBot()
-    private readonly bot: Telegraf<SceneContext>,
+    private readonly bot: Telegraf<any>, // TODO: fix any
     private readonly echoService: EchoService,
   ) {}
 
