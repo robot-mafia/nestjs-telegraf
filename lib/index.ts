@@ -8,5 +8,8 @@ export * as Extra from 'telegraf/extra';
 
 export * from './decorators';
 export * from './interfaces';
+export * from './helpers';
+export * from './utils';
 export * from './telegraf.module';
-export * from './telegraf.provider';
+export * from './types';
+export { Telegraf } from 'telegraf';
