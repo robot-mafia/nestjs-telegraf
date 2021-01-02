@@ -4,7 +4,7 @@
     "rootDir": "./"
   },
   "typedocOptions": {
-    "mode": "file",
+    "entryPoints": ["./index.ts", "./lib"],
     "out": "docs"
   }
 }
