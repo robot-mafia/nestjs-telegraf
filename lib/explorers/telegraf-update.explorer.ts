@@ -3,25 +3,18 @@ import { Injectable as IInjectable } from '@nestjs/common/interfaces/injectable.
 import { DiscoveryService, ModuleRef, ModulesContainer } from '@nestjs/core';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
-import { PipesContextCreator } from '@nestjs/core/pipes/pipes-context-creator';
-import { PipesConsumer } from '@nestjs/core/pipes/pipes-consumer';
-import { GuardsContextCreator } from '@nestjs/core/guards/guards-context-creator';
-import { GuardsConsumer } from '@nestjs/core/guards/guards-consumer';
-import { InterceptorsContextCreator } from '@nestjs/core/interceptors/interceptors-context-creator';
-import { InterceptorsConsumer } from '@nestjs/core/interceptors/interceptors-consumer';
 import { isFunction, isNil } from '@nestjs/common/utils/shared.utils';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { filter, mergeAll } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Context, Telegraf } from 'telegraf';
 import { TelegrafMetadataAccessor } from '../telegraf.metadata-accessor';
-import { TelegrafContextCreator } from '../context/telegraf-context-creator';
-import { TelegrafProxy } from '../context/telegraf-proxy';
-import { FiltersContextCreator } from '../context/filters-context-creator';
+import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-creator';
+import { TelegrafParamsFactory } from '../factories/telegraf-params-factory';
 
 @Injectable()
 export class TelegrafUpdateExplorer implements OnModuleInit {
-  private readonly contextCreator: TelegrafContextCreator;
+  private readonly telegrafParamsFactory = new TelegrafParamsFactory();
 
   constructor(
     private readonly moduleRef: ModuleRef,
@@ -29,24 +22,9 @@ export class TelegrafUpdateExplorer implements OnModuleInit {
     private readonly discoveryService: DiscoveryService,
     private readonly metadataAccessor: TelegrafMetadataAccessor,
     private readonly metadataScanner: MetadataScanner,
+    private readonly externalContextCreator: ExternalContextCreator,
     @Inject(Telegraf) private readonly telegraf: Telegraf<never>,
-  ) {
-    this.contextCreator = this.getContextCreator();
-  }
-
-  private getContextCreator(): TelegrafContextCreator {
-    const { container } = this.moduleRef as any;
-    return new TelegrafContextCreator(
-      new TelegrafProxy(),
-      new FiltersContextCreator(container),
-      new PipesContextCreator(container),
-      new PipesConsumer(),
-      new GuardsContextCreator(container),
-      new GuardsConsumer(),
-      new InterceptorsContextCreator(container),
-      new InterceptorsConsumer(),
-    );
-  }
+  ) {}
 
   onModuleInit(): void {
     this.explore();
@@ -87,11 +65,20 @@ export class TelegrafUpdateExplorer implements OnModuleInit {
     moduleName: string,
   ): void {
     const methodRef = instance[methodKey] as (...args: unknown[]) => unknown;
-    const contextHandlerFn = this.contextCreator.create(
+    const contextHandlerFn = this.externalContextCreator.create(
       instance,
       methodRef,
       moduleName,
       methodKey,
+      this.telegrafParamsFactory,
+      null,
+      null,
+      {
+        interceptors: true,
+        filters: true,
+        guards: true,
+      },
+      'telegraf',
     );
 
     const listenerMetadata = this.metadataAccessor.getListenerMetadata(
