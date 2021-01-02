@@ -8,13 +8,8 @@ export * as Extra from 'telegraf/extra';
 
 export * from './decorators';
 export * from './interfaces';
+export * from './helpers';
 export * from './utils';
 export * from './telegraf.module';
+export * from './telegraf.types';
 export { Telegraf } from 'telegraf';
-
-/**
- * Backward compatibility with versions < 1.4.0,
- * after removing TelegrafProvider service
- * TODO: remove that on next major release
- */
-export { Telegraf as TelegrafProvider } from 'telegraf';
