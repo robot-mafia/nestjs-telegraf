@@ -11,5 +11,5 @@ export * from './interfaces';
 export * from './helpers';
 export * from './utils';
 export * from './telegraf.module';
-export * from './telegraf.types';
+export * from './types';
 export { Telegraf } from 'telegraf';

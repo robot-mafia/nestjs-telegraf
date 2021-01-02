@@ -13,13 +13,16 @@ import {
   TelegrafModuleOptions,
   TelegrafModuleAsyncOptions,
   TelegrafOptionsFactory,
-  Context,
 } from './interfaces';
 import {
   TELEGRAF_BOT_NAME,
   TELEGRAF_MODULE_OPTIONS,
 } from './telegraf.constants';
-import { MetadataAccessorService, UpdatesExplorerService } from './services';
+import {
+  MetadataAccessorService,
+  ScenesExplorerService,
+  UpdatesExplorerService,
+} from './services';
 import { getBotToken } from './utils';
 import { Telegraf } from 'telegraf';
 import { defer } from 'rxjs';
@@ -27,7 +30,11 @@ import { defer } from 'rxjs';
 @Global()
 @Module({
   imports: [DiscoveryModule],
-  providers: [UpdatesExplorerService, MetadataAccessorService],
+  providers: [
+    UpdatesExplorerService,
+    ScenesExplorerService,
+    MetadataAccessorService,
+  ],
 })
 export class TelegrafCoreModule implements OnApplicationShutdown {
   private static logger = new Logger(TelegrafCoreModule.name);
@@ -44,22 +51,8 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
       provide: telegrafBotName,
       useFactory: async (): Promise<any> =>
         await defer(async () => {
-          const bot = new Telegraf<Context>(options.token);
+          const bot = new Telegraf<any>(options.token);
           this.applyBotMiddlewares(bot, options.middlewares);
-
-          /**
-           * Backward compatibility with versions < 1.4.0,
-           * TODO: remove that on next major release,
-           *  after exception filters has been added
-           */
-          if (!options.disableGlobalCatch) {
-            bot.catch((err, ctx: Context) => {
-              this.logger.error(
-                `Encountered an error for ${ctx.updateType} update type`,
-                err,
-              );
-            });
-          }
           await bot.launch(options.launchOptions);
           return bot;
         }).toPromise(),
@@ -95,22 +88,8 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
         const { botName, ...telegrafOptions } = telegrafModuleOptions;
 
         return await defer(async () => {
-          const bot = new Telegraf<Context>(telegrafOptions.token);
+          const bot = new Telegraf<any>(telegrafOptions.token);
           this.applyBotMiddlewares(bot, telegrafOptions.middlewares);
-
-          /**
-           * Backward compatibility with versions < 1.4.0,
-           * TODO: remove that on next major release,
-           *  after exception filters has been added
-           */
-          if (!telegrafOptions.disableGlobalCatch) {
-            bot.catch((err, ctx: Context) => {
-              this.logger.error(
-                `Encountered an error for ${ctx.updateType} update type`,
-                err,
-              );
-            });
-          }
           await bot.launch(telegrafOptions.launchOptions);
           return bot;
         }).toPromise();

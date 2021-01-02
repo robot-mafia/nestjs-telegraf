@@ -4,10 +4,7 @@ import {
   TelegrafOptions,
   LaunchPollingOptions,
   LaunchWebhookOptions,
-  TelegrafOptions,
 } from 'telegraf/typings/telegraf';
-import { Middleware } from 'telegraf/typings/composer';
-import { Context } from './context.interface';
 
 export interface TelegrafModuleOptions<C extends Context = Context> {
   token: string;
@@ -18,9 +15,7 @@ export interface TelegrafModuleOptions<C extends Context = Context> {
   };
   botName?: string;
   include?: Function[];
-  middlewares?: ReadonlyArray<Middleware<Context>>;
-  disableGlobalCatch?: boolean;
-  middlewares?: Middleware<C>[];
+  middlewares?: ReadonlyArray<Middleware<C>>;
 }
 
 export interface TelegrafOptionsFactory {
