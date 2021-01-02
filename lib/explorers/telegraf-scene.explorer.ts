@@ -7,11 +7,11 @@ import { TelegrafMetadataAccessor } from '../telegraf.metadata-accessor';
 
 @Injectable()
 export class TelegrafSceneExplorer implements OnModuleInit {
-  private readonly stage = new Stage();
+  private readonly stage = new Stage([]);
 
   constructor(
     @Inject(Telegraf)
-    private readonly telegraf: Telegraf,
+    private readonly telegraf: Telegraf<never>,
     private readonly discoveryService: DiscoveryService,
     private readonly metadataAccessor: TelegrafMetadataAccessor,
     private readonly metadataScanner: MetadataScanner,
@@ -55,7 +55,7 @@ export class TelegrafSceneExplorer implements OnModuleInit {
   }
 
   private registerIfListener(
-    scene: Scene,
+    scene: Scene<never>,
     instance: Record<string, Function>,
     methodKey: string,
   ): void {

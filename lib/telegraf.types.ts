@@ -12,11 +12,6 @@ export type OnlyFunctionPropertyNames<T> = {
   [K in keyof T]: T[K] extends (...args: any) => any ? K : never;
 }[keyof T];
 
-// export type FilterComposerMethods<T extends string> = Exclude<
-//   T,
-//   'middleware' | 'guard' | 'filter' | 'drop'
-//   >;
-
 export type ComposerMethodArgs<
   T extends Composer<never>,
   U extends OnlyFunctionPropertyNames<T> = OnlyFunctionPropertyNames<T>
@@ -26,4 +21,4 @@ export type UpdateMethods = OnlyFunctionPropertyNames<Composer<never>>;
 export type SceneMethods = OnlyFunctionPropertyNames<BaseScene<never>>;
 
 export type TelegrafOption = ConstructorParameters<typeof Telegraf>[1];
-export type TelegrafLaunchOption = Parameters<Telegraf['launch']>[0];
+export type TelegrafLaunchOption = Parameters<Telegraf<never>['launch']>[0];

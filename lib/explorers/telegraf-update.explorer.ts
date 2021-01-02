@@ -9,7 +9,7 @@ import { TelegrafMetadataAccessor } from '../telegraf.metadata-accessor';
 export class TelegrafUpdateExplorer implements OnModuleInit {
   constructor(
     @Inject(Telegraf)
-    private readonly telegraf: Telegraf,
+    private readonly telegraf: Telegraf<never>,
     private readonly discoveryService: DiscoveryService,
     private readonly metadataAccessor: TelegrafMetadataAccessor,
     private readonly metadataScanner: MetadataScanner,

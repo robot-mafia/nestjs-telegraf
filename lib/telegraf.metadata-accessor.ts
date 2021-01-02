@@ -5,7 +5,7 @@ import {
   UPDATE_LISTENER_METADATA,
   UPDATE_METADATA,
 } from './telegraf.constants';
-import { ListenerMetadata } from './interfaces/listener-metadata.interface';
+import { ListenerMetadata } from './interfaces';
 
 @Injectable()
 export class TelegrafMetadataAccessor {

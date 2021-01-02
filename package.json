@@ -34,7 +34,7 @@
     "sample-app": "ts-node --transpile-only -r tsconfig-paths/register sample/main.ts"
   },
   "dependencies": {
-    "telegraf": "https://github.com/telegraf/telegraf.git#develop"
+    "telegraf": "^3.38.0"
   },
   "devDependencies": {
     "@nestjs/common": "7.6.1",
