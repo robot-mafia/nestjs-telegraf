@@ -9,12 +9,13 @@ If you want to configure a telegram bot webhook, you need to get a middleware fr
  
 To access it, you must use the `app.get()` method, followed by the provider reference:
 ```typescript
-const telegrafProvider = app.get('TelegrafProvider');
+import { Telegraf } from 'telegraf';
+const telegraf = app.get(Telegraf);
 ```
 
 Now you can connect middleware:
 ```typescript
-app.use(telegrafProvider.webhookCallback('/secret-path'));
+app.use(telegraf.webhookCallback('/secret-path'));
 ```
 
 The last step is to specify launchOptions in `forRoot` method:

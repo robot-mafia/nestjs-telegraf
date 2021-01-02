@@ -3,7 +3,7 @@ import { TelegrafModule } from '../lib';
 import { EchoService } from './echo.service';
 import { AppUpdate } from './app.update';
 import { HelloScene } from './scenes/hello.scene';
-import { sessionMiddleware } from './middleware/session.middleware';
+import { sessionMiddleware } from './common/middleware/session.middleware';
 
 @Module({
   imports: [
@@ -12,6 +12,6 @@ import { sessionMiddleware } from './middleware/session.middleware';
       middlewares: [sessionMiddleware],
     }),
   ],
-  providers: [EchoService, AppUpdate, HelloScene],
+  providers: [EchoService, AppUpdate],
 })
 export class AppModule {}

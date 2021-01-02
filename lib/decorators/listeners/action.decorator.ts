@@ -1,4 +1,4 @@
-import { createUpdateListenerDecorator } from '../../helpers';
+import { createUpdateListenerDecorator } from '../../utils';
 
 /**
  * Registers middleware for handling callback_data actions with regular expressions.

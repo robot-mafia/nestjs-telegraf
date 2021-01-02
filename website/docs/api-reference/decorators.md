@@ -12,6 +12,7 @@ The described functionality is under development, the functionality has not been
 ### Update
 
 `@Update` class decorator, it's like NestJS [`@Controller`](https://docs.nestjs.com/controllers) decorator, but for [Telegram Bot API updates](https://core.telegram.org/bots/api#getting-updates).
+It is required for the class that will receive updates from Telegram.
 
 ```typescript {3}
 import { Update, Context } from 'nestjs-telegraf';

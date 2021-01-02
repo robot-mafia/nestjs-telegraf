@@ -1,3 +1,3 @@
-import { createSceneListenerDecorator } from '../../helpers';
+import { createSceneListenerDecorator } from '../../utils';
 
 export const SceneEnter = createSceneListenerDecorator('enter');

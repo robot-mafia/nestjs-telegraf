@@ -1,4 +1,4 @@
-import { createUpdateListenerDecorator } from '../../helpers';
+import { createUpdateListenerDecorator } from '../../utils';
 
 /**
  * Handler for /help command.

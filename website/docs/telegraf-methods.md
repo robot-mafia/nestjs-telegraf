@@ -18,8 +18,8 @@ import {
   Help,
   On,
   Hears,
-  Context,
 } from 'nestjs-telegraf';
+import { Context } from 'telegraf';
 
 @Injectable()
 export class AppService {
