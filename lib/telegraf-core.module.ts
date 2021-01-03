@@ -16,18 +16,15 @@ import {
 import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants';
 import {
   MetadataAccessorService,
-  ScenesExplorerService,
-  UpdatesExplorerService,
+  ListenersExplorerService,
 } from './services';
-import { getBotToken } from './utils';
-import { createBotFactory } from './utils/create-bot-factory.util';
+import { getBotToken, createBotFactory } from './utils';
 
 @Global()
 @Module({
   imports: [DiscoveryModule],
   providers: [
-    UpdatesExplorerService,
-    ScenesExplorerService,
+    ListenersExplorerService,
     MetadataAccessorService,
   ],
 })

@@ -1,3 +1,3 @@
-import { createSceneListenerDecorator } from '../../helpers';
+import { createListenerDecorator } from '../../utils';
 
-export const SceneLeave = createSceneListenerDecorator('leave');
+export const SceneLeave = createListenerDecorator('leave');

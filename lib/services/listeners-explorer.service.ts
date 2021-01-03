@@ -12,7 +12,7 @@ import { BaseExplorerService } from './base-explorer.service';
 import { getBotToken } from '../utils';
 
 @Injectable()
-export class TelegrafExplorerService
+export class ListenersExplorerService
   extends BaseExplorerService
   implements OnModuleInit {
   private readonly bot: Telegraf<any>;
