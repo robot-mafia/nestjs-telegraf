@@ -13,10 +13,7 @@ import {
   TelegrafModuleAsyncOptions,
   TelegrafOptionsFactory,
 } from './interfaces';
-import {
-  TELEGRAF_BOT_NAME,
-  TELEGRAF_MODULE_OPTIONS,
-} from './telegraf.constants';
+import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants';
 import {
   MetadataAccessorService,
   ScenesExplorerService,
@@ -36,15 +33,14 @@ import { createBotFactory } from './utils/create-bot-factory.util';
 })
 export class TelegrafCoreModule implements OnApplicationShutdown {
   constructor(
-    @Inject(TELEGRAF_BOT_NAME) private readonly botName: string,
+    @Inject(TELEGRAF_MODULE_OPTIONS)
+    private readonly options: TelegrafModuleOptions,
     private readonly moduleRef: ModuleRef,
   ) {}
 
   public static forRoot(options: TelegrafModuleOptions): DynamicModule {
-    const telegrafBotName = getBotToken(options.botName);
-
     const telegrafBotProvider: Provider = {
-      provide: telegrafBotName,
+      provide: getBotToken(options.name),
       useFactory: async () => await createBotFactory(options),
     };
 
@@ -54,10 +50,6 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
         {
           provide: TELEGRAF_MODULE_OPTIONS,
           useValue: options,
-        },
-        {
-          provide: TELEGRAF_BOT_NAME,
-          useValue: telegrafBotName,
         },
         telegrafBotProvider,
       ],
@@ -81,20 +73,14 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
     return {
       module: TelegrafCoreModule,
       imports: options.imports,
-      providers: [
-        ...asyncProviders,
-        {
-          provide: TELEGRAF_BOT_NAME,
-          useValue: telegrafBotName,
-        },
-        telegrafBotProvider,
-      ],
+      providers: [...asyncProviders, telegrafBotProvider],
       exports: [telegrafBotProvider],
     };
   }
 
   async onApplicationShutdown(): Promise<void> {
-    const bot = this.moduleRef.get<any>(this.botName);
+    const botName = getBotToken(this.options.name);
+    const bot = this.moduleRef.get<any>(botName);
     bot && (await bot.stop());
   }
 
