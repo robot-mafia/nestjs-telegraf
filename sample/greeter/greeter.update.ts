@@ -1,9 +1,13 @@
-import { Injectable } from '@nestjs/common';
-import { Hears } from '../../lib';
+import { Hears, Start, Update } from '../../lib';
 import { Context } from '../interfaces/context.interface';
 
-@Injectable()
+@Update()
 export class GreeterUpdate {
+  @Start()
+  async onStart(ctx: Context): Promise<void> {
+    await ctx.reply('Say hello to me');
+  }
+
   @Hears(['hi', 'hello', 'hey', 'qq'])
   async onGreetings(ctx: Context): Promise<void> {
     const { first_name } = ctx.from;
