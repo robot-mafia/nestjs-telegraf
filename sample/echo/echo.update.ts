@@ -1,34 +1,26 @@
 import { Telegraf } from 'telegraf';
-import { Command, Help, InjectBot, On, Start, Update } from '../lib';
+import { Command, Help, InjectBot, On, Start, Update } from '../../lib';
 import { EchoService } from './echo.service';
-import { HELLO_SCENE_ID, SUPPORT_BOT_NAME } from './app.constants';
-import { Context } from './interfaces/context.interface';
+import { HELLO_SCENE_ID } from '../app.constants';
+import { Context } from '../interfaces/context.interface';
 
 @Update()
-export class AppUpdate {
+export class EchoUpdate {
   constructor(
     @InjectBot()
-    private readonly defaultBot: Telegraf<Context>,
-    @InjectBot(SUPPORT_BOT_NAME)
-    private readonly supportBot: Telegraf<Context>,
+    private readonly bot: Telegraf<Context>,
     private readonly echoService: EchoService,
   ) {}
 
   @Start()
   async onStart(ctx: Context): Promise<void> {
-    const me = await this.defaultBot.telegram.getMe();
+    const me = await this.bot.telegram.getMe();
     await ctx.reply(`Hey, I'm ${me.first_name}`);
   }
 
   @Help()
   async onHelp(ctx: Context): Promise<void> {
     await ctx.reply('Send me any text');
-  }
-
-  @Command('support')
-  async onSupportCommand(ctx: Context): Promise<void> {
-    const me = await this.supportBot.telegram.getMe();
-    await ctx.reply(`Greetings from ${me.first_name}`);
   }
 
   @Command('scene')
