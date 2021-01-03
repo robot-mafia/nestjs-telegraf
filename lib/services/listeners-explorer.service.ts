@@ -15,8 +15,8 @@ import { getBotToken } from '../utils';
 export class ListenersExplorerService
   extends BaseExplorerService
   implements OnModuleInit {
-  private readonly bot: Telegraf<any>;
   private readonly stage = new Stage([]);
+  private bot: Telegraf<any>;
 
   constructor(
     @Inject(TELEGRAF_MODULE_OPTIONS)
@@ -28,13 +28,13 @@ export class ListenersExplorerService
     private readonly modulesContainer: ModulesContainer,
   ) {
     super();
-
-    const botToken = getBotToken(this.telegrafOptions.name);
-    this.bot = this.moduleRef.get<Telegraf<never>>(botToken);
-    this.bot.use(this.stage.middleware());
   }
 
   onModuleInit(): void {
+    const botToken = getBotToken(this.telegrafOptions.name);
+    this.bot = this.moduleRef.get<Telegraf<never>>(botToken);
+    this.bot.use(this.stage.middleware());
+
     this.explore();
   }
 
