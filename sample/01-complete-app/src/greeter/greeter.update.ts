@@ -1,4 +1,4 @@
-import { Hears, Start, Update } from '../../../lib';
+import { Hears, Start, Update } from '../../../../lib';
 import { Context } from '../interfaces/context.interface';
 
 @Update()
