@@ -1,6 +1,6 @@
 import { HELLO_SCENE_ID } from '../../app.constants';
 import { Context } from '../../interfaces/context.interface';
-import { Scene, SceneEnter, SceneLeave, Command } from '../../../lib';
+import { Scene, SceneEnter, SceneLeave, Command } from '../../../../lib';
 
 @Scene(HELLO_SCENE_ID)
 export class HelloScene {

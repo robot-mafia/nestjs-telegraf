@@ -1,5 +1,5 @@
 import { Telegraf } from 'telegraf';
-import { Command, Help, InjectBot, On, Start, Update } from '../../lib';
+import { Command, Help, InjectBot, On, Start, Update } from '../../../lib';
 import { EchoService } from './echo.service';
 import { HELLO_SCENE_ID } from '../app.constants';
 import { Context } from '../interfaces/context.interface';

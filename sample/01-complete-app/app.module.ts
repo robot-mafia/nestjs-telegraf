@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { TelegrafModule } from '../lib';
+import { TelegrafModule } from '../../lib';
 import { EchoModule } from './echo/echo.module';
 import { GreeterModule } from './greeter/greeter.module';
 import { sessionMiddleware } from './middleware/session.middleware';
