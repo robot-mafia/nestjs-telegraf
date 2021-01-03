@@ -7,7 +7,6 @@ import {
   Global,
   Inject,
   OnApplicationShutdown,
-  Logger,
 } from '@nestjs/common';
 import {
   TelegrafModuleOptions,
@@ -24,8 +23,7 @@ import {
   UpdatesExplorerService,
 } from './services';
 import { getBotToken } from './utils';
-import { Telegraf } from 'telegraf';
-import { defer } from 'rxjs';
+import { createBotFactory } from './utils/create-bot-factory.util';
 
 @Global()
 @Module({
@@ -37,8 +35,6 @@ import { defer } from 'rxjs';
   ],
 })
 export class TelegrafCoreModule implements OnApplicationShutdown {
-  private static logger = new Logger(TelegrafCoreModule.name);
-
   constructor(
     @Inject(TELEGRAF_BOT_NAME) private readonly botName: string,
     private readonly moduleRef: ModuleRef,
@@ -47,15 +43,9 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
   public static forRoot(options: TelegrafModuleOptions): DynamicModule {
     const telegrafBotName = getBotToken(options.botName);
 
-    const telegrafBotProvider = {
+    const telegrafBotProvider: Provider = {
       provide: telegrafBotName,
-      useFactory: async (): Promise<any> =>
-        await defer(async () => {
-          const bot = new Telegraf<any>(options.token);
-          this.applyBotMiddlewares(bot, options.middlewares);
-          await bot.launch(options.launchOptions);
-          return bot;
-        }).toPromise(),
+      useFactory: async () => await createBotFactory(options),
     };
 
     return {
@@ -80,20 +70,10 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
   ): DynamicModule {
     const telegrafBotName = getBotToken(options.botName);
 
-    const telegrafBotProvider = {
+    const telegrafBotProvider: Provider = {
       provide: telegrafBotName,
-      useFactory: async (
-        telegrafModuleOptions: TelegrafModuleOptions,
-      ): Promise<any> => {
-        const { botName, ...telegrafOptions } = telegrafModuleOptions;
-
-        return await defer(async () => {
-          const bot = new Telegraf<any>(telegrafOptions.token);
-          this.applyBotMiddlewares(bot, telegrafOptions.middlewares);
-          await bot.launch(telegrafOptions.launchOptions);
-          return bot;
-        }).toPromise();
-      },
+      useFactory: async (options: TelegrafModuleOptions) =>
+        await createBotFactory(options),
       inject: [TELEGRAF_MODULE_OPTIONS],
     };
 
@@ -113,12 +93,9 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
     };
   }
 
-  private static applyBotMiddlewares(bot, middlewares) {
-    if (middlewares) {
-      middlewares.forEach((middleware) => {
-        bot.use(middleware);
-      });
-    }
+  async onApplicationShutdown(): Promise<void> {
+    const bot = this.moduleRef.get<any>(this.botName);
+    bot && (await bot.stop());
   }
 
   private static createAsyncProviders(
@@ -157,10 +134,5 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
         await optionsFactory.createTelegrafOptions(),
       inject,
     };
-  }
-
-  async onApplicationShutdown(): Promise<void> {
-    const bot = this.moduleRef.get<any>(this.botName);
-    bot && (await bot.stop());
   }
 }
