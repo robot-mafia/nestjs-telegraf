@@ -10,9 +10,8 @@
     "target": "es6",
     "sourceMap": false,
     "outDir": "./dist",
-    "rootDir": "./lib",
     "skipLibCheck": true
   },
-  "include": ["lib/**/*", "../index.ts"],
+  "include": ["lib/**/*", "./sample/**/*", "../index.ts"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }
