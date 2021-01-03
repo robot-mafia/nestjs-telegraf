@@ -1,17 +1,21 @@
 import { ModuleMetadata, Type } from '@nestjs/common/interfaces';
+import { Middleware, Context } from 'telegraf';
 import {
   TelegrafOptions,
   LaunchPollingOptions,
   LaunchWebhookOptions,
 } from 'telegraf/typings/telegraf';
 
-export interface TelegrafModuleOptions {
+export interface TelegrafModuleOptions<C extends Context = Context> {
   token: string;
   options?: TelegrafOptions;
   launchOptions?: {
     polling?: LaunchPollingOptions;
     webhook?: LaunchWebhookOptions;
   };
+  botName?: string;
+  include?: Function[];
+  middlewares?: ReadonlyArray<Middleware<C>>;
 }
 
 export interface TelegrafOptionsFactory {
@@ -20,6 +24,7 @@ export interface TelegrafOptionsFactory {
 
 export interface TelegrafModuleAsyncOptions
   extends Pick<ModuleMetadata, 'imports'> {
+  botName?: string;
   useExisting?: Type<TelegrafOptionsFactory>;
   useClass?: Type<TelegrafOptionsFactory>;
   useFactory?: (
