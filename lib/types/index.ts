@@ -17,5 +17,5 @@ export type ComposerMethodArgs<
   U extends OnlyFunctionPropertyNames<T> = OnlyFunctionPropertyNames<T>
 > = Filter<Parameters<T[U]>, Middleware<never>>;
 
-export type UpdateMethods = OnlyFunctionPropertyNames<Composer<never>>;
+export type ComposerMethods = OnlyFunctionPropertyNames<Composer<never>>;
 export type SceneMethods = OnlyFunctionPropertyNames<BaseScene<never>>;

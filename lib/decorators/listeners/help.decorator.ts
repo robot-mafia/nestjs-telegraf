@@ -1,8 +1,8 @@
-import { createUpdateListenerDecorator } from '../../utils';
+import { createListenerDecorator } from '../../utils';
 
 /**
  * Handler for /help command.
  *
  * @see https://telegraf.js.org/#/?id=help
  */
-export const Help = createUpdateListenerDecorator('help');
+export const Help = createListenerDecorator('help');

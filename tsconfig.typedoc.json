@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./"
+  },
+  "typedocOptions": {
+    "entryPoints": ["./index.ts", "./lib"],
+    "out": "docs"
+  }
+}

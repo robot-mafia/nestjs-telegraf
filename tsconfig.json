@@ -7,12 +7,12 @@
     "noLib": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "target": "es2020",
+    "target": "es2017",
     "sourceMap": false,
-    "baseUrl": "./",
+    "rootDir": "./lib",
     "outDir": "./dist",
     "skipLibCheck": true
   },
-  "include": ["lib/**/*", "sample/**/*"],
+  "include": ["lib/**/*"],
   "exclude": ["node_modules", "**/*.spec.ts"]
 }

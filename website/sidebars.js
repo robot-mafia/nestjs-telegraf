@@ -2,11 +2,15 @@ module.exports = {
   docs: {
     'Getting Started': [
       'installation',
+      'getting-updates',
       'telegraf-methods',
       'bot-injection',
       'async-configuration',
-      'webhooks',
+      'multiple-bots',
+      'middlewares',
+      'error-handling',
     ],
+    Extras: ['extras/standalone-applications'],
     'API Reference': ['api-reference/decorators'],
   },
 };

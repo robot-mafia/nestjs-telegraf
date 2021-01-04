@@ -1,8 +1,8 @@
-import { createUpdateListenerDecorator } from '../../utils';
+import { createListenerDecorator } from '../../utils';
 
 /**
  * Command handling.
  *
  * @see https://telegraf.js.org/#/?id=command
  */
-export const Command = createUpdateListenerDecorator('command');
+export const Command = createListenerDecorator('command');

@@ -1,3 +1,3 @@
-import { createSceneListenerDecorator } from '../../utils';
+import { createListenerDecorator } from '../../utils';
 
-export const SceneEnter = createSceneListenerDecorator('enter');
+export const SceneEnter = createListenerDecorator('enter');
