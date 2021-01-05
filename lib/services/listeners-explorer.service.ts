@@ -6,10 +6,12 @@ import { Module } from '@nestjs/core/injector/module';
 import { BaseScene, Composer, Stage, Telegraf } from 'telegraf';
 
 import { MetadataAccessorService } from './metadata-accessor.service';
-import { TELEGRAF_MODULE_OPTIONS } from '../telegraf.constants';
+import {
+  TELEGRAF_BOT_NAME,
+  TELEGRAF_MODULE_OPTIONS,
+} from '../telegraf.constants';
 import { TelegrafModuleOptions } from '../interfaces';
 import { BaseExplorerService } from './base-explorer.service';
-import { getBotToken } from '../utils';
 
 @Injectable()
 export class ListenersExplorerService
@@ -19,6 +21,8 @@ export class ListenersExplorerService
   private bot: Telegraf<any>;
 
   constructor(
+    @Inject(TELEGRAF_BOT_NAME)
+    private readonly botName: string,
     @Inject(TELEGRAF_MODULE_OPTIONS)
     private readonly telegrafOptions: TelegrafModuleOptions,
     private readonly moduleRef: ModuleRef,
@@ -31,8 +35,9 @@ export class ListenersExplorerService
   }
 
   onModuleInit(): void {
-    const botToken = getBotToken(this.telegrafOptions.name);
-    this.bot = this.moduleRef.get<Telegraf<never>>(botToken);
+    this.bot = this.moduleRef.get<Telegraf<never>>(this.botName, {
+      strict: false,
+    });
     this.bot.use(this.stage.middleware());
 
     this.explore();

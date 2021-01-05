@@ -8,7 +8,7 @@ import {
 
 export interface TelegrafModuleOptions<C extends Context = Context> {
   token: string;
-  name?: string;
+  botName?: string;
   options?: TelegrafOptions;
   launchOptions?: {
     polling?: LaunchPollingOptions;
@@ -24,7 +24,7 @@ export interface TelegrafOptionsFactory {
 
 export interface TelegrafModuleAsyncOptions
   extends Pick<ModuleMetadata, 'imports'> {
-  name?: string;
+  botName?: string;
   useExisting?: Type<TelegrafOptionsFactory>;
   useClass?: Type<TelegrafOptionsFactory>;
   useFactory?: (
