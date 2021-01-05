@@ -8,12 +8,12 @@ import {
 
 export interface TelegrafModuleOptions<C extends Context = Context> {
   token: string;
+  botName?: string;
   options?: TelegrafOptions;
   launchOptions?: {
     polling?: LaunchPollingOptions;
     webhook?: LaunchWebhookOptions;
   };
-  botName?: string;
   include?: Function[];
   middlewares?: ReadonlyArray<Middleware<C>>;
 }

@@ -1,7 +1,5 @@
 import { DEFAULT_BOT_NAME } from '../telegraf.constants';
 
-export function getBotToken(name?: string) {
-  return name && name !== DEFAULT_BOT_NAME
-    ? `${name}_BOT_NAME`
-    : DEFAULT_BOT_NAME;
+export function getBotToken(name?: string): string {
+  return name && name !== DEFAULT_BOT_NAME ? `${name}Bot` : DEFAULT_BOT_NAME;
 }

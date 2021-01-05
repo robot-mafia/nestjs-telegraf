@@ -1,7 +1,6 @@
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { Module } from '@nestjs/core/injector/module';
-import { flattenDeep, groupBy, identity, isEmpty, mapValues } from 'lodash';
-import { UpdateMetadata } from '../interfaces';
+import { flattenDeep, identity, isEmpty } from 'lodash';
 
 export class BaseExplorerService {
   getModules(
@@ -21,11 +20,11 @@ export class BaseExplorerService {
   ): Module[] {
     const modules = [...modulesContainer.values()];
     return modules.filter(({ metatype }) =>
-      include.some((item) => item === metatype),
+      include.includes(metatype),
     );
   }
 
-  flatMap<T = UpdateMetadata>(
+  flatMap<T>(
     modules: Module[],
     callback: (instance: InstanceWrapper, moduleRef: Module) => T | T[],
   ): T[] {
@@ -36,24 +35,5 @@ export class BaseExplorerService {
       });
     };
     return flattenDeep(invokeMap()).filter(identity);
-  }
-
-  groupMetadata(resolvers: UpdateMetadata[]) {
-    const groupByType = groupBy(
-      resolvers,
-      (metadata: UpdateMetadata) => metadata.type,
-    );
-    const groupedMetadata = mapValues(
-      groupByType,
-      (resolversArr: UpdateMetadata[]) =>
-        resolversArr.reduce(
-          (prev, curr) => ({
-            ...prev,
-            [curr.name]: curr.callback,
-          }),
-          {},
-        ),
-    );
-    return groupedMetadata;
   }
 }

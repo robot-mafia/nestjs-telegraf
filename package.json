@@ -1,6 +1,8 @@
 {
   "name": "nestjs-telegraf",
   "version": "2.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "description": "Telegraf module for NestJS",
   "keywords": [
     "nest",
@@ -65,8 +67,7 @@
   },
   "lint-staged": {
     "*.ts": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   }
 }
