@@ -1,16 +1,18 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
-import { Injectable as IInjectable } from '@nestjs/common/interfaces/injectable.interface';
 import { DiscoveryService, ModuleRef, ModulesContainer } from '@nestjs/core';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { isFunction, isNil } from '@nestjs/common/utils/shared.utils';
+import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-creator';
 import { fromPromise } from 'rxjs/internal-compatibility';
 import { filter, mergeAll } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { Context, Telegraf } from 'telegraf';
+
 import { TelegrafMetadataAccessor } from '../telegraf.metadata-accessor';
-import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-creator';
 import { TelegrafParamsFactory } from '../factories/telegraf-params-factory';
+
+// TODO: DELETE THIS CLASS
 
 @Injectable()
 export class TelegrafUpdateExplorer implements OnModuleInit {
@@ -37,7 +39,7 @@ export class TelegrafUpdateExplorer implements OnModuleInit {
   }
 
   private exploreProviders(
-    providers: Map<string, InstanceWrapper<IInjectable>>,
+    providers: Map<string, InstanceWrapper<unknown>>,
     moduleName: string,
   ): void {
     [...providers.values()]

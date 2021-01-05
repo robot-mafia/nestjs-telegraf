@@ -1,15 +1,18 @@
+import { ParamsFactory } from '@nestjs/core/helpers/external-context-creator';
+import { Context } from 'telegraf';
 import { TelegrafParamtype } from '../enums/telegraf-paramtype.enum';
 
-export class TelegrafParamsFactory {
-  exchangeKeyForValue<
-    TContext extends Record<string, any> = any,
-    TResult = any
-  >(type: number, ctx: TContext, next: Function): TResult {
-    switch (type as TelegrafParamtype) {
+export class TelegrafParamsFactory implements ParamsFactory {
+  exchangeKeyForValue(
+    type: TelegrafParamtype,
+    ctx: Context,
+    next: Function,
+  ): unknown {
+    switch (type) {
       case TelegrafParamtype.CONTEXT:
-        return ctx as any;
+        return ctx;
       case TelegrafParamtype.NEXT:
-        return next as any;
+        return next;
       case TelegrafParamtype.SENDER:
         return ctx.from;
       case TelegrafParamtype.MESSAGE:

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import {
   SCENE_METADATA,
-  UPDATE_LISTENER_METADATA,
+  LISTENER_METADATA,
   UPDATE_METADATA,
 } from '../telegraf.constants';
 import { ListenerMetadata } from '../interfaces';
@@ -27,7 +27,7 @@ export class MetadataAccessorService {
   }
 
   getListenerMetadata(target: Function): ListenerMetadata | undefined {
-    return this.reflector.get(UPDATE_LISTENER_METADATA, target);
+    return this.reflector.get(LISTENER_METADATA, target);
   }
 
   getSceneMetadata(target: Function): string | undefined {

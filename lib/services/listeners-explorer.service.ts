@@ -6,17 +6,30 @@ import { Module } from '@nestjs/core/injector/module';
 import { BaseScene, Composer, Stage, Telegraf } from 'telegraf';
 
 import { MetadataAccessorService } from './metadata-accessor.service';
-import { TELEGRAF_MODULE_OPTIONS } from '../telegraf.constants';
-import { TelegrafModuleOptions } from '../interfaces';
+import {
+  PARAM_ARGS_METADATA,
+  TELEGRAF_MODULE_OPTIONS,
+} from '../telegraf.constants';
+import { ListenerMetadata, TelegrafModuleOptions } from '../interfaces';
 import { BaseExplorerService } from './base-explorer.service';
 import { getBotToken } from '../utils';
+import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-creator';
+import { TelegrafParamsFactory } from '../factories/telegraf-params-factory';
+import { TelegrafContextType } from '../execution-context/telegraf-execution-context';
+import { ParamMetadata } from '@nestjs/core/helpers/interfaces';
+
+interface ListenerCallbackMetadata {
+  methodName: string;
+  metadata: ListenerMetadata;
+}
 
 @Injectable()
 export class ListenersExplorerService
   extends BaseExplorerService
   implements OnModuleInit {
+  private readonly telegrafParamsFactory = new TelegrafParamsFactory();
   private readonly stage = new Stage([]);
-  private bot: Telegraf<any>;
+  private bot: Telegraf<never>;
 
   constructor(
     @Inject(TELEGRAF_MODULE_OPTIONS)
@@ -26,6 +39,7 @@ export class ListenersExplorerService
     private readonly metadataAccessor: MetadataAccessorService,
     private readonly metadataScanner: MetadataScanner,
     private readonly modulesContainer: ModulesContainer,
+    private readonly externalContextCreator: ExternalContextCreator,
   ) {
     super();
   }
@@ -58,17 +72,18 @@ export class ListenersExplorerService
   }
 
   private registerScenes(modules: Module[]): void {
-    const scenes = this.flatMap<InstanceWrapper>(modules, (instance) =>
-      this.filterScenes(instance),
+    const scenes = this.flatMap<InstanceWrapper>(
+      modules,
+      (instance, moduleRef) => this.filterScenes(instance),
     );
-    scenes.forEach(({ instance }) => {
+    scenes.forEach((wrapper) => {
       const sceneId = this.metadataAccessor.getSceneMetadata(
         instance.constructor,
       );
       const scene = new BaseScene(sceneId);
       this.stage.register(scene);
 
-      this.registerInstanceMethodListeners(scene, instance);
+      this.registerInstanceMethodListeners(scene, wrapper);
     });
   }
 
@@ -94,18 +109,63 @@ export class ListenersExplorerService
 
   private registerInstanceMethodListeners(
     composer: Composer<never>,
-    instance: Record<string, Function>,
+    wrapper: InstanceWrapper<unknown>,
   ): void {
+    const { instance } = wrapper;
     const prototype = Object.getPrototypeOf(instance);
-    this.metadataScanner.scanFromPrototype(instance, prototype, (name) => {
-      const methodRef = instance[name];
+    const listenersMetadata = this.metadataScanner.scanFromPrototype(
+      instance,
+      prototype,
+      (name): ListenerCallbackMetadata =>
+        this.extractListenerCallbackMetadata(prototype, name),
+    );
 
-      const metadata = this.metadataAccessor.getListenerMetadata(methodRef);
-      if (!metadata) return;
+    const contextCallbackFn = this.createContextCallback(
+      instance,
+      prototype,
+      wrapper,
+    );
+  }
 
-      const middlewareFn = methodRef.bind(instance);
-      const { method, args } = metadata;
-      composer[method](...args, middlewareFn);
-    });
+  private extractListenerCallbackMetadata(
+    prototype: any,
+    methodName: string,
+  ): ListenerCallbackMetadata {
+    const callback = prototype[methodName];
+    const metadata = this.metadataAccessor.getListenerMetadata(callback);
+
+    if (!metadata) {
+      return undefined;
+    }
+
+    return {
+      methodName,
+      metadata: metadata,
+    };
+  }
+
+  createContextCallback<T extends Record<string, unknown>>(
+    instance: T,
+    prototype: unknown,
+    wrapper: InstanceWrapper,
+    moduleRef: Module,
+    listener: ListenerMetadata,
+  ) {
+    const paramsFactory = this.telegrafParamsFactory;
+    const resolverCallback = this.externalContextCreator.create<
+      Record<number, ParamMetadata>,
+      TelegrafContextType
+    >(
+      instance,
+      prototype[listener.methodName],
+      listener.methodName,
+      PARAM_ARGS_METADATA,
+      paramsFactory,
+      undefined,
+      undefined,
+      undefined,
+      'telegraf',
+    );
+    return resolverCallback;
   }
 }
