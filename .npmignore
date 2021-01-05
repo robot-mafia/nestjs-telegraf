@@ -1,7 +1,10 @@
-# source
+.github
 lib
-package-lock.json
-tsconfig.json
-.prettierrc
-.eslintrc.js
+sample
 website
+.eslintrc.js
+.prettierrc
+package-lock.json
+renovate.json
+tsconfig.json
+tsconfig.typedoc.json
