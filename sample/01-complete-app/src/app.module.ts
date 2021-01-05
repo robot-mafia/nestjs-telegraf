@@ -12,11 +12,13 @@ import { GreeterBotName } from './app.constants';
       middlewares: [sessionMiddleware],
       include: [EchoModule],
     }),
-    TelegrafModule.forRoot({
-      name: GreeterBotName,
-      token: process.env.GREETER_BOT_TOKEN,
-      middlewares: [sessionMiddleware],
-      include: [GreeterModule],
+    TelegrafModule.forRootAsync({
+      botName: GreeterBotName,
+      useFactory: () => ({
+        token: process.env.GREETER_BOT_TOKEN,
+        middlewares: [sessionMiddleware],
+        include: [GreeterModule],
+      }),
     }),
     EchoModule,
     GreeterModule,
