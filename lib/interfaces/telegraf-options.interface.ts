@@ -24,7 +24,7 @@ export interface TelegrafOptionsFactory {
 
 export interface TelegrafModuleAsyncOptions
   extends Pick<ModuleMetadata, 'imports'> {
-  botName?: string;
+  name?: string;
   useExisting?: Type<TelegrafOptionsFactory>;
   useClass?: Type<TelegrafOptionsFactory>;
   useFactory?: (

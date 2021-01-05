@@ -14,19 +14,13 @@ import {
   TelegrafOptionsFactory,
 } from './interfaces';
 import { TELEGRAF_MODULE_OPTIONS } from './telegraf.constants';
-import {
-  MetadataAccessorService,
-  ListenersExplorerService,
-} from './services';
+import { MetadataAccessorService, ListenersExplorerService } from './services';
 import { getBotToken, createBotFactory } from './utils';
 
 @Global()
 @Module({
   imports: [DiscoveryModule],
-  providers: [
-    ListenersExplorerService,
-    MetadataAccessorService,
-  ],
+  providers: [ListenersExplorerService, MetadataAccessorService],
 })
 export class TelegrafCoreModule implements OnApplicationShutdown {
   constructor(
@@ -57,7 +51,7 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
   public static forRootAsync(
     options: TelegrafModuleAsyncOptions,
   ): DynamicModule {
-    const telegrafBotName = getBotToken(options.botName);
+    const telegrafBotName = getBotToken(options.name);
 
     const telegrafBotProvider: Provider = {
       provide: telegrafBotName,
