@@ -141,7 +141,9 @@ export class ListenersExplorerService
       ...args,
       async (ctx: Context, next: Function): Promise<void> => {
         const result = await listenerCallbackFn(ctx, next);
-        await ctx.reply(String(result));
+        if (result) {
+          await ctx.reply(String(result));
+        }
         // TODO-Possible-Feature: Add more supported return types
       },
     );
