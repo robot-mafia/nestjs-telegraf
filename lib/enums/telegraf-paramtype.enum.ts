@@ -3,6 +3,5 @@ export enum TelegrafParamtype {
   NEXT,
   SENDER,
   MESSAGE,
-  MESSAGE_TEXT,
-  // TODO: Add more
+  // TODO-Possible-Feature: Add more paramtypes
 }
