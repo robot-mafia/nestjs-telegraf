@@ -4,6 +4,7 @@ import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
 import { Module } from '@nestjs/core/injector/module';
 import { ParamMetadata } from '@nestjs/core/helpers/interfaces';
+import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-creator';
 import { BaseScene, Composer, Stage, Telegraf } from 'telegraf';
 
 import { MetadataAccessorService } from './metadata-accessor.service';
@@ -13,9 +14,8 @@ import {
   TELEGRAF_MODULE_OPTIONS,
 } from '../telegraf.constants';
 import { BaseExplorerService } from './base-explorer.service';
-import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-creator';
 import { TelegrafParamsFactory } from '../factories/telegraf-params-factory';
-import { TelegrafContextType } from '../execution-context/telegraf-execution-context';
+import { TelegrafContextType } from '../execution-context';
 import { TelegrafModuleOptions } from '../interfaces';
 
 @Injectable()
@@ -132,46 +132,20 @@ export class ListenersExplorerService
     );
 
     const { method, args } = metadata;
-    composer[method](...args, (ctx: unknown, next: Function) => {
-      const deferredResult = listenerCallbackFn(ctx, next);
-      console.log(deferredResult);
-    });
+    composer[method](...args, listenerCallbackFn);
 
-    /*
-        this.telegraf[method](
-      ...args,
-      async (ctx: Context, next: () => Promise<void>) => {
-        const defferedResult = contextHandlerFn.call(instance, ctx, next);
-        const result = this.pickResult(defferedResult);
-        fromPromise(result)
-          .pipe(
-            mergeAll(),
-            filter((response: any) => !isNil(response)),
-          )
-          .subscribe((text) => {
-            // TODO: More processing method return logic (files, images, etc)
-            // Example: https://github.com/nestjs/nest/blob/01dc358aade27d3d7ca510506696aa62bfb1cc43/packages/platform-socket.io/adapters/io-adapter.ts#L56
-            return ctx.reply(text);
-          });
-      },
-    );
-
-      private async pickResult(
-    defferedResult: Promise<any>,
-  ): Promise<Observable<any>> {
-    const result = await defferedResult;
-
-    if (result && isFunction(result.subscribe)) {
-      return result;
-    }
-
-    if (result instanceof Promise) {
-      return fromPromise(result);
-    }
-
-    return of(result);
-  }
-     */
+    /* Complex callback return value handing */
+    // composer[method](
+    //   ...args,
+    //   async (ctx: Context, next: Function): Promise<void> => {
+    //     const result = await listenerCallbackFn(ctx, next);
+    //
+    //     // TODO: Add more supported return types
+    //     if (typeof result === 'string') {
+    //       await ctx.reply(result);
+    //     }
+    //   },
+    // );
   }
 
   createContextCallback<T extends Record<string, unknown>>(
