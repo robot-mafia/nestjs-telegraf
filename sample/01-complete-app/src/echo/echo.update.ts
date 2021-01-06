@@ -1,20 +1,25 @@
-import { Telegraf } from 'telegraf';
+import { UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import {
-  Ctx,
-  MessageText,
   Help,
   InjectBot,
   On,
+  Message,
   Start,
   Update,
-  Hears,
+  Command,
 } from 'nestjs-telegraf';
+import { Telegraf } from 'telegraf';
 import { EchoService } from './echo.service';
 import { GreeterBotName } from '../app.constants';
 import { Context } from '../interfaces/context.interface';
 import { ReverseTextPipe } from '../common/pipes/reverse-text.pipe';
+import { ResponseTimeInterceptor } from '../common/interceptors/response-time.interceptor';
+import { AdminGuard } from '../common/guards/admin.guard';
+import { TelegrafExceptionFilter } from '../common/filters/telegraf-exception.filter';
 
 @Update()
+@UseInterceptors(ResponseTimeInterceptor)
+@UseFilters(TelegrafExceptionFilter)
 export class EchoUpdate {
   constructor(
     @InjectBot(GreeterBotName)
@@ -33,8 +38,16 @@ export class EchoUpdate {
     return 'Send me any text';
   }
 
+  @Command('admin')
+  @UseGuards(AdminGuard)
+  onAdminCommand(): string {
+    return 'Welcome judge';
+  }
+
   @On('text')
-  onMessage(@MessageText(new ReverseTextPipe()) messageText: string): string {
-    return this.echoService.echo(messageText);
+  onMessage(
+    @Message('text', new ReverseTextPipe()) reversedText: string,
+  ): string {
+    return this.echoService.echo(reversedText);
   }
 }

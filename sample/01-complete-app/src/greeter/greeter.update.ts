@@ -1,18 +1,21 @@
-import { Command, Context as Ctx, Hears, Start, Update } from 'nestjs-telegraf';
-import { User } from 'telegraf/typings/telegram-types';
+import { Command, Ctx, Hears, Start, Update, Sender } from 'nestjs-telegraf';
+import { UpdateType as TelegrafUpdateType } from 'telegraf/typings/telegram-types';
 import { Context } from '../interfaces/context.interface';
 import { HELLO_SCENE_ID } from '../app.constants';
-import { From } from '../common/decorators/from.decorator';
+import { UpdateType } from '../common/decorators/update-type.decorator';
 
 @Update()
 export class GreeterUpdate {
   @Start()
-  async onStart(@Ctx() ctx: Context): Promise<void> {
-    await ctx.reply('Say hello to me');
+  onStart(): string {
+    return 'Say hello to me';
   }
 
   @Hears(['hi', 'hello', 'hey', 'qq'])
-  onGreetings(@From() { first_name: firstName }: User): string {
+  onGreetings(
+    @UpdateType() updateType: TelegrafUpdateType,
+    @Sender('first_name') firstName: string,
+  ): string {
     return `Hey ${firstName}`;
   }
 
