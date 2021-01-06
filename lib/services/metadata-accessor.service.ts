@@ -12,17 +12,12 @@ export class MetadataAccessorService {
   constructor(private readonly reflector: Reflector) {}
 
   isUpdate(target: Function): boolean {
-    // TODO: We really need this check?
-    if (!target) {
-      return false;
-    }
+    if (!target) return false;
     return !!this.reflector.get(UPDATE_METADATA, target);
   }
 
   isScene(target: Function): boolean {
-    if (!target) {
-      return false;
-    }
+    if (!target) return false;
     return !!this.reflector.get(SCENE_METADATA, target);
   }
 
