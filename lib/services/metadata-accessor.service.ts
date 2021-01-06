@@ -18,13 +18,6 @@ export class MetadataAccessorService {
     return !!this.reflector.get(UPDATE_METADATA, target);
   }
 
-  isUpdateListener(target: Function) {
-    if (!target) {
-      return false;
-    }
-    return !!this.reflector.get(UPDATE_LISTENER_METADATA, target);
-  }
-
   isScene(target: Function): boolean {
     if (!target) {
       return false;

@@ -4,11 +4,24 @@ import { ComposerMethodArgs, SceneMethods } from '../types';
 import { UPDATE_LISTENER_METADATA } from '../telegraf.constants';
 import { ListenerMetadata } from '../interfaces';
 
-export function createSceneListenerDecorator<Method extends SceneMethods>(
-  method: Method,
+export function createListenerDecorator<TMethod extends SceneMethods>(
+  method: TMethod,
 ) {
   return (
-    ...args: ComposerMethodArgs<Scene<never>, Method>
+    ...args: ComposerMethodArgs<Scene<never>, TMethod>
+  ): MethodDecorator => {
+    return SetMetadata(UPDATE_LISTENER_METADATA, {
+      method,
+      args,
+    } as ListenerMetadata);
+  };
+}
+
+export function createMissedListenerDecorator<TArgs extends any[]>(
+  method: string,
+) {
+  return (
+    ...args: TArgs
   ): MethodDecorator => {
     return SetMetadata(UPDATE_LISTENER_METADATA, {
       method,

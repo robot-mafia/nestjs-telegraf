@@ -1,14 +1,22 @@
 import { Telegraf } from 'telegraf';
-import { Command, Help, InjectBot, On, Start, Update } from '../lib';
+import {
+  Command,
+  getBotToken,
+  Help,
+  InjectBot,
+  On,
+  Start,
+  Update,
+} from 'nestjs-telegraf';
 import { EchoService } from './echo.service';
-import { HELLO_SCENE_ID } from './app.constants';
-import { Context } from './interfaces/context.interface';
+import { GreeterBotName, HELLO_SCENE_ID } from '../app.constants';
+import { Context } from '../interfaces/context.interface';
 
 @Update()
-export class AppUpdate {
+export class EchoUpdate {
   constructor(
-    @InjectBot()
-    private readonly bot: Telegraf<any>, // TODO: fix any
+    @InjectBot(GreeterBotName)
+    private readonly bot: Telegraf<Context>,
     private readonly echoService: EchoService,
   ) {}
 
