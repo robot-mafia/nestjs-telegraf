@@ -1,22 +1,23 @@
-import { Command, Hears, Start, Update } from 'nestjs-telegraf';
+import { Command, Context as Ctx, Hears, Start, Update } from 'nestjs-telegraf';
+import { User } from 'telegraf/typings/telegram-types';
 import { Context } from '../interfaces/context.interface';
 import { HELLO_SCENE_ID } from '../app.constants';
+import { From } from '../common/decorators/from.decorator';
 
 @Update()
 export class GreeterUpdate {
   @Start()
-  async onStart(ctx: Context): Promise<void> {
+  async onStart(@Ctx() ctx: Context): Promise<void> {
     await ctx.reply('Say hello to me');
   }
 
   @Hears(['hi', 'hello', 'hey', 'qq'])
-  async onGreetings(ctx: Context): Promise<void> {
-    const { first_name } = ctx.from;
-    await ctx.reply(`Hey ${first_name}`);
+  onGreetings(@From() { first_name: firstName }: User): string {
+    return `Hey ${firstName}`;
   }
 
   @Command('scene')
-  async onSceneCommand(ctx: Context): Promise<void> {
+  async onSceneCommand(@Ctx() ctx: Context): Promise<void> {
     await ctx.scene.enter(HELLO_SCENE_ID);
   }
 }

@@ -1,8 +1,18 @@
 import { Telegraf } from 'telegraf';
-import { Help, InjectBot, On, Start, Update } from 'nestjs-telegraf';
+import {
+  Ctx,
+  MessageText,
+  Help,
+  InjectBot,
+  On,
+  Start,
+  Update,
+  Hears,
+} from 'nestjs-telegraf';
 import { EchoService } from './echo.service';
 import { GreeterBotName } from '../app.constants';
 import { Context } from '../interfaces/context.interface';
+import { ReverseTextPipe } from '../common/pipes/reverse-text.pipe';
 
 @Update()
 export class EchoUpdate {
@@ -13,26 +23,18 @@ export class EchoUpdate {
   ) {}
 
   @Start()
-  async onStart(ctx: Context): Promise<void> {
+  async onStart(): Promise<string> {
     const me = await this.bot.telegram.getMe();
-    await ctx.reply(`Hey, I'm ${me.first_name}`);
+    return `Hey, I'm ${me.first_name}`;
   }
 
   @Help()
-  async onHelp(ctx: Context): Promise<void> {
-    await ctx.reply('Send me any text');
+  async onHelp(): Promise<string> {
+    return 'Send me any text';
   }
 
-  @On('message')
-  async onMessage(ctx: Context): Promise<void> {
-    console.log('New message received');
-
-    if ('text' in ctx.message) {
-      const messageText = ctx.message.text;
-      const echoText = this.echoService.echo(messageText);
-      await ctx.reply(echoText);
-    } else {
-      await ctx.reply('Only text messages');
-    }
+  @On('text')
+  onMessage(@MessageText(new ReverseTextPipe()) messageText: string): string {
+    return this.echoService.echo(messageText);
   }
 }
