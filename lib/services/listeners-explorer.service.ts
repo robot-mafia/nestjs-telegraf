@@ -131,7 +131,47 @@ export class ListenersExplorerService
       methodName,
     );
 
-    // TODO: Add callback to middleware and handle return data
+    const { method, args } = metadata;
+    composer[method](...args, (ctx: unknown, next: Function) => {
+      const deferredResult = listenerCallbackFn(ctx, next);
+      console.log(deferredResult);
+    });
+
+    /*
+        this.telegraf[method](
+      ...args,
+      async (ctx: Context, next: () => Promise<void>) => {
+        const defferedResult = contextHandlerFn.call(instance, ctx, next);
+        const result = this.pickResult(defferedResult);
+        fromPromise(result)
+          .pipe(
+            mergeAll(),
+            filter((response: any) => !isNil(response)),
+          )
+          .subscribe((text) => {
+            // TODO: More processing method return logic (files, images, etc)
+            // Example: https://github.com/nestjs/nest/blob/01dc358aade27d3d7ca510506696aa62bfb1cc43/packages/platform-socket.io/adapters/io-adapter.ts#L56
+            return ctx.reply(text);
+          });
+      },
+    );
+
+      private async pickResult(
+    defferedResult: Promise<any>,
+  ): Promise<Observable<any>> {
+    const result = await defferedResult;
+
+    if (result && isFunction(result.subscribe)) {
+      return result;
+    }
+
+    if (result instanceof Promise) {
+      return fromPromise(result);
+    }
+
+    return of(result);
+  }
+     */
   }
 
   createContextCallback<T extends Record<string, unknown>>(
