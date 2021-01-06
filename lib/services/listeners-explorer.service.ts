@@ -5,7 +5,7 @@ import { MetadataScanner } from '@nestjs/core/metadata-scanner';
 import { Module } from '@nestjs/core/injector/module';
 import { ParamMetadata } from '@nestjs/core/helpers/interfaces';
 import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-creator';
-import { BaseScene, Composer, Stage, Telegraf } from 'telegraf';
+import { BaseScene, Composer, Context, Stage, Telegraf } from 'telegraf';
 
 import { MetadataAccessorService } from './metadata-accessor.service';
 import {
@@ -132,20 +132,19 @@ export class ListenersExplorerService
     );
 
     const { method, args } = metadata;
-    composer[method](...args, listenerCallbackFn);
+
+    /* Basic callback */
+    // composer[method](...args, listenerCallbackFn);
 
     /* Complex callback return value handing */
-    // composer[method](
-    //   ...args,
-    //   async (ctx: Context, next: Function): Promise<void> => {
-    //     const result = await listenerCallbackFn(ctx, next);
-    //
-    //     // TODO: Add more supported return types
-    //     if (typeof result === 'string') {
-    //       await ctx.reply(result);
-    //     }
-    //   },
-    // );
+    composer[method](
+      ...args,
+      async (ctx: Context, next: Function): Promise<void> => {
+        const result = await listenerCallbackFn(ctx, next);
+        await ctx.reply(String(result));
+        // TODO-Possible-Feature: Add more supported return types
+      },
+    );
   }
 
   createContextCallback<T extends Record<string, unknown>>(
