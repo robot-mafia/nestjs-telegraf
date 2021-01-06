@@ -3,20 +3,20 @@ import { DiscoveryService, ModuleRef, ModulesContainer } from '@nestjs/core';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { MetadataScanner } from '@nestjs/core/metadata-scanner';
 import { Module } from '@nestjs/core/injector/module';
+import { ParamMetadata } from '@nestjs/core/helpers/interfaces';
 import { BaseScene, Composer, Stage, Telegraf } from 'telegraf';
 
 import { MetadataAccessorService } from './metadata-accessor.service';
 import {
   PARAM_ARGS_METADATA,
+  TELEGRAF_BOT_NAME,
   TELEGRAF_MODULE_OPTIONS,
 } from '../telegraf.constants';
-import { ListenerMetadata, TelegrafModuleOptions } from '../interfaces';
 import { BaseExplorerService } from './base-explorer.service';
-import { getBotToken } from '../utils';
 import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-creator';
 import { TelegrafParamsFactory } from '../factories/telegraf-params-factory';
 import { TelegrafContextType } from '../execution-context/telegraf-execution-context';
-import { ParamMetadata } from '@nestjs/core/helpers/interfaces';
+import { TelegrafModuleOptions } from '../interfaces';
 
 @Injectable()
 export class ListenersExplorerService
@@ -24,11 +24,13 @@ export class ListenersExplorerService
   implements OnModuleInit {
   private readonly telegrafParamsFactory = new TelegrafParamsFactory();
   private readonly stage = new Stage([]);
-  private bot: Telegraf<never>;
+  private bot: Telegraf<any>;
 
   constructor(
     @Inject(TELEGRAF_MODULE_OPTIONS)
     private readonly telegrafOptions: TelegrafModuleOptions,
+    @Inject(TELEGRAF_BOT_NAME)
+    private readonly botName: string,
     private readonly moduleRef: ModuleRef,
     private readonly discoveryService: DiscoveryService,
     private readonly metadataAccessor: MetadataAccessorService,
@@ -40,8 +42,9 @@ export class ListenersExplorerService
   }
 
   onModuleInit(): void {
-    const botToken = getBotToken(this.telegrafOptions.name);
-    this.bot = this.moduleRef.get<Telegraf<never>>(botToken);
+    this.bot = this.moduleRef.get<Telegraf<never>>(this.botName, {
+      strict: false,
+    });
     this.bot.use(this.stage.middleware());
 
     this.explore();

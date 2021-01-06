@@ -8,7 +8,7 @@ import {
 
 export interface TelegrafModuleOptions<C extends Context = Context> {
   token: string;
-  name?: string;
+  botName?: string;
   options?: TelegrafOptions;
   launchOptions?: {
     polling?: LaunchPollingOptions;
