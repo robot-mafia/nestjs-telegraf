@@ -1,5 +1,5 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { TelegrafExecutionContext } from '../../../lib/execution-context';
+import { TelegrafExecutionContext } from 'nestjs-telegraf';
 
 export const From = createParamDecorator(
   (_, ctx: ExecutionContext) =>

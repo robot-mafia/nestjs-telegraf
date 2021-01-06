@@ -1,5 +1,5 @@
 import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
-import { TelegrafArgumentsHost, TelegrafException } from '../../../lib';
+import { TelegrafArgumentsHost } from 'nestjs-telegraf';
 
 @Catch()
 export class TelegrafExceptionFilter<T> implements ExceptionFilter {

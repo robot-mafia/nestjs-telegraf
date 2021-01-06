@@ -9,7 +9,6 @@ import { GreeterBotName } from './app.constants';
   imports: [
     TelegrafModule.forRoot({
       token: process.env.ECHO_BOT_TOKEN,
-      middlewares: [sessionMiddleware],
       include: [EchoModule],
     }),
     TelegrafModule.forRootAsync({

@@ -1,7 +1,7 @@
 import { Telegraf } from 'telegraf';
-import { Command, Help, InjectBot, On, Start, Update } from 'nestjs-telegraf';
+import { Help, InjectBot, On, Start, Update } from 'nestjs-telegraf';
 import { EchoService } from './echo.service';
-import { GreeterBotName, HELLO_SCENE_ID } from '../app.constants';
+import { GreeterBotName } from '../app.constants';
 import { Context } from '../interfaces/context.interface';
 
 @Update()
@@ -21,11 +21,6 @@ export class EchoUpdate {
   @Help()
   async onHelp(ctx: Context): Promise<void> {
     await ctx.reply('Send me any text');
-  }
-
-  @Command('scene')
-  async onSceneCommand(ctx: Context): Promise<void> {
-    await ctx.scene.enter(HELLO_SCENE_ID);
   }
 
   @On('message')
