@@ -47,6 +47,8 @@
     "telegraf": "3.38.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "11.0.0",
+    "@commitlint/config-angular": "11.0.0",
     "@nestjs/common": "7.6.5",
     "@nestjs/core": "7.6.5",
     "@types/lodash": "4.14.167",
@@ -71,6 +73,7 @@
   },
   "husky": {
     "hooks": {
+      "commit-msg": "commitlint -c .commitlintrc.json -E HUSKY_GIT_PARAMS",
       "pre-commit": "lint-staged"
     }
   },

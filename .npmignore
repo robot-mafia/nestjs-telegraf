@@ -2,6 +2,7 @@
 lib
 sample
 website
+.commitlintrc.json
 .eslintrc.js
 .prettierrc
 package-lock.json
