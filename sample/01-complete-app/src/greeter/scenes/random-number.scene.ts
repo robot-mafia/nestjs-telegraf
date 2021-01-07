@@ -3,23 +3,23 @@ import { HELLO_SCENE_ID } from '../../app.constants';
 import { Context } from '../../interfaces/context.interface';
 
 @Scene(HELLO_SCENE_ID)
-export class HelloScene {
+export class RandomNumberScene {
   @SceneEnter()
-  async onSceneEnter(ctx: Context): Promise<void> {
+  onSceneEnter(): string {
     console.log('Enter to scene');
-    await ctx.reply('Welcome on scene ✋');
+    return 'Welcome on scene ✋';
   }
 
   @SceneLeave()
-  async onSceneLeave(ctx: Context): Promise<void> {
+  onSceneLeave(): string {
     console.log('Leave from scene');
-    await ctx.reply('Bye Bye 👋');
+    return 'Bye Bye 👋';
   }
 
-  @Command('hello')
-  async onHelloCommand(ctx: Context): Promise<void> {
-    console.log('Use say hello');
-    await ctx.reply('Hi');
+  @Command(['rng', 'random'])
+  onRandomCommand(): number {
+    console.log('Use "random" command');
+    return Math.floor(Math.random() * 11);
   }
 
   @Command('leave')

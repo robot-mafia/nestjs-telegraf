@@ -1,7 +1,7 @@
 import { SetMetadata } from '@nestjs/common';
 import { BaseScene as Scene } from 'telegraf';
 import { ComposerMethodArgs, SceneMethods } from '../types';
-import { UPDATE_LISTENER_METADATA } from '../telegraf.constants';
+import { LISTENER_METADATA } from '../telegraf.constants';
 import { ListenerMetadata } from '../interfaces';
 
 export function createListenerDecorator<TMethod extends SceneMethods>(
@@ -10,7 +10,7 @@ export function createListenerDecorator<TMethod extends SceneMethods>(
   return (
     ...args: ComposerMethodArgs<Scene<never>, TMethod>
   ): MethodDecorator => {
-    return SetMetadata(UPDATE_LISTENER_METADATA, {
+    return SetMetadata(LISTENER_METADATA, {
       method,
       args,
     } as ListenerMetadata);
@@ -20,10 +20,8 @@ export function createListenerDecorator<TMethod extends SceneMethods>(
 export function createMissedListenerDecorator<TArgs extends any[]>(
   method: string,
 ) {
-  return (
-    ...args: TArgs
-  ): MethodDecorator => {
-    return SetMetadata(UPDATE_LISTENER_METADATA, {
+  return (...args: TArgs): MethodDecorator => {
+    return SetMetadata(LISTENER_METADATA, {
       method,
       args,
     } as ListenerMetadata);

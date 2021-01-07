@@ -5,4 +5,6 @@ import { createMissedListenerDecorator } from '../../utils';
  *
  * @see https://telegraf.js.org/#/?id=cashtag
  */
-export const Cashtag = createMissedListenerDecorator<[string | string[]]>('cashtag');
+export const Cashtag = createMissedListenerDecorator<[string | string[]]>(
+  'cashtag',
+);

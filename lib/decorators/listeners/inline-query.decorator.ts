@@ -6,4 +6,6 @@ import { HearsTriggers } from 'telegraf/typings/composer';
  *
  * @see https://telegraf.js.org/#/?id=inlinequery
  */
-export const InlineQuery = createMissedListenerDecorator<[HearsTriggers<unknown>]>('inlineQuery');
+export const InlineQuery = createMissedListenerDecorator<
+  [HearsTriggers<unknown>]
+>('inlineQuery');

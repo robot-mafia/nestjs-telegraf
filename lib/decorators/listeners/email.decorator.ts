@@ -5,4 +5,6 @@ import { createMissedListenerDecorator } from '../../utils';
  *
  * @see https://telegraf.js.org/#/?id=telegraf-email
  */
-export const Email = createMissedListenerDecorator<[string | string[]]>('email');
+export const Email = createMissedListenerDecorator<[string | string[]]>(
+  'email',
+);

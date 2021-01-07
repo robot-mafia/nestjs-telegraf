@@ -1,18 +1,25 @@
-import { Telegraf } from 'telegraf';
+import { UseFilters, UseGuards, UseInterceptors } from '@nestjs/common';
 import {
-  Command,
-  getBotToken,
   Help,
   InjectBot,
   On,
+  Message,
   Start,
   Update,
+  Command,
 } from 'nestjs-telegraf';
+import { Telegraf } from 'telegraf';
 import { EchoService } from './echo.service';
-import { GreeterBotName, HELLO_SCENE_ID } from '../app.constants';
+import { GreeterBotName } from '../app.constants';
 import { Context } from '../interfaces/context.interface';
+import { ReverseTextPipe } from '../common/pipes/reverse-text.pipe';
+import { ResponseTimeInterceptor } from '../common/interceptors/response-time.interceptor';
+import { AdminGuard } from '../common/guards/admin.guard';
+import { TelegrafExceptionFilter } from '../common/filters/telegraf-exception.filter';
 
 @Update()
+@UseInterceptors(ResponseTimeInterceptor)
+@UseFilters(TelegrafExceptionFilter)
 export class EchoUpdate {
   constructor(
     @InjectBot(GreeterBotName)
@@ -21,31 +28,26 @@ export class EchoUpdate {
   ) {}
 
   @Start()
-  async onStart(ctx: Context): Promise<void> {
+  async onStart(): Promise<string> {
     const me = await this.bot.telegram.getMe();
-    await ctx.reply(`Hey, I'm ${me.first_name}`);
+    return `Hey, I'm ${me.first_name}`;
   }
 
   @Help()
-  async onHelp(ctx: Context): Promise<void> {
-    await ctx.reply('Send me any text');
+  async onHelp(): Promise<string> {
+    return 'Send me any text';
   }
 
-  @Command('scene')
-  async onSceneCommand(ctx: Context): Promise<void> {
-    await ctx.scene.enter(HELLO_SCENE_ID);
+  @Command('admin')
+  @UseGuards(AdminGuard)
+  onAdminCommand(): string {
+    return 'Welcome judge';
   }
 
-  @On('message')
-  async onMessage(ctx: Context): Promise<void> {
-    console.log('New message received');
-
-    if ('text' in ctx.message) {
-      const messageText = ctx.message.text;
-      const echoText = this.echoService.echo(messageText);
-      await ctx.reply(echoText);
-    } else {
-      await ctx.reply('Only text messages');
-    }
+  @On('text')
+  onMessage(
+    @Message('text', new ReverseTextPipe()) reversedText: string,
+  ): string {
+    return this.echoService.echo(reversedText);
   }
 }

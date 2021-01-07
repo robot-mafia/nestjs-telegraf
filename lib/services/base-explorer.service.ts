@@ -19,9 +19,7 @@ export class BaseExplorerService {
     include: Function[],
   ): Module[] {
     const modules = [...modulesContainer.values()];
-    return modules.filter(({ metatype }) =>
-      include.includes(metatype),
-    );
+    return modules.filter(({ metatype }) => include.includes(metatype));
   }
 
   flatMap<T>(

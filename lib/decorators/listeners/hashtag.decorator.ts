@@ -5,4 +5,6 @@ import { createMissedListenerDecorator } from '../../utils';
  *
  * @see https://telegraf.js.org/#/?id=hashtag
  */
-export const Hashtag = createMissedListenerDecorator<[string | string[]]>('hashtag');
+export const Hashtag = createMissedListenerDecorator<[string | string[]]>(
+  'hashtag',
+);
