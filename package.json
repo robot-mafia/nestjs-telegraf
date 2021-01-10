@@ -44,7 +44,7 @@
     "typedoc:build": "typedoc --tsconfig ./tsconfig.typedoc.json"
   },
   "dependencies": {
-    "telegraf": "3.38.0"
+    "telegraf": "4.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "11.0.0",
