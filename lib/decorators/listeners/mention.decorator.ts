@@ -1,10 +1,8 @@
-import { createMissedListenerDecorator } from '../../utils';
+import { createListenerDecorator } from '../../utils';
 
 /**
  * Mention handling.
  *
  * @see https://telegraf.js.org/#/?id=mention
  */
-export const Mention = createMissedListenerDecorator<[string | string[]]>(
-  'mention',
-);
+export const Mention = createListenerDecorator('mention');

@@ -1,10 +1,8 @@
-import { createMissedListenerDecorator } from '../../utils';
+import { createListenerDecorator } from '../../utils';
 
 /**
  * Cashtag handling.
  *
  * @see https://telegraf.js.org/#/?id=cashtag
  */
-export const Cashtag = createMissedListenerDecorator<[string | string[]]>(
-  'cashtag',
-);
+export const Cashtag = createListenerDecorator('cashtag');
