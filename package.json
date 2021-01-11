@@ -79,8 +79,5 @@
     "*.ts": [
       "prettier --write"
     ]
-  },
-  "dependencies": {
-    "telegraf": "^4.0.0"
   }
 }
