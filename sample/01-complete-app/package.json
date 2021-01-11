@@ -24,11 +24,11 @@
     "@nestjs/core": "7.6.5",
     "@nestjs/platform-express": "7.6.5",
     "dotenv": "8.2.0",
-    "nestjs-telegraf": "*",
+    "nestjs-telegraf": "2.0.0-beta.1",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "rxjs": "6.6.3",
-    "telegraf": "3.38.0"
+    "telegraf": "4.0.0"
   },
   "devDependencies": {
     "@nestjs/cli": "7.5.4",

@@ -1,10 +1,8 @@
-import { createMissedListenerDecorator } from '../../utils';
+import { createListenerDecorator } from '../../utils';
 
 /**
  * Registers middleware for handling messages with email entity.
  *
  * @see https://telegraf.js.org/#/?id=telegraf-email
  */
-export const Email = createMissedListenerDecorator<[string | string[]]>(
-  'email',
-);
+export const Email = createListenerDecorator('email');

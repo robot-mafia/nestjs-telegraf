@@ -5,7 +5,7 @@ import { MetadataScanner } from '@nestjs/core/metadata-scanner';
 import { Module } from '@nestjs/core/injector/module';
 import { ParamMetadata } from '@nestjs/core/helpers/interfaces';
 import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-creator';
-import { BaseScene, Composer, Context, Stage, Telegraf } from 'telegraf';
+import { Composer, Context, Scenes, Telegraf } from 'telegraf';
 
 import { MetadataAccessorService } from './metadata-accessor.service';
 import {
@@ -23,7 +23,7 @@ export class ListenersExplorerService
   extends BaseExplorerService
   implements OnModuleInit {
   private readonly telegrafParamsFactory = new TelegrafParamsFactory();
-  private readonly stage = new Stage([]);
+  private readonly stage = new Scenes.Stage();
   private bot: Telegraf<any>;
 
   constructor(
@@ -42,7 +42,7 @@ export class ListenersExplorerService
   }
 
   onModuleInit(): void {
-    this.bot = this.moduleRef.get<Telegraf<never>>(this.botName, {
+    this.bot = this.moduleRef.get<Telegraf<any>>(this.botName, {
       strict: false,
     });
     this.bot.use(this.stage.middleware());
@@ -75,7 +75,7 @@ export class ListenersExplorerService
       const sceneId = this.metadataAccessor.getSceneMetadata(
         wrapper.instance.constructor,
       );
-      const scene = new BaseScene(sceneId);
+      const scene = new Scenes.BaseScene<any>(sceneId);
       this.stage.register(scene);
 
       this.registerListeners(scene, wrapper);

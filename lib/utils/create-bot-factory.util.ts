@@ -3,8 +3,8 @@ import { TelegrafModuleOptions } from '../interfaces';
 
 export async function createBotFactory(
   options: TelegrafModuleOptions,
-): Promise<Telegraf<never>> {
-  const bot = new Telegraf<never>(options.token, options.options);
+): Promise<Telegraf<any>> {
+  const bot = new Telegraf<any>(options.token, options.options);
 
   bot.use(...(options.middlewares ?? []));
   await bot.launch(options.launchOptions);

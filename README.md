@@ -23,7 +23,7 @@ If you want to dive fully into NestJS Telegraf then don't waste your time in thi
 ## Installation
 
 ```bash
-$ npm i nestjs-telegraf
+$ npm i nestjs-telegraf telegraf
 ```
 
 ## Usage
