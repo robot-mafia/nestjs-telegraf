@@ -24,7 +24,7 @@
     "@nestjs/core": "7.6.5",
     "@nestjs/platform-express": "7.6.5",
     "dotenv": "8.2.0",
-    "nestjs-telegraf": "2.0.0-beta.1",
+    "nestjs-telegraf": "2.0.0-beta.2",
     "reflect-metadata": "0.1.13",
     "rimraf": "3.0.2",
     "rxjs": "6.6.3",
