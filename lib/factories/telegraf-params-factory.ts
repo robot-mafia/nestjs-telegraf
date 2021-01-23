@@ -18,9 +18,9 @@ export class TelegrafParamsFactory implements ParamsFactory {
       case TelegrafParamtype.NEXT:
         return next;
       case TelegrafParamtype.SENDER:
-        return ctx.from ? ctx.from[data as string] : ctx.from;
+        return data && ctx.from ? ctx.from[data as string] : ctx.from;
       case TelegrafParamtype.MESSAGE:
-        return ctx.message ? ctx.message[data as string] : ctx.message;
+        return data && ctx.message ? ctx.message[data as string] : ctx.message;
       default:
         return null;
     }
