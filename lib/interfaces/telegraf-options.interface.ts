@@ -12,7 +12,7 @@ export interface TelegrafModuleOptions {
 }
 
 export interface TelegrafOptionsFactory {
-  createTelegrafOptions(): TelegrafModuleOptions;
+  createTelegrafOptions(): Promise<TelegrafModuleOptions> | TelegrafModuleOptions;
 }
 
 export interface TelegrafModuleAsyncOptions
