@@ -16,6 +16,3 @@ export type ComposerMethodArgs<
   T extends Composer<never>,
   U extends OnlyFunctionPropertyNames<T> = OnlyFunctionPropertyNames<T>
 > = Filter<Parameters<T[U]>, Middleware<never>>;
-
-export type LaunchOptions = Parameters<Telegraf['launch']>[0];
-export type TelegrafOptions = ConstructorParameters<typeof Telegraf>[1];

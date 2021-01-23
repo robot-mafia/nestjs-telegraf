@@ -1,12 +1,11 @@
 import { ModuleMetadata, Type } from '@nestjs/common/interfaces';
-import { Middleware } from 'telegraf';
-import { LaunchOptions, TelegrafOptions } from '../types';
+import { Middleware, Telegraf } from 'telegraf';
 
 export interface TelegrafModuleOptions {
   token: string;
   botName?: string;
-  options?: TelegrafOptions;
-  launchOptions?: LaunchOptions;
+  options?: Telegraf.Options<any>;
+  launchOptions?: Telegraf.LaunchOptions;
   include?: Function[];
   middlewares?: ReadonlyArray<Middleware<any>>;
 }
