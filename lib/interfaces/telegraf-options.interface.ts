@@ -4,7 +4,7 @@ import { Middleware, Telegraf } from 'telegraf';
 export interface TelegrafModuleOptions {
   token: string;
   botName?: string;
-  options?: Telegraf.Options<any>;
+  options?: Partial<Telegraf.Options<any>>;
   launchOptions?: Telegraf.LaunchOptions;
   include?: Function[];
   middlewares?: ReadonlyArray<Middleware<any>>;
