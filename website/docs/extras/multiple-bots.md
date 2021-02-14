@@ -2,7 +2,7 @@
 id: multiple-bots
 title: Multiple bots
 sidebar_label: Multiple bots
-slug: /multiple-bots
+slug: /extras/multiple-bots
 ---
 
 In some cases, you may need to run multiple bots at the same time. This can also be achieved with this module. To work with multiple bots, first create the bots. In this case, bot naming becomes mandatory.

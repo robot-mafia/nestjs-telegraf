@@ -15,7 +15,7 @@ This package uses the best of the NodeJS world under the hood. [Telegraf](https:
 - Scenes support.
 - Telegraf plugins and custom plugins support.
 - Ability to run multiple bots simultaneously.
-- Full support of NestJS guards, interceptors, filters and pipes! (*in progress...*)
+- Full support of NestJS guards, interceptors, filters and pipes!
 
 ## Documentation
 If you want to dive fully into NestJS Telegraf then don't waste your time in this dump, check out the [documentation site](https://nestjs-telegraf.vercel.app).

@@ -35,52 +35,44 @@ module.exports = {
     },
     footer: {
       style: 'dark',
-      // links: [
-      //   {
-      //     title: 'Docs',
-      //     items: [
-      //       {
-      //         label: 'Style Guide',
-      //         to: 'docs/',
-      //       },
-      //       {
-      //         label: 'Second Doc',
-      //         to: 'docs/doc2/',
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     title: 'Community',
-      //     items: [
-      //       {
-      //         label: 'Stack Overflow',
-      //         href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-      //       },
-      //       {
-      //         label: 'Discord',
-      //         href: 'https://discordapp.com/invite/docusaurus',
-      //       },
-      //       {
-      //         label: 'Twitter',
-      //         href: 'https://twitter.com/docusaurus',
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     title: 'More',
-      //     items: [
-      //       {
-      //         label: 'Blog',
-      //         to: 'blog',
-      //       },
-      //       {
-      //         label: 'GitHub',
-      //         href: 'https://github.com/facebook/docusaurus',
-      //       },
-      //     ],
-      //   },
-      // ],
-      copyright: `Copyright © ${new Date().getFullYear()} NestJS Telegraf.`,
+      links: [
+        {
+          title: 'Docs',
+          items: [
+            {
+              label: 'Getting Started',
+              to: 'docs/',
+            },
+          ],
+        },
+        {
+          title: 'Community',
+          items: [
+            {
+              label: 'Discussions',
+              href: 'https://github.com/bukhalo/nestjs-telegraf/discussions',
+            },
+            {
+              label: 'Telegram',
+              href: 'https://t.me/nestjs_telegraf',
+            },
+          ],
+        },
+        {
+          title: 'More',
+          items: [
+            {
+              label: 'Issues',
+              href: 'https://github.com/bukhalo/nestjs-telegraf/issues',
+            },
+            {
+              label: 'Examples',
+              to: 'https://github.com/bukhalo/nestjs-telegraf/tree/master/sample/',
+            }
+          ],
+        },
+      ],
+      copyright: `Copyright © 2019 - ${new Date().getFullYear()}, <a target="_blank" href="https://bukhalo.com">Alexander Bukhalo</a> & <a target="_blank" href="mailto:arthur.asimov.z0@gmail.com">Arthur Asimov</a>.`,
     },
   },
   presets: [
@@ -89,7 +81,6 @@ module.exports = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl:
             'https://github.com/bukhalo/nestjs-telegraf/edit/master/website/',
           showLastUpdateAuthor: true,
