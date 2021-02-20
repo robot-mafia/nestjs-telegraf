@@ -7,7 +7,10 @@ export async function createBotFactory(
   const bot = new Telegraf<any>(options.token, options.options);
 
   bot.use(...(options.middlewares ?? []));
-  await bot.launch(options.launchOptions);
+
+  if (options.launchOptions !== false) {
+    await bot.launch(options.launchOptions);
+  }
 
   return bot;
 }

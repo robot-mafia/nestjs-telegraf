@@ -5,7 +5,7 @@ export interface TelegrafModuleOptions {
   token: string;
   botName?: string;
   options?: Partial<Telegraf.Options<any>>;
-  launchOptions?: Telegraf.LaunchOptions;
+  launchOptions?: Telegraf.LaunchOptions | false;
   include?: Function[];
   middlewares?: ReadonlyArray<Middleware<any>>;
 }
