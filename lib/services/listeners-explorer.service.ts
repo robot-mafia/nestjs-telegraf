@@ -12,6 +12,7 @@ import {
   PARAM_ARGS_METADATA,
   TELEGRAF_BOT_NAME,
   TELEGRAF_MODULE_OPTIONS,
+  TELEGRAF_STAGE,
 } from '../telegraf.constants';
 import { BaseExplorerService } from './base-explorer.service';
 import { TelegrafParamsFactory } from '../factories/telegraf-params-factory';
@@ -23,10 +24,11 @@ export class ListenersExplorerService
   extends BaseExplorerService
   implements OnModuleInit {
   private readonly telegrafParamsFactory = new TelegrafParamsFactory();
-  private readonly stage = new Scenes.Stage();
   private bot: Telegraf<any>;
 
   constructor(
+    @Inject(TELEGRAF_STAGE)
+    private readonly stage: Scenes.Stage<any>,
     @Inject(TELEGRAF_MODULE_OPTIONS)
     private readonly telegrafOptions: TelegrafModuleOptions,
     @Inject(TELEGRAF_BOT_NAME)
