@@ -18,6 +18,7 @@ import {
   TELEGRAF_MODULE_OPTIONS,
 } from './telegraf.constants';
 import { ListenersExplorerService, MetadataAccessorService } from './services';
+import { telegrafStageProvider } from './stage.provider';
 import { createBotFactory, getBotToken } from './utils';
 
 @Global()
@@ -52,10 +53,15 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
           provide: TELEGRAF_MODULE_OPTIONS,
           useValue: options,
         },
+        telegrafStageProvider,
         telegrafBotNameProvider,
         telegrafBotProvider,
       ],
-      exports: [telegrafBotProvider],
+      exports: [
+        telegrafStageProvider,
+        telegrafBotNameProvider,
+        telegrafBotProvider,
+      ],
     };
   }
 
@@ -82,10 +88,15 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
       imports: options.imports,
       providers: [
         ...asyncProviders,
+        telegrafStageProvider,
         telegrafBotNameProvider,
         telegrafBotProvider,
       ],
-      exports: [telegrafBotNameProvider, telegrafBotProvider],
+      exports: [
+        telegrafStageProvider,
+        telegrafBotNameProvider,
+        telegrafBotProvider,
+      ],
     };
   }
 

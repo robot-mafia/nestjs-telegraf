@@ -9,3 +9,5 @@ export const SCENE_METADATA = 'SCENE_METADATA';
 export const LISTENER_METADATA = 'LISTENER_METADATA';
 
 export const PARAM_ARGS_METADATA = ROUTE_ARGS_METADATA;
+
+export const TELEGRAF_STAGE = 'TelegrafStage';
