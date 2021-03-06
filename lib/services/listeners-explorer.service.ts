@@ -147,7 +147,6 @@ export class ListenersExplorerService
           await ctx.reply(String(result));
         }
         // TODO-Possible-Feature: Add more supported return types
-        return next();
       },
     );
   }
