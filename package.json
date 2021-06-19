@@ -60,8 +60,8 @@
   "devDependencies": {
     "@commitlint/cli": "12.1.4",
     "@commitlint/config-angular": "12.1.4",
-    "@nestjs/common": "7.6.17",
-    "@nestjs/core": "7.6.17",
+    "@nestjs/common": "7.6.18",
+    "@nestjs/core": "7.6.18",
     "@types/lodash": "4.14.170",
     "@typescript-eslint/eslint-plugin": "4.27.0",
     "@typescript-eslint/parser": "4.27.0",
