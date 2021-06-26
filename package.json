@@ -70,7 +70,7 @@
     "eslint-plugin-prettier": "3.4.0",
     "husky": "6.0.0",
     "lint-staged": "11.0.0",
-    "prettier": "2.3.1",
+    "prettier": "2.3.2",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.6.7",
     "telegraf": "4.3.0",
