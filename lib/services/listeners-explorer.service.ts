@@ -22,7 +22,8 @@ import { TelegrafModuleOptions } from '../interfaces';
 @Injectable()
 export class ListenersExplorerService
   extends BaseExplorerService
-  implements OnModuleInit {
+  implements OnModuleInit
+{
   private readonly telegrafParamsFactory = new TelegrafParamsFactory();
   private bot: Telegraf<any>;
 
@@ -123,7 +124,7 @@ export class ListenersExplorerService
   ): void {
     const methodRef = prototype[methodName];
     const metadata = this.metadataAccessor.getListenerMetadata(methodRef);
-    if (!metadata) {
+    if (!metadata || metadata.length < 1) {
       return undefined;
     }
 
@@ -133,22 +134,22 @@ export class ListenersExplorerService
       methodName,
     );
 
-    const { method, args } = metadata;
+    for (const { method, args } of metadata) {
+      /* Basic callback */
+      // composer[method](...args, listenerCallbackFn);
 
-    /* Basic callback */
-    // composer[method](...args, listenerCallbackFn);
-
-    /* Complex callback return value handing */
-    composer[method](
-      ...args,
-      async (ctx: Context, next: Function): Promise<void> => {
-        const result = await listenerCallbackFn(ctx, next);
-        if (result) {
-          await ctx.reply(String(result));
-        }
-        // TODO-Possible-Feature: Add more supported return types
-      },
-    );
+      /* Complex callback return value handing */
+      composer[method](
+        ...args,
+        async (ctx: Context, next: Function): Promise<void> => {
+          const result = await listenerCallbackFn(ctx, next);
+          if (result) {
+            await ctx.reply(String(result));
+          }
+          // TODO-Possible-Feature: Add more supported return types
+        },
+      );
+    }
   }
 
   createContextCallback<T extends Record<string, unknown>>(
