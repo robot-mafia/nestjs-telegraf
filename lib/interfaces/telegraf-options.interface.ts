@@ -7,6 +7,7 @@ export interface TelegrafModuleOptions {
   options?: Partial<Telegraf.Options<any>>;
   launchOptions?: Telegraf.LaunchOptions | false;
   include?: Function[];
+  sessionMiddlewares?: ReadonlyArray<Middleware<any>>;
   middlewares?: ReadonlyArray<Middleware<any>>;
 }
 

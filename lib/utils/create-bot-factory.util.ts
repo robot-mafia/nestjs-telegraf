@@ -6,7 +6,7 @@ export async function createBotFactory(
 ): Promise<Telegraf<any>> {
   const bot = new Telegraf<any>(options.token, options.options);
 
-  bot.use(...(options.middlewares ?? []));
+  bot.use(...(options.sessionMiddlewares ?? []));
 
   if (options.launchOptions !== false) {
     await bot.launch(options.launchOptions);

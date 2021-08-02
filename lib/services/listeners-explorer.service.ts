@@ -48,6 +48,7 @@ export class ListenersExplorerService
       strict: false,
     });
     this.bot.use(this.stage.middleware());
+    this.bot.use(...(this.telegrafOptions.middlewares ?? []));
 
     this.explore();
   }
