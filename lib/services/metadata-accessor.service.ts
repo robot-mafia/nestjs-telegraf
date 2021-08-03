@@ -4,8 +4,13 @@ import {
   SCENE_METADATA,
   LISTENERS_METADATA,
   UPDATE_METADATA,
+  WIZARD_STEP_METADATA,
 } from '../telegraf.constants';
-import { ListenerMetadata } from '../interfaces';
+import {
+  ListenerMetadata,
+  SceneMetadata,
+  WizardStepMetadata,
+} from '../interfaces';
 
 @Injectable()
 export class MetadataAccessorService {
@@ -25,7 +30,11 @@ export class MetadataAccessorService {
     return this.reflector.get(LISTENERS_METADATA, target);
   }
 
-  getSceneMetadata(target: Function): string | undefined {
+  getSceneMetadata(target: Function): SceneMetadata | undefined {
     return this.reflector.get(SCENE_METADATA, target);
+  }
+
+  getWizardStepMetadata(target: Function): WizardStepMetadata | undefined {
+    return this.reflector.get(WIZARD_STEP_METADATA, target);
   }
 }

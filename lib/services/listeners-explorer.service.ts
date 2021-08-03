@@ -17,7 +17,7 @@ import {
 import { BaseExplorerService } from './base-explorer.service';
 import { TelegrafParamsFactory } from '../factories/telegraf-params-factory';
 import { TelegrafContextType } from '../execution-context';
-import { TelegrafModuleOptions } from '../interfaces';
+import { ListenerMetadata, TelegrafModuleOptions } from '../interfaces';
 
 @Injectable()
 export class ListenersExplorerService
@@ -75,13 +75,20 @@ export class ListenersExplorerService
       this.filterScenes(wrapper),
     );
     scenes.forEach((wrapper) => {
-      const sceneId = this.metadataAccessor.getSceneMetadata(
+      const { sceneId, type, options } = this.metadataAccessor.getSceneMetadata(
         wrapper.instance.constructor,
       );
-      const scene = new Scenes.BaseScene<any>(sceneId);
+      const scene =
+        type === 'base'
+          ? new Scenes.BaseScene<any>(sceneId, options || ({} as any))
+          : new Scenes.WizardScene<any>(sceneId, options || ({} as any));
       this.stage.register(scene);
 
-      this.registerListeners(scene, wrapper);
+      if (type === 'base') {
+        this.registerListeners(scene, wrapper);
+      } else {
+        this.registerWizardListeners(scene as Scenes.WizardScene<any>, wrapper);
+      }
     });
   }
 
@@ -116,14 +123,71 @@ export class ListenersExplorerService
     );
   }
 
+  private registerWizardListeners(
+    wizard: Scenes.WizardScene<any>,
+    wrapper: InstanceWrapper<unknown>,
+  ): void {
+    const { instance } = wrapper;
+    const prototype = Object.getPrototypeOf(instance);
+
+    type WizardMetadata = { step: number; methodName: string };
+    const wizardSteps: WizardMetadata[] = [];
+    const basicListeners = [];
+
+    this.metadataScanner.scanFromPrototype(
+      instance,
+      prototype,
+      (methodName) => {
+        const methodRef = prototype[methodName];
+        const metadata = this.metadataAccessor.getWizardStepMetadata(methodRef);
+        if (!metadata) {
+          basicListeners.push(methodName);
+          return undefined;
+        }
+        wizardSteps.push({ step: metadata.step, methodName });
+      },
+    );
+
+    for (const methodName of basicListeners) {
+      this.registerIfListener(wizard, instance, prototype, methodName);
+    }
+
+    const group = wizardSteps
+      .sort((a, b) => a.step - b.step)
+      .reduce<{ [key: number]: WizardMetadata[] }>(
+        (prev, cur) => ({
+          ...prev,
+          [cur.step]: [...(prev[cur.step] || []), cur],
+        }),
+        {},
+      );
+
+    const steps = Object.values(group).map((stepsMetadata) => {
+      const composer = new Composer();
+      stepsMetadata.forEach((stepMethod) => {
+        this.registerIfListener(
+          composer,
+          instance,
+          prototype,
+          stepMethod.methodName,
+          [{ method: 'use', args: [] }],
+        );
+      });
+      return composer.middleware();
+    });
+
+    wizard.steps = steps;
+  }
+
   private registerIfListener(
     composer: Composer<any>,
     instance: any,
     prototype: any,
     methodName: string,
+    defaultMetadata?: ListenerMetadata[],
   ): void {
     const methodRef = prototype[methodName];
-    const metadata = this.metadataAccessor.getListenerMetadata(methodRef);
+    const metadata = this.metadataAccessor.getListenerMetadata(methodRef) || defaultMetadata;
     if (!metadata || metadata.length < 1) {
       return undefined;
     }

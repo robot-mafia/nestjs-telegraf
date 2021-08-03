@@ -3,12 +3,12 @@ import { SceneOptions } from 'telegraf/typings/scenes/base';
 import { SceneMetadata } from '../../interfaces';
 import { SCENE_METADATA } from '../../telegraf.constants';
 
-export const Scene = (
+export const Wizard = (
   sceneId: string,
   options?: SceneOptions<any>,
 ): ClassDecorator =>
   SetMetadata<string, SceneMetadata>(SCENE_METADATA, {
     sceneId,
-    type: 'base',
+    type: 'wizard',
     options,
   });
