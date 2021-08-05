@@ -20,7 +20,7 @@ export class EchoService {
 }
 ```
 
-If you run [multiple bots](/docs/extras/multiple-bots) in the same application, explicitly specify the bot name:
+If you run [multiple bots](/extras/multiple-bots) in the same application, explicitly specify the bot name:
 
 ```typescript {8} title="src/echo/echo.service.ts"
 import { Injectable } from '@nestjs/common';

@@ -96,4 +96,4 @@ export class EchoService {
   ...
 }
 ```
-See more on a docs page: https://nestjs-telegraf.vercel.app/docs/extras/bot-injection
+See more on a docs page: https://nestjs-telegraf.vercel.app/extras/bot-injection
