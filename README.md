@@ -81,3 +81,19 @@ export class AppUpdate {
   }
 }
 ```
+
+## Telegraf instance access
+If you want to use `Telegraf` instance directly, you can use `@InjectBot` for that.
+```typescript
+import { Injectable } from '@nestjs/common';
+import { InjectBot } from 'nestjs-telegraf';
+import { Telegraf } from 'telegraf';
+import { TelegrafContext } from '../common/interfaces/telegraf-context.interface.ts';
+
+@Injectable()
+export class EchoService {
+  constructor(@InjectBot() private bot: Telegraf<TelegrafContext>) {}
+  ...
+}
+```
+See more on a docs page: https://nestjs-telegraf.vercel.app/docs/extras/bot-injection
