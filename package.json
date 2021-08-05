@@ -14,7 +14,7 @@
     "bot api",
     "bot framework"
   ],
-  "homepage": "https://github.com/bukhalo/nestjs-telegraf#readme",
+  "homepage": "https://nestjs-telegraf.vercel.app/",
   "bugs": {
     "url": "https://github.com/bukhalo/nestjs-telegraf/issues"
   },
