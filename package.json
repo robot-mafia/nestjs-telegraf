@@ -58,8 +58,8 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@commitlint/cli": "14.1.0",
-    "@commitlint/config-angular": "14.1.0",
+    "@commitlint/cli": "15.0.0",
+    "@commitlint/config-angular": "15.0.0",
     "@nestjs/common": "8.0.9",
     "@nestjs/core": "8.0.9",
     "@types/lodash": "4.14.177",
