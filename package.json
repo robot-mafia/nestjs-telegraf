@@ -62,7 +62,7 @@
     "@commitlint/config-angular": "16.2.3",
     "@nestjs/common": "8.4.3",
     "@nestjs/core": "8.4.3",
-    "@types/lodash": "4.14.180",
+    "@types/lodash": "4.14.181",
     "@typescript-eslint/eslint-plugin": "5.16.0",
     "@typescript-eslint/parser": "5.16.0",
     "eslint": "8.12.0",
