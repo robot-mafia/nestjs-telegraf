@@ -36,7 +36,8 @@ import { TelegrafModule } from 'nestjs-telegraf';
   imports: [
     TelegrafModule.forRoot({
       token: 'TELEGRAM_BOT_TOKEN',
-    })
+    }),
+    providers: [AppUpdate],
   ],
 })
 export class AppModule {}
