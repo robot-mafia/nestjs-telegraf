@@ -17,8 +17,10 @@ This package uses the best of the NodeJS world under the hood. [Telegraf](https:
 - Ability to run multiple bots simultaneously.
 - Full support of NestJS guards, interceptors, filters and pipes!
 
-## Documentation
-If you want to dive fully into NestJS Telegraf then don't waste your time in this dump, check out the [documentation site](https://nestjs-telegraf.vercel.app).
+**User stories**
+- [Новогодняя история одного телеграм-бота на NestJS](https://habr.com/ru/company/tinkoff/blog/596287/) by [Tinkoff Bank](https://github.com/Tinkoff)
+- [The story of the creation of the personal telegram bot (40 articles!)](https://dev.to/endykaufman/i-decided-to-try-to-keep-a-twitter-history-of-rewriting-one-of-the-projects-im-starting--1e6p) by [@EndyKaufman](https://github.com/EndyKaufman)
+
 
 ## Installation
 
@@ -26,76 +28,5 @@ If you want to dive fully into NestJS Telegraf then don't waste your time in thi
 $ npm i nestjs-telegraf telegraf
 ```
 
-## Usage
-Once the installation process is complete, we can import the `TelegrafModule` into the root `AppModule`:
-```typescript
-import { Module } from '@nestjs/common';
-import { TelegrafModule } from 'nestjs-telegraf';
-import { AppUpdate } from './app.update';
-
-@Module({
-  imports: [
-    TelegrafModule.forRoot({
-      token: 'TELEGRAM_BOT_TOKEN',
-    }),
-  ],
-  providers: [AppUpdate],
-})
-export class AppModule {}
-```
-
-Then create `app.update.ts` file and add some decorators for handling Telegram bot API updates:
-
-```typescript
-import {
-  Update,
-  Start,
-  Help,
-  On,
-  Hears,
-  Context,
-} from 'nestjs-telegraf';
-import { AppService } from './app.service';
-import { Context } from './context.interface';
-
-@Update()
-export class AppUpdate {
-  constructor(private readonly appService: AppService)
-
-  @Start()
-  async startCommand(ctx: Context) {
-    await ctx.reply('Welcome');
-  }
-
-  @Help()
-  async helpCommand(ctx: Context) {
-    await ctx.reply('Send me a sticker');
-  }
-
-  @On('sticker')
-  async onSticker(ctx: Context) {
-    await ctx.reply('👍');
-  }
-
-  @Hears('hi')
-  async hearsHi(ctx: Context) {
-    await ctx.reply('Hey there');
-  }
-}
-```
-
-## Telegraf instance access
-If you want to use `Telegraf` instance directly, you can use `@InjectBot` for that.
-```typescript
-import { Injectable } from '@nestjs/common';
-import { InjectBot } from 'nestjs-telegraf';
-import { Telegraf } from 'telegraf';
-import { TelegrafContext } from '../common/interfaces/telegraf-context.interface.ts';
-
-@Injectable()
-export class EchoService {
-  constructor(@InjectBot() private bot: Telegraf<TelegrafContext>) {}
-  ...
-}
-```
-See more on a docs page: https://nestjs-telegraf.vercel.app/extras/bot-injection
+## Documentation
+If you want to dive fully into NestJS Telegraf then don't waste your time in this dump, check out the [documentation site](https://nestjs-telegraf.vercel.app).
