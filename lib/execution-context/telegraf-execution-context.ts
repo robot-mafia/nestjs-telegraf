@@ -6,7 +6,8 @@ export type TelegrafContextType = 'telegraf' | ContextType;
 
 export class TelegrafExecutionContext
   extends ExecutionContextHost
-  implements TgArgumentsHost {
+  implements TgArgumentsHost
+{
   static create(context: ExecutionContext): TelegrafExecutionContext {
     const type = context.getType();
     const tgContext = new TelegrafExecutionContext(

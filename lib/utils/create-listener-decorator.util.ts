@@ -19,8 +19,9 @@ export function createListenerDecorator<
           args,
         } as ListenerMetadata,
       ];
-          
-      const previousValue = Reflect.getMetadata(LISTENERS_METADATA, descriptor.value) || [];
+
+      const previousValue =
+        Reflect.getMetadata(LISTENERS_METADATA, descriptor.value) || [];
       const value = [...previousValue, ...metadata];
       Reflect.defineMetadata(LISTENERS_METADATA, value, descriptor.value);
       return descriptor;
