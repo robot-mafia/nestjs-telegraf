@@ -12,3 +12,5 @@ export const WIZARD_STEP_METADATA = 'WIZARD_STEP_METADATA';
 export const PARAM_ARGS_METADATA = ROUTE_ARGS_METADATA;
 
 export const TELEGRAF_STAGE = 'TelegrafStage';
+
+export const TELEGRAF_ALL_BOTS = 'TELEGRAF_ALL_BOTS';

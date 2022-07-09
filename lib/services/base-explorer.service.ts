@@ -10,8 +10,7 @@ export class BaseExplorerService {
     if (!include || isEmpty(include)) {
       return [...modulesContainer.values()];
     }
-    const whitelisted = this.includeWhitelisted(modulesContainer, include);
-    return whitelisted;
+    return this.includeWhitelisted(modulesContainer, include);
   }
 
   includeWhitelisted(
