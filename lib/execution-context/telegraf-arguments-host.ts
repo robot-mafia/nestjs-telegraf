@@ -4,7 +4,8 @@ import { TgArgumentsHost } from './tg-arguments-host.interface';
 
 export class TelegrafArgumentsHost
   extends ExecutionContextHost
-  implements TgArgumentsHost {
+  implements TgArgumentsHost
+{
   static create(context: ArgumentsHost): TelegrafArgumentsHost {
     const type = context.getType();
     const tgContext = new TelegrafArgumentsHost(context.getArgs());

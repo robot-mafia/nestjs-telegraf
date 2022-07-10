@@ -162,7 +162,7 @@ export class ListenersExplorerService
         {},
       );
 
-    const steps = Object.values(group).map((stepsMetadata) => {
+    wizard.steps = Object.values(group).map((stepsMetadata) => {
       const composer = new Composer();
       stepsMetadata.forEach((stepMethod) => {
         this.registerIfListener(
@@ -175,8 +175,6 @@ export class ListenersExplorerService
       });
       return composer.middleware();
     });
-
-    wizard.steps = steps;
   }
 
   private registerIfListener(
@@ -187,7 +185,8 @@ export class ListenersExplorerService
     defaultMetadata?: ListenerMetadata[],
   ): void {
     const methodRef = prototype[methodName];
-    const metadata = this.metadataAccessor.getListenerMetadata(methodRef) || defaultMetadata;
+    const metadata =
+      this.metadataAccessor.getListenerMetadata(methodRef) || defaultMetadata;
     if (!metadata || metadata.length < 1) {
       return undefined;
     }
@@ -222,7 +221,7 @@ export class ListenersExplorerService
     methodName: string,
   ) {
     const paramsFactory = this.telegrafParamsFactory;
-    const resolverCallback = this.externalContextCreator.create<
+    return this.externalContextCreator.create<
       Record<number, ParamMetadata>,
       TelegrafContextType
     >(
@@ -236,6 +235,5 @@ export class ListenersExplorerService
       undefined,
       'telegraf',
     );
-    return resolverCallback;
   }
 }

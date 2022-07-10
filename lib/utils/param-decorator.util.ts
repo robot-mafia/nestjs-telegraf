@@ -5,8 +5,10 @@ import { PARAM_ARGS_METADATA } from '../telegraf.constants';
 
 export type ParamData = object | string | number;
 
-export const createTelegrafParamDecorator = (paramtype: TelegrafParamtype) => {
-  return (data?: ParamData): ParameterDecorator => (target, key, index) => {
+export const createTelegrafParamDecorator =
+  (paramtype: TelegrafParamtype) =>
+  (data?: ParamData): ParameterDecorator =>
+  (target, key, index) => {
     const args =
       Reflect.getMetadata(PARAM_ARGS_METADATA, target.constructor, key) || {};
     Reflect.defineMetadata(
@@ -16,16 +18,16 @@ export const createTelegrafParamDecorator = (paramtype: TelegrafParamtype) => {
       key,
     );
   };
-};
 
-export const createTelegrafPipesParamDecorator = (
-  paramtype: TelegrafParamtype,
-) => (
-  data?: any,
-  ...pipes: (Type<PipeTransform> | PipeTransform)[]
-): ParameterDecorator => (target, key, index) => {
-  addPipesMetadata(paramtype, data, pipes, target, key, index);
-};
+export const createTelegrafPipesParamDecorator =
+  (paramtype: TelegrafParamtype) =>
+  (
+    data?: any,
+    ...pipes: (Type<PipeTransform> | PipeTransform)[]
+  ): ParameterDecorator =>
+  (target, key, index) => {
+    addPipesMetadata(paramtype, data, pipes, target, key, index);
+  };
 
 export const addPipesMetadata = (
   paramtype: TelegrafParamtype,
