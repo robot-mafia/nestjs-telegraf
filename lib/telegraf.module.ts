@@ -16,7 +16,7 @@ export class TelegrafModule {
   }
 
   public static forRootAsync(
-    options: TelegrafModuleAsyncOptions,
+    options: TelegrafModuleAsyncOptions
   ): DynamicModule {
     return {
       module: TelegrafModule,

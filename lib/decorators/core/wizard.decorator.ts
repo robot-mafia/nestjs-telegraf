@@ -5,7 +5,7 @@ import { SCENE_METADATA } from '../../telegraf.constants';
 
 export const Wizard = (
   sceneId: string,
-  options?: SceneOptions<any>,
+  options?: SceneOptions<any>
 ): ClassDecorator =>
   SetMetadata<string, SceneMetadata>(SCENE_METADATA, {
     sceneId,

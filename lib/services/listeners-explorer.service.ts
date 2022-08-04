@@ -39,7 +39,7 @@ export class ListenersExplorerService
     private readonly metadataAccessor: MetadataAccessorService,
     private readonly metadataScanner: MetadataScanner,
     private readonly modulesContainer: ModulesContainer,
-    private readonly externalContextCreator: ExternalContextCreator,
+    private readonly externalContextCreator: ExternalContextCreator
   ) {
     super();
   }
@@ -56,7 +56,7 @@ export class ListenersExplorerService
   explore(): void {
     const modules = this.getModules(
       this.modulesContainer,
-      this.telegrafOptions.include || [],
+      this.telegrafOptions.include || []
     );
 
     this.registerUpdates(modules);
@@ -64,19 +64,19 @@ export class ListenersExplorerService
   }
 
   private registerUpdates(modules: Module[]): void {
-    const updates = this.flatMap<InstanceWrapper>(modules, (instance) =>
-      this.filterUpdates(instance),
+    const updates = this.flatMap<InstanceWrapper>(modules, instance =>
+      this.filterUpdates(instance)
     );
-    updates.forEach((wrapper) => this.registerListeners(this.bot, wrapper));
+    updates.forEach(wrapper => this.registerListeners(this.bot, wrapper));
   }
 
   private registerScenes(modules: Module[]): void {
-    const scenes = this.flatMap<InstanceWrapper>(modules, (wrapper) =>
-      this.filterScenes(wrapper),
+    const scenes = this.flatMap<InstanceWrapper>(modules, wrapper =>
+      this.filterScenes(wrapper)
     );
-    scenes.forEach((wrapper) => {
+    scenes.forEach(wrapper => {
       const { sceneId, type, options } = this.metadataAccessor.getSceneMetadata(
-        wrapper.instance.constructor,
+        wrapper.instance.constructor
       );
       const scene =
         type === 'base'
@@ -114,18 +114,18 @@ export class ListenersExplorerService
 
   private registerListeners(
     composer: Composer<any>,
-    wrapper: InstanceWrapper<unknown>,
+    wrapper: InstanceWrapper<unknown>
   ): void {
     const { instance } = wrapper;
     const prototype = Object.getPrototypeOf(instance);
-    this.metadataScanner.scanFromPrototype(instance, prototype, (name) =>
-      this.registerIfListener(composer, instance, prototype, name),
+    this.metadataScanner.scanFromPrototype(instance, prototype, name =>
+      this.registerIfListener(composer, instance, prototype, name)
     );
   }
 
   private registerWizardListeners(
     wizard: Scenes.WizardScene<any>,
-    wrapper: InstanceWrapper<unknown>,
+    wrapper: InstanceWrapper<unknown>
   ): void {
     const { instance } = wrapper;
     const prototype = Object.getPrototypeOf(instance);
@@ -134,19 +134,15 @@ export class ListenersExplorerService
     const wizardSteps: WizardMetadata[] = [];
     const basicListeners = [];
 
-    this.metadataScanner.scanFromPrototype(
-      instance,
-      prototype,
-      (methodName) => {
-        const methodRef = prototype[methodName];
-        const metadata = this.metadataAccessor.getWizardStepMetadata(methodRef);
-        if (!metadata) {
-          basicListeners.push(methodName);
-          return undefined;
-        }
-        wizardSteps.push({ step: metadata.step, methodName });
-      },
-    );
+    this.metadataScanner.scanFromPrototype(instance, prototype, methodName => {
+      const methodRef = prototype[methodName];
+      const metadata = this.metadataAccessor.getWizardStepMetadata(methodRef);
+      if (!metadata) {
+        basicListeners.push(methodName);
+        return undefined;
+      }
+      wizardSteps.push({ step: metadata.step, methodName });
+    });
 
     for (const methodName of basicListeners) {
       this.registerIfListener(wizard, instance, prototype, methodName);
@@ -159,18 +155,18 @@ export class ListenersExplorerService
           ...prev,
           [cur.step]: [...(prev[cur.step] || []), cur],
         }),
-        {},
+        {}
       );
 
-    wizard.steps = Object.values(group).map((stepsMetadata) => {
+    wizard.steps = Object.values(group).map(stepsMetadata => {
       const composer = new Composer();
-      stepsMetadata.forEach((stepMethod) => {
+      stepsMetadata.forEach(stepMethod => {
         this.registerIfListener(
           composer,
           instance,
           prototype,
           stepMethod.methodName,
-          [{ method: 'use', args: [] }],
+          [{ method: 'use', args: [] }]
         );
       });
       return composer.middleware();
@@ -182,7 +178,7 @@ export class ListenersExplorerService
     instance: any,
     prototype: any,
     methodName: string,
-    defaultMetadata?: ListenerMetadata[],
+    defaultMetadata?: ListenerMetadata[]
   ): void {
     const methodRef = prototype[methodName];
     const metadata =
@@ -194,7 +190,7 @@ export class ListenersExplorerService
     const listenerCallbackFn = this.createContextCallback(
       instance,
       prototype,
-      methodName,
+      methodName
     );
 
     for (const { method, args } of metadata) {
@@ -210,7 +206,7 @@ export class ListenersExplorerService
             await ctx.reply(String(result));
           }
           // TODO-Possible-Feature: Add more supported return types
-        },
+        }
       );
     }
   }
@@ -218,7 +214,7 @@ export class ListenersExplorerService
   createContextCallback<T extends Record<string, unknown>>(
     instance: T,
     prototype: unknown,
-    methodName: string,
+    methodName: string
   ) {
     const paramsFactory = this.telegrafParamsFactory;
     return this.externalContextCreator.create<
@@ -233,7 +229,7 @@ export class ListenersExplorerService
       undefined,
       undefined,
       undefined,
-      'telegraf',
+      'telegraf'
     );
   }
 }

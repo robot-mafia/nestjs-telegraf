@@ -1,10 +1,24 @@
+---
 kind: pipeline
 type: docker
-name: default
+name: node-16
 
 steps:
-  - name: Build & Test
-    image: node:15-alpine
+  - name: build & test
+    image: node:16-alpine
+    commands:
+      - npm ci
+      - npm run build --if-present
+      - npm test
+
+---
+kind: pipeline
+type: docker
+name: node-18
+
+steps:
+  - name: build & test
+    image: node:18-alpine
     commands:
       - npm ci
       - npm run build --if-present

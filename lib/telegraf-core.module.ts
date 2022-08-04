@@ -34,7 +34,7 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
   constructor(
     @Inject(TELEGRAF_BOT_NAME)
     private readonly botName: string,
-    private readonly moduleRef: ModuleRef,
+    private readonly moduleRef: ModuleRef
   ) {}
 
   public static forRoot(options: TelegrafModuleOptions): DynamicModule {
@@ -76,7 +76,7 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
   }
 
   public static forRootAsync(
-    options: TelegrafModuleAsyncOptions,
+    options: TelegrafModuleAsyncOptions
   ): DynamicModule {
     const telegrafBotName = getBotToken(options.botName);
 
@@ -121,7 +121,7 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
   }
 
   private static createAsyncProviders(
-    options: TelegrafModuleAsyncOptions,
+    options: TelegrafModuleAsyncOptions
   ): Provider[] {
     if (options.useExisting || options.useFactory) {
       return [this.createAsyncOptionsProvider(options)];
@@ -137,7 +137,7 @@ export class TelegrafCoreModule implements OnApplicationShutdown {
   }
 
   private static createAsyncOptionsProvider(
-    options: TelegrafModuleAsyncOptions,
+    options: TelegrafModuleAsyncOptions
   ): Provider {
     if (options.useFactory) {
       return {

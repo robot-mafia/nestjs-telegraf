@@ -13,7 +13,7 @@ export class TelegrafExecutionContext
     const tgContext = new TelegrafExecutionContext(
       context.getArgs(),
       context.getClass(),
-      context.getHandler(),
+      context.getHandler()
     );
     tgContext.setType(type);
     return tgContext;

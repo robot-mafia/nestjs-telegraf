@@ -4,10 +4,7 @@
 lib
 sample
 website
-.commitlintrc.json
-.eslintrc.js
 .prettierrc
 package-lock.json
-renovate.json
 tsconfig.json
 tsconfig.typedoc.json

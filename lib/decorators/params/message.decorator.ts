@@ -16,6 +16,6 @@ export function Message(
 ) {
   return createTelegrafPipesParamDecorator(TelegrafParamtype.MESSAGE)(
     property,
-    ...pipes,
+    ...pipes
   );
 }

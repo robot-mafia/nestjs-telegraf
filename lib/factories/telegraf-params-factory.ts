@@ -7,7 +7,7 @@ export class TelegrafParamsFactory implements ParamsFactory {
   exchangeKeyForValue(
     type: TelegrafParamtype,
     data: ParamData,
-    args: unknown[],
+    args: unknown[]
   ): unknown {
     const ctx = args[0] as Context;
     const next = args[1] as Function;
