@@ -48,9 +48,11 @@ export class ListenersExplorerService
     this.bot = this.moduleRef.get<Telegraf<any>>(this.botName, {
       strict: false,
     });
-    this.bot.use(this.stage.middleware());
-
     this.explore();
+
+    this.bot.use(this.stage.middleware());
+  
+    this.exploreUpdates();
   }
 
   explore(): void {
@@ -59,8 +61,28 @@ export class ListenersExplorerService
       this.telegrafOptions.include || []
     );
 
-    this.registerUpdates(modules);
+    this.registerGlobalUpdates(modules);
     this.registerScenes(modules);
+  }
+
+  exploreUpdates(): void {
+    const modules = this.getModules(
+      this.modulesContainer,
+      this.telegrafOptions.include || []
+    );
+
+    this.registerUpdates(modules);
+  }
+
+  private registerGlobalUpdates(modules: Module[]): void {
+    const updates = this.flatMap<InstanceWrapper>(modules, instance =>
+      this.filterGlobalUpdates(instance)
+    );
+    updates.forEach(wrapper => {
+      const composer = new Composer();
+      this.registerListeners(composer, wrapper);
+      this.stage.use(composer);
+    });
   }
 
   private registerUpdates(modules: Module[]): void {
@@ -90,6 +112,16 @@ export class ListenersExplorerService
         this.registerWizardListeners(scene as Scenes.WizardScene<any>, wrapper);
       }
     });
+  }
+
+  private filterGlobalUpdates(wrapper: InstanceWrapper): InstanceWrapper<unknown> {
+    const { instance } = wrapper;
+    if (!instance) return undefined;
+
+    const isGlobalUpdate = this.metadataAccessor.isGlobalUpdate(wrapper.metatype);
+    if (!isGlobalUpdate) return undefined;
+
+    return wrapper;
   }
 
   private filterUpdates(wrapper: InstanceWrapper): InstanceWrapper<unknown> {

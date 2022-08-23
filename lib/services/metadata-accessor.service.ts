@@ -5,6 +5,7 @@ import {
   LISTENERS_METADATA,
   UPDATE_METADATA,
   WIZARD_STEP_METADATA,
+  GLOBAL_UPDATE_METADATA,
 } from '../telegraf.constants';
 import {
   ListenerMetadata,
@@ -15,6 +16,11 @@ import {
 @Injectable()
 export class MetadataAccessorService {
   constructor(private readonly reflector: Reflector) {}
+
+  isGlobalUpdate(target: Function): boolean {
+    if (!target) return false;
+    return !!this.reflector.get(GLOBAL_UPDATE_METADATA, target);
+  }
 
   isUpdate(target: Function): boolean {
     if (!target) return false;
