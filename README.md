@@ -21,7 +21,9 @@ This package uses the best of the NodeJS world under the hood. [Telegraf](https:
 - [Новогодняя история одного телеграм-бота на NestJS](https://habr.com/ru/company/tinkoff/blog/596287/) by [Tinkoff Bank](https://github.com/Tinkoff)
 - [The story of the creation of the personal telegram bot (40 articles!)](https://dev.to/endykaufman/i-decided-to-try-to-keep-a-twitter-history-of-rewriting-one-of-the-projects-im-starting--1e6p) by [@EndyKaufman](https://github.com/EndyKaufman)
 
+**Chat**
 
+* [Telegram](https://t.me/nestjs_telegraf)
 ## Installation
 
 ```bash
@@ -29,4 +31,4 @@ $ npm i nestjs-telegraf telegraf
 ```
 
 ## Documentation
-If you want to dive fully into NestJS Telegraf then don't waste your time in this dump, check out the [documentation site](https://nestjs-telegraf.vercel.app).
+Check out the [documentation site](https://nestjs-telegraf.vercel.app).
