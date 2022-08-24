@@ -28,6 +28,6 @@ export class TelegrafExecutionContext
   }
 
   getNext<T = any>(): T {
-    return this.getArgByIndex(0);
+    return this.getArgByIndex(1);
   }
 }
