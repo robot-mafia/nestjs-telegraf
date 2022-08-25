@@ -13,7 +13,7 @@
   "dependencies": {
     "@docusaurus/core": "2.0.1",
     "@docusaurus/preset-classic": "2.0.1",
-    "@mdx-js/react": "1.6.22",
+    "@mdx-js/react": "2.1.3",
     "clsx": "1.1.1",
     "docusaurus-gtm-plugin": "^0.0.2",
     "react": "17.0.2",
