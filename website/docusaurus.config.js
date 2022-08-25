@@ -1,18 +1,18 @@
 module.exports = {
   title: 'NestJS Telegraf',
   tagline: 'Powerful Nest module for easy and fast creation Telegram bots',
-  url: 'https://nestjs-telegraf.vercel.app',
+  url: 'https://nestjs-telegraf.hypeer.company',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   favicon: 'img/favicon.ico',
-  organizationName: 'bukhalo',
+  organizationName: 'hypeertech',
   projectName: 'nestjs-telegraf',
   themeConfig: {
     navbar: {
       title: 'NestJS Telegraf',
       items: [
         {
-          href: 'https://github.com/bukhalo/nestjs-telegraf',
+          href: 'https://github.com/hypeertech/nestjs-telegraf',
           label: 'GitHub',
           position: 'right',
         },
@@ -35,7 +35,7 @@ module.exports = {
           items: [
             {
               label: 'Discussions',
-              href: 'https://github.com/bukhalo/nestjs-telegraf/discussions',
+              href: 'https://github.com/hypeertech/nestjs-telegraf/discussions',
             },
             {
               label: 'Telegram',
@@ -48,16 +48,16 @@ module.exports = {
           items: [
             {
               label: 'Issues',
-              href: 'https://github.com/bukhalo/nestjs-telegraf/issues',
+              href: 'https://github.com/hypeertech/nestjs-telegraf/issues',
             },
             {
               label: 'Examples',
-              to: 'https://github.com/bukhalo/nestjs-telegraf/tree/master/sample/',
+              to: 'https://github.com/hypeertech/nestjs-telegraf/tree/master/sample/',
             }
           ],
         },
       ],
-      copyright: `Copyright © 2019 - ${new Date().getFullYear()}, <a target="_blank" href="https://bukhalo.com">Alexander Bukhalo</a>, <a target="_blank" href="mailto:arthur.asimov.z0@gmail.com">Arthur Asimov</a> and <a target="_blank" href="https://github.com/bukhalo/nestjs-telegraf/graphs/contributors">Others</a>.`,
+      copyright: `Copyright © 2019 - ${new Date().getFullYear()}, <a target="_blank" href="https://hypeer.company">Hypeer</a>, <a target="_blank" href="mailto:arthur.asimov.z0@gmail.com">Arthur Asimov</a> and <a target="_blank" href="https://github.com/bukhalo/nestjs-telegraf/graphs/contributors">Others</a>.`,
     },
   },
   presets: [
@@ -68,7 +68,7 @@ module.exports = {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/',
           editUrl:
-            'https://github.com/bukhalo/nestjs-telegraf/edit/master/website/',
+            'https://github.com/hypeertech/nestjs-telegraf/edit/master/website/',
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
         },
@@ -77,5 +77,13 @@ module.exports = {
         },
       },
     ],
+  ],
+  plugins: [
+    [
+      require.resolve('docusaurus-gtm-plugin'),
+      {
+        id: 'GTM-PRP5KRP',
+      }
+    ]
   ],
 };
