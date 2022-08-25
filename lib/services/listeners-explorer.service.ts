@@ -68,7 +68,7 @@ export class ListenersExplorerService
   exploreUpdates(): void {
     const modules = this.getModules(
       this.modulesContainer,
-      this.telegrafOptions.include || []
+      this.telegrafOptions.include || [],
     );
 
     this.registerUpdates(modules);
