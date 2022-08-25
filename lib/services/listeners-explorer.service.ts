@@ -61,7 +61,7 @@ export class ListenersExplorerService
       this.telegrafOptions.include || []
     );
 
-    this.registerGlobalUpdates(modules);
+    this.registerComposers(modules);
     this.registerScenes(modules);
   }
 
@@ -74,9 +74,9 @@ export class ListenersExplorerService
     this.registerUpdates(modules);
   }
 
-  private registerGlobalUpdates(modules: Module[]): void {
+  private registerComposers(modules: Module[]): void {
     const updates = this.flatMap<InstanceWrapper>(modules, instance =>
-      this.filterGlobalUpdates(instance)
+      this.filterComposers(instance)
     );
     updates.forEach(wrapper => {
       const composer = new Composer();
@@ -114,12 +114,12 @@ export class ListenersExplorerService
     });
   }
 
-  private filterGlobalUpdates(wrapper: InstanceWrapper): InstanceWrapper<unknown> {
+  private filterComposers(wrapper: InstanceWrapper): InstanceWrapper<unknown> {
     const { instance } = wrapper;
     if (!instance) return undefined;
 
-    const isGlobalUpdate = this.metadataAccessor.isGlobalUpdate(wrapper.metatype);
-    if (!isGlobalUpdate) return undefined;
+    const isComposer = this.metadataAccessor.isComposer(wrapper.metatype);
+    if (!isComposer) return undefined;
 
     return wrapper;
   }

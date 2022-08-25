@@ -1,6 +1,6 @@
 {
   "name": "nestjs-telegraf",
-  "version": "2.6.0",
+  "version": "2.6.1",
   "description": "Telegraf module for NestJS",
   "keywords": [
     "nest",
@@ -14,14 +14,14 @@
     "bot api",
     "bot framework"
   ],
-  "homepage": "https://nestjs-telegraf.vercel.app/",
+  "homepage": "https://nestjs-telegraf.hypeer.company",
   "bugs": {
-    "url": "https://git.robot-mafia.com/robot-mafia/nestjs-telegraf/issues"
+    "url": "https://github.com/hypeertech/nestjs-telegraf/issues"
   },
-  "repository": "git@git.robot-mafia.com:robot-mafia/nestjs-telegraf.git",
-  "funding": "https://robot-mafia.com/funding",
+  "repository": "git@github.com:hypeertech/nestjs-telegraf.git",
+  "funding": "https://hypeer.company/donate",
   "license": "MIT",
-  "author": "Robot Mafia Inc. <opensource@robot-mafia.com>",
+  "author": "Hypeer <hello@hypeer.company>",
   "contributors": [
     {
       "name": "Arthur Asimov",
@@ -42,18 +42,29 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@nestjs/common": "^9.0.8",
-    "@nestjs/core": "^9.0.8",
-    "@types/lodash": "4.14.182",
+    "@commitlint/cli": "17.0.3",
+    "@commitlint/config-angular": "17.0.3",
+    "@nestjs/common": "^9.0.11",
+    "@nestjs/core": "^9.0.11",
+    "@types/lodash": "4.14.184",
+    "@typescript-eslint/eslint-plugin": "5.35.1",
+    "@typescript-eslint/parser": "5.35.1",
+    "eslint": "8.22.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "husky": "8.0.1",
+    "lint-staged": "13.0.3",
     "prettier": "2.7.1",
     "reflect-metadata": "0.1.13",
-    "telegraf": "4.8.5",
+    "telegraf": "4.8.6",
     "typedoc": "0.22.18",
     "typescript": "4.4.4"
   },
   "peerDependencies": {
+    "@nestjs/common": "^8.0.0 || ^9.0.0",
+    "@nestjs/core": "^8.0.0 || ^9.0.0",
     "reflect-metadata": "^0.1.13",
     "telegraf": "^4.0.0",
-    "typescript": "^4.1.2"
+    "typescript": "<=4.4.4"
   }
 }

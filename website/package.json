@@ -11,8 +11,8 @@
     "serve": "docusaurus serve"
   },
   "dependencies": {
-    "@docusaurus/core": "2.0.0-beta.ff31de0ff",
-    "@docusaurus/preset-classic": "2.0.0-beta.ff31de0ff",
+    "@docusaurus/core": "2.0.1",
+    "@docusaurus/preset-classic": "2.0.1",
     "@mdx-js/react": "1.6.22",
     "clsx": "1.1.1",
     "react": "17.0.2",
@@ -32,10 +32,10 @@
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "2.0.0-beta.ff31de0ff",
-    "@tsconfig/docusaurus": "1.0.4",
+    "@tsconfig/docusaurus": "1.0.6",
     "@types/react": "17.0.39",
     "@types/react-helmet": "6.1.5",
     "@types/react-router-dom": "5.3.3",
-    "typescript": "4.4.4"
+    "typescript": "4.7.4"
   }
 }
