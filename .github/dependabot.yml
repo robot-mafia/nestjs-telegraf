@@ -7,3 +7,8 @@ updates:
     ignore:
       - dependency-name: 'typescript'
       - dependency-name: 'typedoc'
+
+  - package-ecosystem: 'npm'
+    directory: '/website'
+    schedule:
+      interval: 'daily'
