@@ -58,7 +58,7 @@ export class ListenersExplorerService
   explore(): void {
     const modules = this.getModules(
       this.modulesContainer,
-      this.telegrafOptions.include || []
+      this.telegrafOptions.include || [],
     );
 
     this.registerComposers(modules);
