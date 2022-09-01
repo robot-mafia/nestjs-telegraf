@@ -96,10 +96,16 @@ export class ListenersExplorerService
     const scenes = this.flatMap<InstanceWrapper>(modules, (wrapper) =>
       this.filterScenes(wrapper),
     );
+    const sceneIds = [];
     scenes.forEach((wrapper) => {
       const { sceneId, type, options } = this.metadataAccessor.getSceneMetadata(
         wrapper.instance.constructor,
       );
+      if (sceneIds.includes(sceneId)) {
+        throw new Error(`Two scenes with the same id ${sceneId} were detected`);
+      }
+      sceneIds.push(sceneId);
+
       const scene =
         type === 'base'
           ? new Scenes.BaseScene<any>(sceneId, options || ({} as any))
