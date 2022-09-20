@@ -1,6 +1,6 @@
 {
   "name": "nestjs-telegraf",
-  "version": "2.6.1",
+  "version": "2.6.2",
   "description": "Telegraf module for NestJS",
   "keywords": [
     "nest",
