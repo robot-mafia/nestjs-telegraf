@@ -9,7 +9,7 @@ export async function createBotFactory(
   bot.use(...(options.middlewares ?? []));
 
   if (options.launchOptions !== false) {
-    await bot.launch(options.launchOptions);
+    bot.launch(options.launchOptions);
   }
 
   return bot;
