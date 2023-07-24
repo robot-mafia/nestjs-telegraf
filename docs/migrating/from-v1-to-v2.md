@@ -1,10 +1,4 @@
----
-id: from-v1-to-v2
-title: From v1 to v2
-sidebar_label: From v1 to v2
-slug: /migrating/from-v1-to-v2
----
-
+# From v1 to v2
 ## Remove `Telegraf` prefix
 If you previously used decorators with the prefix `Telegraf` in the decorator name (such as `@TelegrafOn()` or `@TelegrafHelp()`) replace them with the same decorators but without the prefix `Telegraf`, such as `@On()`, `@Start()`, `@Command()` and so on.
 

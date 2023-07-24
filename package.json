@@ -1,6 +1,6 @@
 {
   "name": "nestjs-telegraf",
-  "version": "2.6.3",
+  "version": "2.6.4",
   "description": "Telegraf module for NestJS",
   "keywords": [
     "nest",
@@ -14,14 +14,14 @@
     "bot api",
     "bot framework"
   ],
-  "homepage": "https://nestjs-telegraf.hypeer.company",
+  "homepage": "https://nestjs-telegraf.vercel.app",
   "bugs": {
-    "url": "https://github.com/hypeertech/nestjs-telegraf/issues"
+    "url": "https://github.com/evilsprut/nestjs-telegraf/issues"
   },
-  "repository": "git@github.com:hypeertech/nestjs-telegraf.git",
+  "repository": "git@github.com:evilsprut/nestjs-telegraf.git",
   "funding": "https://hypeer.company/donate",
   "license": "MIT",
-  "author": "Hypeer <hello@hypeer.company>",
+  "author": "Aleksandr Bukhalo <evilsprut@icloud.com>",
   "contributors": [
     {
       "name": "Arthur Asimov",
@@ -36,7 +36,10 @@
     "prepublish:npm": "npm run build",
     "publish:npm": "npm publish --access public",
     "test": "",
-    "typedoc:build": "typedoc --tsconfig ./tsconfig.typedoc.json"
+    "typedoc:build": "typedoc --tsconfig ./tsconfig.typedoc.json",
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
   },
   "husky": {
     "hooks": {
@@ -53,27 +56,28 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "@commitlint/cli": "17.1.2",
+    "@commitlint/cli": "17.4.4",
     "@commitlint/config-angular": "17.1.0",
     "@nestjs/common": "^9.0.11",
     "@nestjs/core": "^9.0.11",
     "@types/lodash": "4.14.191",
-    "@typescript-eslint/eslint-plugin": "5.44.0",
+    "@typescript-eslint/eslint-plugin": "5.54.0",
     "@typescript-eslint/parser": "5.45.0",
-    "eslint": "8.28.0",
-    "eslint-config-prettier": "8.5.0",
+    "eslint": "8.45.0",
+    "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prettier": "4.2.1",
     "husky": "8.0.1",
-    "lint-staged": "13.0.4",
-    "prettier": "2.8.0",
+    "lint-staged": "13.2.3",
+    "prettier": "3.0.0",
     "reflect-metadata": "0.1.13",
-    "telegraf": "4.11.2",
-    "typedoc": "0.23.11",
-    "typescript": "4.8.2"
+    "telegraf": "4.12.2",
+    "typedoc": "0.24.8",
+    "typescript": "4.8.2",
+    "vitepress": "^1.0.0-beta.6"
   },
   "peerDependencies": {
-    "@nestjs/common": "^8.0.0 || ^9.0.0",
-    "@nestjs/core": "^8.0.0 || ^9.0.0",
+    "@nestjs/common": "^9.0.0 || ^10.0.0",
+    "@nestjs/core": "^9.0.0 || ^10.0.0",
     "reflect-metadata": "^0.1.13",
     "telegraf": "^4.0.0",
     "typescript": "^4.1.2"

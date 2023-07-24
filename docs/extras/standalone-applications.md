@@ -1,10 +1,4 @@
----
-id: standalone-applications
-title: Standalone applications
-sidebar_label: Standalone applications
-slug: standalone-applications
----
-
+# Standalone applications
 If you initialized your application with the [Nest CLI](https://docs.nestjs.com/cli/overview), [Express](https://expressjs.com/) framework will be installed by default along with Nest. Nest and NestJS Telegraf does not require Express for work. So if you don't plan to getting bot updates through webhooks, and you don't need a web server, you can remove Express. 
 
 To do this, change the `bootstrap` function in the `main.ts` file of your project on something like that:
