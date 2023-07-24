@@ -5,6 +5,6 @@
   },
   "typedocOptions": {
     "entryPoints": ["./index.ts", "./lib"],
-    "out": "docs"
+    "out": "docs-api"
   }
 }
