@@ -31,4 +31,4 @@ $ npm i nestjs-telegraf telegraf
 ```
 
 ## Documentation
-Check out the [documentation site](https://nestjs-telegraf.hypeer.company).
+Check out the [documentation site](https://nestjs-telegraf.vercel.app).
