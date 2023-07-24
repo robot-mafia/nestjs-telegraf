@@ -1,10 +1,4 @@
----
-id: async-configuration
-title: Async configuration
-sidebar_label: Async configuration
-slug: /async-configuration
----
-
+# Async configuration
 When you need to pass module options asynchronously instead of statically, use the forRootAsync() method. As with most dynamic modules, Nest provides several techniques to deal with async configuration.
 
 One technique is to use a factory function:
