@@ -1,18 +1,10 @@
 import { defineConfig } from 'vitepress'
-import { typedocPlugin } from 'vuepress-plugin-typedoc/next';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "NestJS Telegraf",
   description: "NestJS Telegraf documentation",
   srcDir: './docs',
-  plugins: [
-    typedocPlugin({
-      // plugin options
-      entryPoints: ['../src/index.ts'],
-      tsconfig: '../tsconfig.typedoc.json',
-    }),
-  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

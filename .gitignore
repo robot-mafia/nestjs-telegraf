@@ -20,4 +20,5 @@ dist
 
 # docs
 .vitepress/cache
+docs-api
 
