@@ -8,7 +8,8 @@ export default defineConfig({
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Docs', link: '/' }
+      { text: 'Docs', link: '/' },
+      { text: 'API (typedoc)', link: 'https://nestjs-telegraf-api.vercel.app' }
     ],
 
     sidebar: [
