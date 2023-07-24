@@ -14,14 +14,14 @@
     "bot api",
     "bot framework"
   ],
-  "homepage": "https://nestjs-telegraf.hypeer.company",
+  "homepage": "https://nestjs-telegraf.vercel.app",
   "bugs": {
-    "url": "https://github.com/hypeertech/nestjs-telegraf/issues"
+    "url": "https://github.com/evilsprut/nestjs-telegraf/issues"
   },
-  "repository": "git@github.com:hypeertech/nestjs-telegraf.git",
+  "repository": "git@github.com:evilsprut/nestjs-telegraf.git",
   "funding": "https://hypeer.company/donate",
   "license": "MIT",
-  "author": "Hypeer <hello@hypeer.company>",
+  "author": "Aleksandr Bukhalo <evilsprut@icloud.com>",
   "contributors": [
     {
       "name": "Arthur Asimov",
