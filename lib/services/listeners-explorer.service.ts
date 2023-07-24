@@ -48,9 +48,11 @@ export class ListenersExplorerService
     this.bot = this.moduleRef.get<Telegraf<any>>(this.botName, {
       strict: false,
     });
+    this.explore();
+
     this.bot.use(this.stage.middleware());
 
-    this.explore();
+    this.exploreUpdates();
   }
 
   explore(): void {
@@ -59,8 +61,28 @@ export class ListenersExplorerService
       this.telegrafOptions.include || [],
     );
 
-    this.registerUpdates(modules);
+    this.registerComposers(modules);
     this.registerScenes(modules);
+  }
+
+  exploreUpdates(): void {
+    const modules = this.getModules(
+      this.modulesContainer,
+      this.telegrafOptions.include || [],
+    );
+
+    this.registerUpdates(modules);
+  }
+
+  private registerComposers(modules: Module[]): void {
+    const updates = this.flatMap<InstanceWrapper>(modules, (instance) =>
+      this.filterComposers(instance),
+    );
+    updates.forEach((wrapper) => {
+      const composer = new Composer();
+      this.registerListeners(composer, wrapper);
+      this.stage.use(composer);
+    });
   }
 
   private registerUpdates(modules: Module[]): void {
@@ -74,10 +96,16 @@ export class ListenersExplorerService
     const scenes = this.flatMap<InstanceWrapper>(modules, (wrapper) =>
       this.filterScenes(wrapper),
     );
+    const sceneIds = [];
     scenes.forEach((wrapper) => {
       const { sceneId, type, options } = this.metadataAccessor.getSceneMetadata(
         wrapper.instance.constructor,
       );
+      if (sceneIds.includes(sceneId)) {
+        throw new Error(`Two scenes with the same id ${sceneId} were detected`);
+      }
+      sceneIds.push(sceneId);
+
       const scene =
         type === 'base'
           ? new Scenes.BaseScene<any>(sceneId, options || ({} as any))
@@ -90,6 +118,16 @@ export class ListenersExplorerService
         this.registerWizardListeners(scene as Scenes.WizardScene<any>, wrapper);
       }
     });
+  }
+
+  private filterComposers(wrapper: InstanceWrapper): InstanceWrapper<unknown> {
+    const { instance } = wrapper;
+    if (!instance) return undefined;
+
+    const isComposer = this.metadataAccessor.isComposer(wrapper.metatype);
+    if (!isComposer) return undefined;
+
+    return wrapper;
   }
 
   private filterUpdates(wrapper: InstanceWrapper): InstanceWrapper<unknown> {
