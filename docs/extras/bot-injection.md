@@ -1,10 +1,4 @@
----
-id: bot-injection
-title: Bot injection
-sidebar_label: Bot injection
-slug: /extras/bot-injection
----
-
+# Bot injection
 At times you may need to access the native `Telegraf` instance. You can inject the Telegraf by using the `@InjectBot()` decorator as follows:
 
 ```typescript {8} title="src/echo/echo.service.ts"
