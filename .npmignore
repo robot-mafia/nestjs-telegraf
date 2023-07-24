@@ -3,7 +3,9 @@
 .github
 lib
 sample
-website
+.vitepress/cache
+.vitepress/dist
+docs-api
 .commitlintrc.json
 .eslintrc.js
 .prettierrc
