@@ -1,10 +1,4 @@
----
-id: getting-updates
-title: Getting updates
-sidebar_label: Getting updates
-slug: getting-updates
----
-
+# Getting updates
 ## Long polling
 
 By default, the bot receives updates using long-polling and requires no additional action.

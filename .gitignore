@@ -18,8 +18,6 @@ npm-debug.log
 # source
 dist
 
-# website
-/website/.cache-loader
-/website/.docusaurus
-/website/build
-/website/node_modules
+# docs
+.vitepress/cache
+

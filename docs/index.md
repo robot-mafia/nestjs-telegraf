@@ -1,10 +1,4 @@
----
-id: installation
-title: Installation
-sidebar_label: Installation
-slug: /
----
-
+# Installation
 ```bash
 $ npm i nestjs-telegraf telegraf
 ```
