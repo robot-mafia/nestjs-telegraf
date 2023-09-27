@@ -9,7 +9,14 @@ export async function createBotFactory(
   bot.use(...(options.middlewares ?? []));
 
   if (options.launchOptions !== false) {
-    bot.launch(options.launchOptions);
+    bot
+      .launch(options.launchOptions)
+      .catch((err: Error) =>
+        console.error(
+          "Bot launch error. It won't be available until the app restarts.\n",
+          err,
+        ),
+      );
   }
 
   return bot;
