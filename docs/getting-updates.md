@@ -29,7 +29,7 @@ TelegrafModule.forRootAsync({
     launchOptions: {
       webhook: {
         domain: 'domain.tld',
-        hookPath: '/secret-path',
+        path: '/secret-path',
       }
     }
   }),
