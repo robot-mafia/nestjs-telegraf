@@ -5,11 +5,12 @@ import { ListenerMetadata } from '../interfaces';
 
 export function createListenerDecorator<
   TComposer extends Composer<never>,
-  TMethod extends OnlyFunctionPropertyNames<TComposer> = OnlyFunctionPropertyNames<TComposer>,
+  TMethod extends
+    OnlyFunctionPropertyNames<TComposer> = OnlyFunctionPropertyNames<TComposer>,
 >(method: TMethod) {
   return (...args: ComposerMethodArgs<TComposer, TMethod>): MethodDecorator => {
     return (
-      _target: any,
+      target: object,
       _key?: string | symbol,
       descriptor?: TypedPropertyDescriptor<any>,
     ) => {
@@ -20,11 +21,16 @@ export function createListenerDecorator<
         } as ListenerMetadata,
       ];
 
-      const previousValue =
-        Reflect.getMetadata(LISTENERS_METADATA, descriptor.value) || [];
-      const value = [...previousValue, ...metadata];
-      Reflect.defineMetadata(LISTENERS_METADATA, value, descriptor.value);
-      return descriptor;
+      if (descriptor) {
+        const previousValue =
+          Reflect.getMetadata(LISTENERS_METADATA, descriptor.value) || [];
+        const value = [...previousValue, ...metadata];
+        Reflect.defineMetadata(LISTENERS_METADATA, value, descriptor.value);
+        return descriptor;
+      }
+
+      Reflect.defineMetadata(LISTENERS_METADATA, metadata, target);
+      return target;
     };
   };
 }
