@@ -63,7 +63,7 @@
     "@types/lodash": "4.14.195",
     "@typescript-eslint/eslint-plugin": "5.54.0",
     "@typescript-eslint/parser": "5.62.0",
-    "eslint": "8.45.0",
+    "eslint": "9.4.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-prettier": "5.0.0",
     "husky": "8.0.1",
