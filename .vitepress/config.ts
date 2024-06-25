@@ -9,7 +9,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Docs', link: '/' },
-      { text: 'API (typedoc)', link: 'https://nestjs-telegraf-api.vercel.app' }
+      { text: 'API (typedoc)', link: 'https://nestjs-telegraf-api.pages.dev/' }
     ],
 
     sidebar: [
@@ -40,7 +40,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/evilsprut/nestjs-telegraf' }
+      { icon: 'github', link: 'https://github.com/0x467/nestjs-telegraf' }
     ]
   }
 })

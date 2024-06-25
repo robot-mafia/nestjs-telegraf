@@ -1,6 +1,6 @@
 {
   "name": "nestjs-telegraf",
-  "version": "2.7.0",
+  "version": "2.8.0",
   "description": "Telegraf module for NestJS",
   "keywords": [
     "nest",
@@ -14,14 +14,13 @@
     "bot api",
     "bot framework"
   ],
-  "homepage": "https://nestjs-telegraf.vercel.app",
+  "homepage": "https://nestjs-telegraf.0x467.com/",
   "bugs": {
-    "url": "https://github.com/evilsprut/nestjs-telegraf/issues"
+    "url": "https://github.com/0x467/nestjs-telegraf/issues"
   },
-  "repository": "git@github.com:evilsprut/nestjs-telegraf.git",
-  "funding": "https://hypeer.company/donate",
+  "repository": "git@github.com:0x467/nestjs-telegraf.git",
   "license": "MIT",
-  "author": "Aleksandr Bukhalo <evilsprut@icloud.com>",
+  "author": "0x467 <0x467@pm.me>",
   "contributors": [
     {
       "name": "Arthur Asimov",
