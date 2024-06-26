@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2019 - present Aleksandr Bukhalo (evilsprut@icloud.com)
+Copyright (c) 2019 - present 0x467 (0x467@pm.me)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
