@@ -61,7 +61,7 @@
     "@nestjs/core": "^10.3.9",
     "@types/lodash": "4.17.5",
     "@typescript-eslint/eslint-plugin": "7.13.1",
-    "@typescript-eslint/parser": "7.13.1",
+    "@typescript-eslint/parser": "7.16.0",
     "eslint": "^8.0.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-plugin-prettier": "5.1.3",
